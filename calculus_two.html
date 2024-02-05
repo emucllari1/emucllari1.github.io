@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Teaching</title>
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/><!--This is for the favicon -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS Skin File -->
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <!-- Live Style Switcher - demo only -->
+    <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
+    <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
+    <link rel="alternate stylesheet" type="text/css" title="blueviolet" href="css/skins/blueviolet.css" />
+    <link rel="alternate stylesheet" type="text/css" title="goldenrod" href="css/skins/goldenrod.css" />
+    <link rel="alternate stylesheet" type="text/css" title="magenta" href="css/skins/magenta.css" />
+    <link rel="alternate stylesheet" type="text/css" title="orange" href="css/skins/orange.css" />
+    <link rel="alternate stylesheet" type="text/css" title="purple" href="css/skins/purple.css" />
+    <link rel="alternate stylesheet" type="text/css" title="red" href="css/skins/red.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+
+    <!-- Modernizr JS File -->
+    <script src="js/modernizr.custom.js"></script>
+</head>
+
+<body class="contact light">
+<!-- Live Style Switcher Starts - demo only -->
+<div id="switcher" class="">
+    <div class="content-switcher">
+        <h4>STYLE SWITCHER</h4>
+        <ul>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('purple');" title="purple" class="color"><img src="img/styleswitcher/purple.png" alt="purple"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('red');" title="red" class="color"><img src="img/styleswitcher/red.png" alt="red"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blueviolet');" title="blueviolet" class="color"><img src="img/styleswitcher/blueviolet.png" alt="blueviolet"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blue');" title="blue" class="color"><img src="img/styleswitcher/blue.png" alt="blue"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('goldenrod');" title="goldenrod" class="color"><img src="img/styleswitcher/goldenrod.png" alt="goldenrod"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('magenta');" title="magenta" class="color"><img src="img/styleswitcher/magenta.png" alt="magenta"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellowgreen');" title="yellowgreen" class="color"><img src="img/styleswitcher/yellowgreen.png" alt="yellowgreen"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('orange');" title="orange" class="color"><img src="img/styleswitcher/orange.png" alt="orange"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('green');" title="green" class="color"><img src="img/styleswitcher/green.png" alt="green"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellow');" title="yellow" class="color"><img src="img/styleswitcher/yellow.png" alt="yellow"/></a>
+            </li>
+        </ul>
+
+        <div id="hideSwitcher">&times;</div>
+    </div>
+</div>
+<div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
+<!-- Live Style Switcher Ends - demo only -->
+<!-- Header Starts -->
+<header class="header" id="navbar-collapse-toggle">
+    <!-- Fixed Navigation Starts -->
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box">
+            <i class="fa fa-home"></i>
+            <a href="index.html">
+                <h2>Home</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-university"></i>
+            <a href="about.html">
+                <h2>Research</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-briefcase"></i>
+            <a href="portfolio.html">
+                <h2>Teaching</h2>
+            </a>
+        </li>
+        <li class="icon-box active">
+            <i class="fa fa-photo"></i>
+            <a href="contact.html">
+                <h2>Hometown</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-comments"></i>
+            <a href="blog.html">
+                <h2>Blog</h2>
+            </a>
+        </li>
+    </ul>
+    <!-- Fixed Navigation Ends -->
+    <!-- Mobile Menu Starts -->
+    <nav role="navigation" class="d-block d-lg-none">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul class="list-unstyled" id="menu">
+                <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                <li><a href="about.html"><i class="fa fa-university"></i><span>Research</span></a></li>
+                <li class="active"><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Teaching</span></a></li>
+                <li><a href="contact.html"><i class="fa fa-photo"></i><span>Hometown</span></a></li>
+                <li><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Mobile Menu Ends -->
+</header>
+<!-- Header Ends -->
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>MA  <span>114</span></h1>
+    <span class="title-bg">Calculus 2</span>
+</section>
+<!-- Page Title Ends -->
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <head>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color:   #6CC417;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<p> During this semester (Spring 2020) I will be a recitation leader for MA 114, sections 6 and 7. Due to Covid-19, the recitations will be online via zoom. Zoom links for both my sections you can find them on Canvas.  </p>
+
+    <p> Furthermore, you can find my syllabus for MA 114 <a href="ma114syllabus.pdf">here</a>.  <br>
+      If you have any other question, feel free to ask me. I would more than happy to help.
+
+      </p>
+
+    <strong> The course website is available on <a href="http://www.ms.uky.edu/~ma114/s.20/">MA 114 Calculus II</a>. </strong>
+           
+         <table id="customers">
+  <tr>
+    <th>Title of the Worksheet</th>
+    <th>Worksheet number</th>
+    <th>Solution/Recitation material</th>
+  </tr>
+  <tr>
+    <td>Integration by parts</td>
+    <td><a href="calc2/ws01-114.pdf">Worksheet 1</a></td>
+    <td><a href="calc2/worksheet1_6.pdf">Solution 1</a></td>
+  </tr>
+  <tr>
+    <td>Special Trigonometric Integrals
+</td>
+    <td><a href="calc2/ws02-114.pdf">Worksheet 2</a></td>
+    <td><a href="calc2/worksheet2.pdf">Solution 2</a></td>
+  </tr>
+  <tr>
+    <td>Trig Substitution
+</td>
+    <td><a href="calc2/ws03-114.pdf">Worksheet 3</a></td>
+    <td><a href="calc2/worksheet3.pdf">Solution 3</a></td>
+  </tr>
+  <tr>
+    <td>Integration by Partial Fractions</td>
+    <td><a href="calc2/ws04-114.pdf">Worksheet 4</a></td>
+    <td><a href="calc2/worksheet4.pdf">Solution 4</a></td>
+  </tr>
+  <tr>
+    <td>Numerical Integration</td>
+    <td><a href="calc2/ws05-114.pdf">Worksheet 5</a></td>
+    <td><a href="extra.pdf">Solution 5</a></td>
+  </tr>
+  <tr>
+    <td>Simpson’s Rule and Improper
+Integrals
+</td>
+    <td><a href="calc2/ws06-114.pdf">Worksheet 6</a></td>
+    <td><a href="errorestimate.pdf">Error Integral</a></td>
+  </tr>
+  <tr>
+    <td>Sequences</td>
+    <td><a href="calc2/ws07-114.pdf">Worksheet 7</a></td>
+    <td>Solution 7</td>
+  </tr>
+  <tr>
+    <td>Review for Exam 01</td>
+    <td>Worksheet 8</td>
+    <td>Solution 8</td>
+  </tr>
+  <tr>
+    <td>Recursive Sequences and Series</td>
+    <td><a href="calc2/ws09-114.pdf">Worksheet 9</a></td>
+    <td><a href="calc2/solution9.pdf">Solution 9</a></td>
+  </tr>
+  <tr>
+    <td>Recursive Sequences and Series</td>
+    <td><a href="calc2/ws10-114.pdf"> Worksheet 10</a></td>
+    <td><a href="calc2/solution10.pdf"> Solution 10</a></td>
+  </tr>
+  <tr>
+    <td>Comparison and Limit
+Comparison Tests
+</td>
+    <td><a href="calc2/ws11-114.pdf">Worksheet 11</a></td>
+    <td><a href="calc2/solution11.pdf">Solution 11</a></td>
+  </tr>
+  <tr>
+    <td>Alternating Series, Absolute
+Convergence, & Conditional Convergence</td>
+    <td><a href="calc2/ws12-114.pdf">Worksheet 12</a></td>
+    <td><a href="calc2/solution12.pdf">Solution 12</a></td>
+  </tr>
+  <tr>
+    <td>The Ratio and Root Tests</td>
+    <td><a href="calc2/ws12-114.pdf">Worksheet 13</a></td>
+    <td><a href="calc2/solution13.pdf">Solution 13</a></td>
+  </tr>
+  <tr>
+    <td>Power Series</td>
+    <td><a href="calc2/ws14-114.pdf">Worksheet 14</a></td>
+    <td><a href="calc2/solution14.pdf">Solution 14</a></td>
+    </tr> 
+    <tr>
+      <td>Taylor and Maclaurin Series</td>
+      <td><a href="calc2/ws15-114.pdf">Worksheet 15</a></td>
+      <td><a href="calc2/solution15.pdf">Solution 15</a></td>
+    </tr>
+    <tr>
+      <td>Review for Exam 02</td>
+      <td><a href="calc2/ws16-114.pdf">Worksheet 16</a></td>
+      <td><a href="calc2/solution16.pdf">Solution 16 & Extra</a></td>
+    </tr>
+    <tr>
+      <td>Average of a function</td>
+      <td><a href="calc2/ws17-114.pdf">Worksheet 17</a></td>
+      <td><a href="calc2/solution17.pdf">Solution 17</a></td>
+    </tr>
+    <tr>
+      <td>Volumes 1</td>
+      <td><a href="calc2/ws18-114-1.pdf">Worksheet 18</a></td>
+      <td><a href="calc2/solution18.pdf">Solution 18</a></td>
+    </tr>
+    <tr>
+      <td>Volumes II</td>
+      <td><a href="calc2/ws19-114.pdf">Worksheet 19</a></td>
+      <td><a href="calc2/solution19.pdf">Solution 19</a></td>
+    </tr>
+    <tr>
+      <td>Arc length and surface area</td>
+      <td><a href="calc2/ws20-114.pdf">Worksheet 20</a></td>
+      <td><a href="calc2/solution20.pdf">Solution 20</a></td>
+    </tr>
+    <tr>
+      <td>Centers of Mass</td>
+      <td><a href="calc2/ws21-114.pdf">Worksheet 21</a></td>
+      <td><a href="calc2/solution21.pdf">Solution 21</a></td>
+    </tr>
+    <tr>
+      <td>Parametric curves</td>
+      <td><a href="calc2/ws22-114-1.pdf">Worksheet 22</a></td>
+      <td><a href="calc2/solution22.pdf">Solution 22</a></td>
+    </tr>
+    <tr>
+      <td>Polar coordinates</td>
+      <td><a href="calc2/ws23-114.pdf">Worksheet 23</a></td>
+      <td><a href="calc2/solution23.pdf">Solution 23 & Extra</a></td>
+   </tr>
+   <tr>
+      <td>Calculus with polar coordinates</td>
+      <td><a href="calc2/ws25-114.pdf">Worksheet 25</a></td>
+      <td><a href="calc2/solution25.pdf">Solution 25</a></td>
+   </tr>
+   <tr>
+      <td>Review for exam III</td>
+      <td><a href="calc2/ws24-114.pdf">Worksheet 24</a></td>
+      <td><a href="calc2/solution24.pdf">Solution 24</a></td>
+   </tr>
+   <tr>
+      <td>Conic sections</td>
+      <td><a href="calc2/ws26-114.pdf">Worksheet 26</a></td>
+      <td><a href="calc2/solution26.pdf">Solution 26</a></td>
+   </tr>
+   <tr>
+      <td>Differential equations</td>
+      <td><a href="calc2/ws27-114.pdf">Worksheet 27</a></td>
+      <td><a href="calc2/solution27.pdf">Solution 26</a></td>
+   </tr>
+   <tr>
+      <td>Direction fields</td>
+      <td><a href="calc2/ws28.pdf">Worksheet 28</a></td>
+      <td><a href="calc2/solution28.pdf">Solution 28</a></td>
+   </tr>
+   <tr>
+      <td>Review for Final exam</td>
+      <td><a href="calc2/ws29-114.pdf">Worksheet 29</a></td>
+      <td><a href="calc2/solution29.pdf">Solution 29</a></td>
+   </tr>
+
+</table>
+</body>
+    </div>
+
+</section>
+<!-- Template JS Files -->
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpGridGallery.js"></script>
+<script src="js/jquery.hoverdir.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+
+
+</html>
