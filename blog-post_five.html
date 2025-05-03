@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
     <meta charset="utf-8">
     <title>Edison's Blog</title>
@@ -37,19 +35,71 @@
     <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
     <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
 
-    <!-- Modernizr JS File -->
     <script src="js/modernizr.custom.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
-MathJax.Hub.Config({
- extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
- jax: ["input/TeX", "output/HTML-CSS"],
- tex2jax: {
-     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-     displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
- },
- "HTML-CSS": { availableFonts: ["TeX"] }
-});
-</script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true // Allows \$ to be treated as text
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+<style>
+    .cnn-highlight {
+        background: #e3f2fd;
+        border-left: 6px solid #1976d2;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-formula {
+        background: #fffde7;
+        border-left: 6px solid #fbc02d;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+        font-size: 1.09em;
+    }
+    .cnn-tip {
+        background: #e8f5e9;
+        border-left: 6px solid #388e3c;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-warning {
+        background: #fff3e0;
+        border-left: 6px solid #f57c00;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .cnn-table th, .cnn-table td {
+        border: 1px solid #bdbdbd;
+        padding: 10px;
+        text-align: left;
+    }
+    .cnn-table th {
+        background: #f0f4c3;
+    }
+    .cnn-table tr:nth-child(even) {
+        background: #f9fbe7;
+    }
+</style>
 </head>
 
 <body class="blog-post light">
@@ -166,15 +216,291 @@ MathJax.Hub.Config({
                 <div class="meta open-sans-font">
                     <span><i class="fa fa-user"></i> Edison Mucllari</span>
                     <span class="date"><i class="fa fa-calendar"></i> 2021</span>
-                    <span><i class="fa fa-tags"></i> convolution neural network, resnet, lenet,..</span>
+                    <span><i class="fa fa-tags"></i> convolution neural network, resnet, lenet, image processing</span>
                 </div>
                 <!-- Meta Ends -->
                 <!-- Article Content Starts -->
-                <h1 class="text-uppercase text-capitalize">Convolution Neural Network</h1>
+                <h1 class="text-uppercase text-capitalize">Convolutional Neural Networks (CNNs)</h1>
                 <img src="img/blog/blog-post-5.jpg" class="img-fluid" alt="Blog image"/>
                 <div class="blog-excerpt open-sans-font pb-5">
-                    <p>In deep learning, a convolutional neural network (CNN, or ConvNet) is a class of artificial neural network, most commonly applied to analyze visual imagery. They are also known as.....Coming soon with new material.</p>
-                    $\frac{1}{2}$
+                    
+<h1>Convolutional Neural Networks (CNNs)</h1>
+
+<div class="cnn-highlight">
+    <b>What is a CNN?</b><br>
+    A <b>Convolutional Neural Network (CNN)</b> is a specialized neural network architecture designed primarily for processing grid-like data such as images. CNNs use mathematical operations called <b>convolutions</b> instead of general matrix multiplication in at least one of their layers.
+</div>
+
+<h2>CNN Architecture Explained</h2>
+
+<table class="cnn-table">
+    <tr>
+        <th>Layer Type</th>
+        <th>Purpose</th>
+        <th>Operation</th>
+    </tr>
+    <tr>
+        <td>Convolutional Layer</td>
+        <td>Feature extraction from input</td>
+        <td>Applies filters to detect patterns like edges, textures, etc.</td>
+    </tr>
+    <tr>
+        <td>Activation Layer (ReLU)</td>
+        <td>Introduces non-linearity</td>
+        <td>$f(x) = max(0, x)$</td>
+    </tr>
+    <tr>
+        <td>Pooling Layer</td>
+        <td>Reduces spatial dimensions</td>
+        <td>Summarizes features (max or average) in a region</td>
+    </tr>
+    <tr>
+        <td>Fully Connected Layer</td>
+        <td>Classification based on features</td>
+        <td>Standard neural network connections</td>
+    </tr>
+</table>
+
+<div class="cnn-tip">
+    <b>Key Advantages of CNNs:</b>
+    <ul>
+        <li><b>Parameter Sharing:</b> Same filter is applied across the entire image</li>
+        <li><b>Sparse Connectivity:</b> Each output value depends only on a small local region</li>
+        <li><b>Translation Invariance:</b> Can detect features regardless of their position</li>
+        <li><b>Hierarchical Feature Learning:</b> Early layers learn simple features, deeper layers learn complex ones</li>
+    </ul>
+</div>
+
+<h2>The Convolution Operation Explained</h2>
+
+<div class="cnn-formula">
+    <b>The 2D Convolution:</b><br>
+    $$
+    (I * K)(i, j) = \sum_{m}\sum_{n} I(i+m, j+n) \cdot K(m, n)
+    $$
+    where:
+    <ul>
+        <li>$I$ is the input (e.g., image)</li>
+        <li>$K$ is the kernel/filter</li>
+        <li>$i,j$ are the coordinates in the output</li>
+        <li>$m,n$ are the coordinates in the kernel</li>
+    </ul>
+</div>
+
+<div class="cnn-highlight">
+    <b>How Convolution Works:</b>
+    <ul>
+        <li>A small filter (kernel) slides over the input</li>
+        <li>At each position, element-wise multiplication and sum are computed</li>
+        <li>The result forms one element in the output feature map</li>
+        <li>Different filters detect different features (horizontal edges, vertical edges, etc.)</li>
+    </ul>
+</div>
+
+<h2>Mathematical Details of CNN Components</h2>
+
+<div class="cnn-formula">
+    <b>1. Convolutional Layer</b><br>
+    For a layer with input $X$ and kernel $W$, the output feature map $Y$ is:
+    <br><br>
+    $$
+    Y_{i,j,k} = \sum_{m=0}^{F_h-1} \sum_{n=0}^{F_w-1} \sum_{c=0}^{C_{in}-1} X_{i+m,j+n,c} \cdot W_{m,n,c,k} + b_k
+    $$
+    <br>
+    where:
+    <ul>
+        <li>$F_h, F_w$ are filter height and width</li>
+        <li>$C_{in}$ is the number of input channels</li>
+        <li>$b_k$ is the bias for the $k$-th filter</li>
+        <li>$i,j$ are spatial coordinates in the output</li>
+        <li>$k$ is the index of the output channel</li>
+    </ul>
+</div>
+
+<div class="cnn-formula">
+    <b>2. Pooling Layer</b><br>
+    Max Pooling with a $2 \times 2$ window and stride 2:
+    <br><br>
+    $$
+    Y_{i,j,k} = \max_{0 \leq m,n < 2} X_{2i+m, 2j+n, k}
+    $$
+    <br>
+    Average Pooling with a $2 \times 2$ window and stride 2:
+    <br><br>
+    $$
+    Y_{i,j,k} = \frac{1}{4} \sum_{m=0}^{1} \sum_{n=0}^{1} X_{2i+m, 2j+n, k}
+    $$
+</div>
+
+<div class="cnn-formula">
+    <b>3. Output Size Calculation</b><br>
+    For a convolution with input size $I$, kernel size $K$, padding $P$, and stride $S$:
+    <br><br>
+    $$
+    \text{Output Size} = \left\lfloor \frac{I - K + 2P}{S} + 1 \right\rfloor
+    $$
+    <br>
+    where $\lfloor \rfloor$ denotes the floor operation.
+</div>
+
+<h2>Why CNNs Work: The Theory</h2>
+
+<div class="cnn-highlight">
+    <b>Key Theoretical Principles:</b>
+    <ul>
+        <li><b>Sparse Connectivity:</b> Each neuron connects to only a small region, reducing parameters</li>
+        <li><b>Parameter Sharing:</b> Same weights used across different positions, enforcing translation equivariance</li>
+        <li><b>Equivariance to Translation:</b> If input shifts, output shifts by the same amount</li>
+    </ul>
+</div>
+
+<div class="cnn-formula">
+    <b>Mathematical Proof of Translation Equivariance</b><br>
+    Let's define a translation operator $T_u$ that shifts an input by $u$ pixels:
+    <br><br>
+    $$
+    [T_u(I)](x) = I(x-u)
+    $$
+    <br>
+    For a convolution operation $f(I) = I * K$, we can prove:
+    <br><br>
+    $$
+    \begin{align}
+    f(T_u(I))(x) &= [T_u(I) * K](x) \\
+    &= \sum_y T_u(I)(y) \cdot K(x-y) \\
+    &= \sum_y I(y-u) \cdot K(x-y) \\
+    \end{align}
+    $$
+    <br>
+    With substitution $z = y-u$:
+    <br><br>
+    $$
+    \begin{align}
+    f(T_u(I))(x) &= \sum_z I(z) \cdot K(x-(z+u)) \\
+    &= \sum_z I(z) \cdot K((x-u)-z) \\
+    &= [I * K](x-u) \\
+    &= T_u(f(I))(x)
+    \end{align}
+    $$
+    <br>
+    This proves that $f(T_u(I)) = T_u(f(I))$, demonstrating translation equivariance.
+</div>
+
+<h2>Famous CNN Architectures</h2>
+
+<table class="cnn-table">
+    <tr>
+        <th>Architecture</th>
+        <th>Year</th>
+        <th>Key Innovation</th>
+        <th>Performance</th>
+    </tr>
+    <tr>
+        <td>LeNet-5</td>
+        <td>1998</td>
+        <td>First successful CNN for digit recognition</td>
+        <td>~99% on MNIST</td>
+    </tr>
+    <tr>
+        <td>AlexNet</td>
+        <td>2012</td>
+        <td>ReLU, Dropout, GPU implementation</td>
+        <td>Top-5 error: 15.3% on ImageNet</td>
+    </tr>
+    <tr>
+        <td>VGGNet</td>
+        <td>2014</td>
+        <td>Small filters (3×3), deeper network</td>
+        <td>Top-5 error: 7.3% on ImageNet</td>
+    </tr>
+    <tr>
+        <td>ResNet</td>
+        <td>2015</td>
+        <td>Skip connections to solve vanishing gradient</td>
+        <td>Top-5 error: 3.57% on ImageNet</td>
+    </tr>
+</table>
+
+<div class="cnn-tip">
+    <b>ResNet's Skip Connection:</b>
+    <p>One of the most important innovations in CNN architecture was the residual block in ResNet, which can be expressed as:</p>
+    $$
+    y = F(x, \{W_i\}) + x
+    $$
+    <p>where $F$ is a residual mapping to be learned and $x$ is the identity mapping (skip connection).</p>
+</div>
+
+<h2>Backpropagation in CNNs</h2>
+
+<div class="cnn-formula">
+    <b>Gradient Computation for Convolutional Layers</b><br>
+    For a convolutional layer with weights $W$ and input $X$, the gradient of the loss $L$ with respect to $W$ is:
+    <br><br>
+    $$
+    \frac{\partial L}{\partial W_{m,n,c,k}} = \sum_{i,j} \frac{\partial L}{\partial Y_{i,j,k}} \cdot X_{i+m,j+n,c}
+    $$
+    <br>
+    And the gradient with respect to the input is:
+    <br><br>
+    $$
+    \frac{\partial L}{\partial X_{i,j,c}} = \sum_{k} \sum_{m,n} \frac{\partial L}{\partial Y_{i-m,j-n,k}} \cdot W_{m,n,c,k}
+    $$
+</div>
+
+<h2>Why CNNs Excel at Image Processing</h2>
+
+<div class="cnn-highlight">
+    <b>Biological Inspiration:</b>
+    <p>CNNs are inspired by the visual cortex in animals. The receptive fields of neurons in the visual cortex are localized, and different neurons respond to visual stimuli in restricted regions. Similarly, CNN filters respond to local patterns in their receptive fields.</p>
+</div>
+
+<div class="cnn-tip">
+    <b>Hierarchical Feature Learning:</b>
+    <ul>
+        <li>Early layers: Detect simple features like edges and corners</li>
+        <li>Middle layers: Combine simple features into more complex patterns like textures</li>
+        <li>Deep layers: Recognize high-level concepts like objects and faces</li>
+    </ul>
+    <p>This hierarchical structure allows CNNs to build complex representations from simple building blocks.</p>
+</div>
+
+<h2>Practical Considerations</h2>
+
+<div class="cnn-warning">
+    <b>Common Challenges:</b>
+    <ul>
+        <li><b>Overfitting:</b> Especially with limited data</li>
+        <li><b>Computational Cost:</b> Training deep CNNs requires significant resources</li>
+        <li><b>Vanishing/Exploding Gradients:</b> Can make training very deep networks difficult</li>
+    </ul>
+</div>
+
+<div class="cnn-tip">
+    <b>Best Practices:</b>
+    <ul>
+        <li><b>Data Augmentation:</b> Artificially increase training data by applying transformations</li>
+        <li><b>Batch Normalization:</b> Normalize activations to stabilize training</li>
+        <li><b>Transfer Learning:</b> Use pre-trained models and fine-tune on specific tasks</li>
+        <li><b>Regularization:</b> Apply dropout or L2 regularization to prevent overfitting</li>
+    </ul>
+</div>
+
+<h2>References</h2>
+<ul>
+    <li>
+        LeCun, Y., Bottou, L., Bengio, Y., & Haffner, P. (1998). <b>Gradient-based learning applied to document recognition</b>. <i>Proceedings of the IEEE</i>, 86(11), 2278-2324.
+    </li>
+    <li>
+        Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). <b>ImageNet classification with deep convolutional neural networks</b>. <i>NeurIPS</i>.
+    </li>
+    <li>
+        He, K., Zhang, X., Ren, S., & Sun, J. (2016). <b>Deep residual learning for image recognition</b>. <i>CVPR</i>.
+    </li>
+    <li>
+        Goodfellow, I., Bengio, Y., & Courville, A. (2016). <b>Deep Learning</b>. MIT Press.
+    </li>
+</ul>
+
                 </div>
                 <!-- Article Content Ends -->
             </article>
@@ -197,6 +523,4 @@ MathJax.Hub.Config({
 <script src="js/custom.js"></script>
 
 </body>
-
-
 </html>
