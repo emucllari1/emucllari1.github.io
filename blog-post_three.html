@@ -50,6 +50,86 @@ MathJax.Hub.Config({
  "HTML-CSS": { availableFonts: ["TeX"] }
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .gan-highlight {
+        background: #e3f2fd;
+        border-left: 6px solid #1976d2;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .gan-formula {
+        background: #fffde7;
+        border-left: 6px solid #fbc02d;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+        font-size: 1.09em;
+    }
+    .gan-tip {
+        background: #e8f5e9;
+        border-left: 6px solid #388e3c;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .gan-warning {
+        background: #fff3e0;
+        border-left: 6px solid #f57c00;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .gan-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .gan-table th, .gan-table td {
+        border: 1px solid #bdbdbd;
+        padding: 10px;
+        text-align: left;
+    }
+    .gan-table th {
+        background: #f0f4c3;
+    }
+    .gan-table tr:nth-child(even) {
+        background: #f9fbe7;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
 <body class="blog-post light">
@@ -173,8 +253,153 @@ MathJax.Hub.Config({
                 <h1 class="text-uppercase text-capitalize">Generative Adversarial Network</h1>
                 <img src="img/blog/blog-post-3.jpg" class="img-fluid" alt="Blog image"/>
                 <div class="blog-excerpt open-sans-font pb-5">
-                    <p>A generative adversarial network (GAN) is a class of machine learning frameworks designed by Ian Goodfellow and his colleagues in June 2014. Two neural networks contest with each other in a game (in the form of a zero-sum game, where one agent's gain is another agent's loss).....Coming soon with new material.</p>
-                    $\frac{1}{2}$
+                    
+
+
+
+
+
+
+
+
+<h1>Generative Adversarial Networks (GANs)</h1>
+
+<div class="gan-highlight">
+    <b>What is a GAN?</b><br>
+    A <b>Generative Adversarial Network (GAN)</b> is a machine learning setup with two neural networks: a <b>Generator</b> (makes fakes) and a <b>Discriminator</b> (spots fakes). They compete, and both get better over time.
+</div>
+
+<h2>GAN Architecture Explained</h2>
+
+<table class="gan-table">
+    <tr>
+        <th>Component</th>
+        <th>Role</th>
+        <th>Analogy</th>
+    </tr>
+    <tr>
+        <td>Generator (G)</td>
+        <td>Creates fake data (like fake images) from random noise.</td>
+        <td>Forger (makes counterfeits)</td>
+    </tr>
+    <tr>
+        <td>Discriminator (D)</td>
+        <td>Tries to tell if data is real (from the dataset) or fake (from the generator).</td>
+        <td>Detective (spots fakes)</td>
+    </tr>
+</table>
+
+<div class="gan-tip">
+    <b>How it works:</b>
+    <ul>
+        <li>Generator makes fakes from random noise.</li>
+        <li>Discriminator sees both real and fake data, and tries to guess which is which.</li>
+        <li>Both networks learn and improve by competing with each other.</li>
+    </ul>
+</div>
+
+<h2>The Math Behind GANs (Simple Version)</h2>
+
+<div class="gan-formula">
+    <b>The GAN Game:</b><br>
+    $$
+    \min_G \max_D V(D, G) = \mathbb{E}_{x \sim p_{data}(x)} [\log D(x)] + \mathbb{E}_{z \sim p_z(z)} [\log(1 - D(G(z)))]
+    $$
+    <ul>
+        <li>$x$: Real data from the dataset</li>
+        <li>$z$: Random noise input</li>
+        <li>$G(z)$: Fake data made by the generator</li>
+        <li>$D(x)$: Probability that $x$ is real</li>
+        <li>$D(G(z))$: Probability that the fake is real</li>
+    </ul>
+</div>
+
+<div class="gan-highlight">
+    <b>What does this mean?</b>
+    <ul>
+        <li>The discriminator tries to say "real" for real data and "fake" for fakes.</li>
+        <li>The generator tries to make fakes so good that the discriminator thinks they're real.</li>
+    </ul>
+</div>
+
+<h2>Why Does This Work?</h2>
+<ul>
+    <li>At first, the generator makes poor fakes, and the discriminator easily spots them.</li>
+    <li>Over time, the generator learns to make better fakes, and the discriminator gets pickier.</li>
+    <li>Eventually, the generator's fakes are so good that the discriminator can't tell real from fake (it guesses 50/50).</li>
+</ul>
+
+<div class="gan-tip">
+    <b>Fun Fact:</b> When GANs are trained well, even humans can have trouble telling the fakes from the real data!
+</div>
+
+<h2>Mathematical Proof: Why GANs Work</h2>
+<div class="gan-formula">
+    <b>1. The Optimal Discriminator</b><br>
+    For a fixed generator $G$, the best possible discriminator $D^*$ is:
+    <br><br>
+    $$
+    D^*(x) = \frac{p_{data}(x)}{p_{data}(x) + p_g(x)}
+    $$
+    <br>
+    where $p_{data}(x)$ is the real data distribution and $p_g(x)$ is the generator's distribution.
+</div>
+
+<div class="gan-formula">
+    <b>2. The Value Function at the Optimum</b><br>
+    Plugging $D^*(x)$ back into the GAN objective, we get:
+    <br><br>
+    $$
+    V(G, D^*) = \mathbb{E}_{x \sim p_{data}} \left[ \log \frac{p_{data}(x)}{p_{data}(x) + p_g(x)} \right] + \mathbb{E}_{x \sim p_g} \left[ \log \frac{p_g(x)}{p_{data}(x) + p_g(x)} \right]
+    $$
+    <br>
+    This can be shown to be equal to:
+    <br>
+    $$
+    -\log(4) + 2 \cdot \text{JSD}(p_{data} \| p_g)
+    $$
+    where <b>JSD</b> is the Jensen-Shannon divergence, a way of measuring how different two distributions are.
+</div>
+
+<div class="gan-highlight">
+    <b>Conclusion:</b>
+    <ul>
+        <li>The generator gets better by making $p_g$ (the fake data) as close as possible to $p_{data}$ (the real data).</li>
+        <li>When $p_g = p_{data}$, the discriminator can't tell the difference and always outputs 0.5.</li>
+        <li>This is what it means for the GAN to "work" – the generator has learned to make perfect fakes!</li>
+    </ul>
+</div>
+
+<h2>References</h2>
+<ul>
+    <li>
+        Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., & Bengio, Y. (2014). <b><a href="https://arxiv.org/abs/1406.2661" target="_blank">Generative Adversarial Nets</b>. <i>NeurIPS</i>.
+        <br>
+        <!-- <a href="https://arxiv.org/abs/1406.2661" target="_blank">Read the original paper</a> -->
+    </li>
+    <li>
+        Ian Goodfellow's NIPS 2016 Tutorial: <a href="https://arxiv.org/abs/1701.00160" target="_blank">arXiv:1701.00160</a>
+    </li>
+    <li>
+        Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised Representation Learning with Deep Convolutional GANs. <i>arXiv:1511.06434</i>.
+    </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
                 <!-- Article Content Ends -->
             </article>
