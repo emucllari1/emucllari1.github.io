@@ -350,6 +350,45 @@
 </div>
 
 <div class="gan-formula">
+<b>1. Proof of the Optimal Discriminator</b><br>
+Given a fixed generator $G$, the GAN value function is:
+$$
+V(D, G) = \mathbb{E}_{x \sim p_{\text{data}}}[\log D(x)] + \mathbb{E}_{z \sim p_z}[\log(1 - D(G(z)))]
+$$
+Let $p_g$ be the distribution of $G(z)$. Then:
+$$
+V(D, G) = \int_x p_{\text{data}}(x) \log D(x) dx + \int_x p_g(x) \log(1 - D(x)) dx
+$$
+We maximize $V(D, G)$ with respect to $D(x)$ for each $x$. Define:
+$$
+f(D(x)) = p_{\text{data}}(x) \log D(x) + p_g(x) \log(1 - D(x))
+$$
+Take the derivative with respect to $D(x)$ and set to zero:
+$$
+\frac{d}{dD(x)} f(D(x)) = \frac{p_{\text{data}}(x)}{D(x)} - \frac{p_g(x)}{1 - D(x)} = 0
+$$
+Solve for $D(x)$:
+$$
+\frac{p_{\text{data}}(x)}{D(x)} = \frac{p_g(x)}{1 - D(x)}
+$$
+$$
+p_{\text{data}}(x)(1 - D(x)) = p_g(x) D(x)
+$$
+$$
+p_{\text{data}}(x) = D(x)(p_{\text{data}}(x) + p_g(x))
+$$
+$$
+D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}
+$$
+<b>So, the optimal discriminator is:</b>
+$$
+\boxed{
+D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}
+}
+$$
+</div>
+
+<div class="gan-formula">
     <b>2. The Value Function at the Optimum</b><br>
     Plugging $D^*(x)$ back into the GAN objective, we get:
     <br><br>
@@ -364,6 +403,56 @@
     $$
     where <b>JSD</b> is the Jensen-Shannon divergence, a way of measuring how different two distributions are.
 </div>
+
+
+
+
+
+
+
+<div class="gan-formula">
+<b>2. Proof of the Value Function at the Optimum</b><br>
+Plug $D^*(x)$ into the value function:
+$$
+V(G, D^*) = \mathbb{E}_{x \sim p_{\text{data}}}[\log D^*(x)] + \mathbb{E}_{x \sim p_g}[\log(1 - D^*(x))]
+$$
+Recall:
+- $D^*(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}$
+- $1 - D^*(x) = \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)}$
+
+So,
+$$
+V(G, D^*) = \int_x p_{\text{data}}(x) \log \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} dx
++ \int_x p_g(x) \log \frac{p_g(x)}{p_{\text{data}}(x) + p_g(x)} dx
+$$
+
+Let $m(x) = \frac{1}{2}(p_{\text{data}}(x) + p_g(x))$. The Jensen-Shannon divergence is:
+$$
+\mathrm{JSD}(p_{\text{data}} \| p_g) = \frac{1}{2} \int_x p_{\text{data}}(x) \log \frac{p_{\text{data}}(x)}{m(x)} dx + \frac{1}{2} \int_x p_g(x) \log \frac{p_g(x)}{m(x)} dx
+$$
+
+Notice that:
+$$
+\log \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)} = \log \frac{p_{\text{data}}(x)}{2 m(x)} = \log \frac{p_{\text{data}}(x)}{m(x)} - \log 2
+$$
+(similar for $p_g(x)$).
+
+Therefore,
+$$
+V(G, D^*) = 2 \cdot \mathrm{JSD}(p_{\text{data}} \| p_g) - 2 \log 2
+$$
+or,
+$$
+V(G, D^*) = -\log 4 + 2 \cdot \mathrm{JSD}(p_{\text{data}} \| p_g)
+$$
+
+<b>So, at the optimum, the GAN objective is minimized when the generator's distribution matches the real data, and the minimum value is achieved when the Jensen-Shannon divergence is zero.</b>
+</div>
+
+
+
+
+
 
 <div class="gan-highlight">
     <b>Conclusion:</b>
