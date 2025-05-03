@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
     <meta charset="utf-8">
-    <title>Edison's Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edison's Blog</title> <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Template Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
 
-    <!-- Template CSS Files -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/preloader.min.css" rel="stylesheet">
     <link href="css/circle.css" rel="stylesheet">
@@ -21,10 +17,8 @@
     <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- CSS Skin File -->
     <link href="css/skins/green.css" rel="stylesheet">
 
-    <!-- Live Style Switcher - demo only -->
     <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
     <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
     <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
@@ -37,23 +31,27 @@
     <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
     <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
 
-    <!-- Modernizr JS File -->
     <script src="js/modernizr.custom.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
-MathJax.Hub.Config({
- extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
- jax: ["input/TeX", "output/HTML-CSS"],
- tex2jax: {
-     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-     displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
- },
- "HTML-CSS": { availableFonts: ["TeX"] }
-});
-</script>
-</head>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true, // Allows \$ to be treated as text
+        tags: 'ams' // Enable automatic equation numbering like (1), (2), ...
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    </head>
 
 <body class="blog-post light">
-<!-- Live Style Switcher Starts - demo only -->
 <div id="switcher" class="">
     <div class="content-switcher">
         <h4>STYLE SWITCHER</h4>
@@ -94,10 +92,7 @@ MathJax.Hub.Config({
     </div>
 </div>
 <div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
-<!-- Live Style Switcher Ends - demo only -->
-<!-- Header Starts -->
 <header class="header" id="navbar-collapse-toggle">
-    <!-- Fixed Navigation Starts -->
     <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
         <li class="icon-box">
             <i class="fa fa-home"></i>
@@ -130,8 +125,6 @@ MathJax.Hub.Config({
             </a>
         </li>
     </ul>
-    <!-- Fixed Navigation Ends -->
-    <!-- Mobile Menu Starts -->
     <nav role="navigation" class="d-block d-lg-none">
         <div id="menuToggle">
             <input type="checkbox" />
@@ -147,42 +140,264 @@ MathJax.Hub.Config({
             </ul>
         </div>
     </nav>
-    <!-- Mobile Menu Ends -->
-</header>
-<!-- Header Ends -->
-<!-- Page Title Starts -->
+    </header>
 <section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
     <h1>my <span>blog</span></h1>
     <span class="title-bg">posts</span>
 </section>
-<!-- Page Title Ends -->
-<!-- Main Content Starts -->
 <section class="main-content revealator-slideup revealator-once revealator-delay1">
     <div class="container">
         <div class="row">
-            <!-- Article Starts -->
             <article class="col-12">
-                <!-- Meta Starts -->
                 <div class="meta open-sans-font">
                     <span><i class="fa fa-user"></i> Edison Mucllari</span>
-                    <span class="date"><i class="fa fa-calendar"></i> 2021</span>
-                    <span><i class="fa fa-tags"></i> rnn, gru and lstm</span>
-                </div>
-                <!-- Meta Ends -->
-                <!-- Article Content Starts -->
-                <h1 class="text-uppercase text-capitalize">Recurrent Neural Network, GRU and LSTM</h1>
+                    <span class="date"><i class="fa fa-calendar"></i>2021</span> <span><i class="fa fa-tags"></i> rnn, gru, lstm, sequence models, deep learning</span> </div>
+                <h1 class="text-uppercase text-capitalize">Understanding RNNs, GRUs, and LSTMs</h1>
                 <img src="img/blog/blog-post-2.jpg" class="img-fluid" alt="Blog image"/>
                 <div class="blog-excerpt open-sans-font pb-5">
-                    <p>A recurrent neural network (RNN) is a class of artificial neural networks where connections between nodes form a directed graph along a temporal sequence. This allows it to exhibit temporal dynamic behavior....Coming soon with new material.</p>
-                    $\frac{1}{2}$
+
+                    <p>Many real-world phenomena unfold sequentially: the words in this sentence, the notes in a melody, the price of a stock over time. Standard feedforward neural networks process fixed-size inputs independently, making them unsuitable for tasks where order and context matter. This is where **Recurrent Neural Networks (RNNs)** and their more advanced variants, **Gated Recurrent Units (GRUs)** and **Long Short-Term Memory (LSTMs)**, come into play. These architectures are designed specifically to handle sequential data by incorporating a notion of memory.</p>
+
+                    <h2>Recurrent Neural Networks (RNNs): The Foundation</h2>
+                    <p>The core idea behind an RNN is simple yet powerful: **process sequences one element at a time, maintaining a 'memory' or 'state' that captures information about previous elements.** Think about reading: you understand each word based on the words that came before it. RNNs mimic this by using a loop.</p>
+
+                    <h3>Architecture and Mechanism</h3>
+                    <p>At each timestep $t$ in a sequence, an RNN takes two inputs:</p>
+                    <ol>
+                        <li>The current input element $x_t$ (e.g., a word embedding).</li>
+                        <li>The hidden state $h_{t-1}$ from the previous timestep, which acts as the network's memory.</li>
+                    </ol>
+                    <p>Using these inputs, the RNN computes:</p>
+                    <ol>
+                        <li>A new hidden state $h_t$, which captures information from both the current input and the past context.</li>
+                        <li>An output $y_t$ (optional, depending on the task, e.g., predicting the next word, classifying the sequence).</li>
+                    </ol>
+                    <p>The crucial part is the **recurrent connection**: the hidden state $h_t$ computed at timestep $t$ becomes the input $h_{t-1}$ for the next timestep $t+1$. This loop allows information to continue through the sequence.</p>
+
+                    <h3>Mathematical Formulation</h3>
+                    <p>The calculations within a simple RNN cell at timestep $t$ are typically defined as:</p>
+                    $$ h_t = \tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h) \label{eq:rnn_h} \tag{1} $$
+                    $$ y_t = W_{hy} h_t + b_y \label{eq:rnn_y} \tag{2} $$
+                    <p>Let's break this down:</p>
+                    <ul>
+                        <li>$x_t$: Input vector at timestep $t$.</li>
+                        <li>$h_{t-1}$: Hidden state vector from the previous timestep ($h_0$ is usually initialized to zeros).</li>
+                        <li>$h_t$: Hidden state vector at the current timestep.</li>
+                        <li>$y_t$: Output vector at timestep $t$.</li>
+                        <li>$W_{xh}$: Weight matrix mapping input $x_t$ to the hidden state computation.</li>
+                        <li>$W_{hh}$: Weight matrix mapping the previous hidden state $h_{t-1}$ to the current hidden state computation (the recurrent weight).</li>
+                        <li>$W_{hy}$: Weight matrix mapping the hidden state $h_t$ to the output $y_t$.</li>
+                        <li>$b_h, b_y$: Bias vectors for the hidden state and output computations, respectively.</li>
+                        <li>$\tanh$: Hyperbolic tangent activation function, typically used to keep the hidden state values bounded between -1 and 1. (Other activations like ReLU can sometimes be used, but tanh is traditional).</li>
+                    </ul>
+                    <p>Importantly, the weight matrices ($W_{xh}, W_{hh}, W_{hy}$) and biases ($b_h, b_y$) are **shared across all timesteps**. This means the network learns a single set of parameters to apply at every step of the sequence, making it efficient and capable of generalizing across different sequence lengths.</p>
+
+                    <h3>Suitable Data and Applications</h3>
+                    <p>RNNs excel wherever order matters. Examples include:</p>
+                    <ul>
+                        <li><strong>Natural Language Processing (NLP):</strong> Language modeling (predicting the next word), machine translation, sentiment analysis, text generation.</li>
+                        <li><strong>Time Series Analysis:</strong> Stock market prediction, weather forecasting, anomaly detection in sensor data.</li>
+                        <li><strong>Speech Recognition:</strong> Transcribing spoken audio into text.</li>
+                        <li><strong>Bioinformatics:</strong> Analyzing DNA or protein sequences.</li>
+                    </ul>
+
+                    <h3>Limitations: The Gradient Problem</h3>
+                    <p>While elegant, simple RNNs struggle with learning long-range dependencies in sequences. During training (using backpropagation through time, BPTT), gradients need to flow backward through the recurrent connections. For long sequences, these gradients can either:</p>
+                    <ul>
+                        <li><strong>Vanish:</strong> Become extremely small, preventing earlier layers/timesteps from learning effectively.</li>
+                        <li><strong>Explode:</strong> Become excessively large, causing unstable training.</li>
+                    </ul>
+                    <p>This makes it difficult for simple RNNs to connect information across many timesteps, like linking a pronoun near the end of a long paragraph back to a subject mentioned at the beginning.</p>
+
+                    <h2>Long Short-Term Memory (LSTM): Remembering the Important Stuff</h2>
+                    <p>LSTMs were specifically designed by Hochreiter & Schmidhuber (1997) to overcome the vanishing gradient problem and learn long-range dependencies. They achieve this using a more complex internal structure involving **gates** and a dedicated **cell state**.</p>
+
+                    <h3>Architecture: Gates and Cell State</h3>
+                    <p>An LSTM cell maintains two key states that are passed from one timestep to the next:</p>
+                    <ol>
+                        <li>The **hidden state $h_t$** (similar to RNNs, often called the "short-term memory").</li>
+                        <li>The **cell state $C_t$** (often called the "long-term memory"). This works like a moving belt, letting information travel through the sequence mostly unchanged, unless gates clearly change it.</li>
+                    </ol>
+                    <p>The flow of information into, out of, and within the cell state is controlled by three main gates:</p>
+                    <ul>
+                        <li><strong>Forget Gate ($f_t$):</strong> Decides which information to throw away from the cell state $C_{t-1}$.</li>
+                        <li><strong>Input Gate ($i_t$):</strong> Decides which new information (from the current input $x_t$ and previous hidden state $h_{t-1}$) should be stored in the cell state. It works together with a candidate cell state $\tilde{C}_t$.</li>
+                        <li><strong>Output Gate ($o_t$):</strong> Decides what parts of the (updated) cell state $C_t$ should be output as the new hidden state $h_t$.</li>
+                    </ul>
+                    <p>These gates use sigmoid activation functions ($\sigma$), which output values between 0 and 1. A value close to 0 means "let nothing through," while a value close to 1 means "let everything through."</p>
+
+                    <h3>Mathematical Formulation</h3>
+                    <p>At timestep $t$, given $x_t$, $h_{t-1}$, and $C_{t-1}$, the LSTM computes:</p>
+                    <ul>
+                        <li>**Forget Gate:** Decide what to forget from the old cell state.
+                          $$ f_t = \sigma(W_f [h_{t-1}, x_t] + b_f) \label{eq:lstm_f} \tag{3} $$</li>
+                        <li>**Input Gate:** Decide what new information to store.
+                          $$ i_t = \sigma(W_i [h_{t-1}, x_t] + b_i) \label{eq:lstm_i} \tag{4} $$</li>
+                        <li>**Candidate Cell State:** Create a vector of new candidate values to potentially add.
+                          $$ \tilde{C}_t = \tanh(W_C [h_{t-1}, x_t] + b_C) \label{eq:lstm_C_tilde} \tag{5} $$</li>
+                        <li>**Cell State Update:** Update the old cell state $C_{t-1}$ to the new cell state $C_t$.
+                          $$ C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t \label{eq:lstm_C} \tag{6} $$</li>
+                        <li>**Output Gate:** Decide what parts of the cell state to output.
+                          $$ o_t = \sigma(W_o [h_{t-1}, x_t] + b_o) \label{eq:lstm_o} \tag{7} $$</li>
+                        <li>**Hidden State Update:** Compute the new hidden state.
+                          $$ h_t = o_t \odot \tanh(C_t) \label{eq:lstm_h} \tag{8} $$</li>
+                    </ul>
+                    <p>Here:</p>
+                    <ul>
+                        <li>$[h_{t-1}, x_t]$: Concatenation of the previous hidden state and current input vectors.</li>
+                        <li>$W_f, W_i, W_C, W_o$: Weight matrices for the respective gates/candidate state.</li>
+                        <li>$b_f, b_i, b_C, b_o$: Bias vectors for the respective gates/candidate state.</li>
+                        <li>$\sigma$: Sigmoid activation function.</li>
+                        <li>$\tanh$: Hyperbolic tangent activation function.</li>
+                        <li>$\odot$: Element-wise multiplication (Hadamard product).</li>
+                    </ul>
+                    <p>The cell state update \eqref{eq:lstm_C} is key: the forget gate $f_t$ scales the previous cell state $C_{t-1}$, and the input gate $i_t$ scales the new candidate information $\tilde{C}_t$. This additive interaction (rather than repeated matrix multiplication as in simple RNNs) helps gradients flow better over long sequences.</p>
+
+                    
+
+
+
+
+
+
+<div style="
+  margin: 2em auto;
+  max-width: 500px;
+  background: #f6f8fa;
+  border: 1.5px solid #cfd8dc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1.5em 2em;
+  text-align: left;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  font-size: 1.05em;
+  ">
+  <div style="text-align:center; font-weight:bold; font-size:1.1em; margin-bottom:0.8em;">
+    LSTM Cell Pseudocode
+  </div>
+  <div style="margin-bottom: 0.6em;">
+    <strong>Given:</strong> \( x_t, h_{t-1}, C_{t-1} \)
+  </div>
+  <div> \( f_t = \sigma(W_f [h_{t-1}, x_t] + b_f) \) &nbsp; <em>// Forget gate</em> </div>
+  <div> \( i_t = \sigma(W_i [h_{t-1}, x_t] + b_i) \) &nbsp; <em>// Input gate</em> </div>
+  <div> \( \tilde{C}_t = \tanh(W_C [h_{t-1}, x_t] + b_C) \) &nbsp; <em>// Candidate cell</em> </div>
+  <div> \( C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t \) &nbsp; <em>// Cell state update</em> </div>
+  <div> \( o_t = \sigma(W_o [h_{t-1}, x_t] + b_o) \) &nbsp; <em>// Output gate</em> </div>
+  <div> \( h_t = o_t \odot \tanh(C_t) \) &nbsp; <em>// Hidden state update</em> </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+                    <h2>Gated Recurrent Unit (GRU)</h2>
+                    <p>Introduced by Cho et al. (2014), the GRU is another type of gated RNN designed to address the same problems as LSTMs but with a simpler architecture.</p>
+
+                    <h3>Architecture: Fewer Gates</h3>
+                    <p>GRUs have only two gates and do not maintain a separate cell state:</p>
+                    <ul>
+                        <li><strong>Reset Gate ($r_t$):</strong> Determines how much of the previous hidden state $h_{t-1}$ to forget when computing the candidate hidden state.</li>
+                        <li><strong>Update Gate ($z_t$):</strong> Determines how much of the previous hidden state $h_{t-1}$ to keep versus how much of the new candidate hidden state $\tilde{h}_t$ to incorporate into the final hidden state $h_t$. It combines the roles of LSTM's forget and input gates.</li>
+                    </ul>
+
+                    <h3>Mathematical Formulation</h3>
+                    <p>Given $x_t$ and $h_{t-1}$, the GRU computes:</p>
+                    <ul>
+                        <li>**Reset Gate:**
+                          $$ r_t = \sigma(W_r [h_{t-1}, x_t] + b_r) \label{eq:gru_r} \tag{9} $$</li>
+                        <li>**Update Gate:**
+                          $$ z_t = \sigma(W_z [h_{t-1}, x_t] + b_z) \label{eq:gru_z} \tag{10} $$</li>
+                        <li>**Candidate Hidden State:** Note how the reset gate $r_t$ modulates the influence of $h_{t-1}$.
+                          $$ \tilde{h}_t = \tanh(W_h [r_t \odot h_{t-1}, x_t] + b_h) \label{eq:gru_h_tilde} \tag{11} $$</li>
+                        <li>**Hidden State Update:** Linearly interpolates between the previous state $h_{t-1}$ and the candidate state $\tilde{h}_t$, controlled by the update gate $z_t$.
+                          $$ h_t = (1 - z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t \label{eq:gru_h} \tag{12} $$</li>
+                    </ul>
+                    <p>The notation is similar to LSTM, with $W_r, W_z, W_h$ and $b_r, b_z, b_h$ being the weight matrices and bias vectors for the GRU cell.</p>
+                    <p>GRUs have fewer parameters than LSTMs (lacking an output gate and separate cell state), which can make them computationally faster and sometimes less prone to overfitting on smaller datasets. However, LSTMs might be more expressive and perform better on tasks requiring finer control over memory.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+<div style="
+  margin: 2em auto;
+  max-width: 500px;
+  background: #f6f8fa;
+  border: 1.5px solid #cfd8dc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1.5em 2em;
+  text-align: left;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  font-size: 1.05em;
+  ">
+  <div style="text-align:center; font-weight:bold; font-size:1.1em; margin-bottom:0.8em;">
+    GRU Cell Pseudocode
+  </div>
+  <div style="margin-bottom: 0.6em;">
+    <strong>Given:</strong> \( x_t, h_{t-1} \)
+  </div>
+  <div> \( z_t = \sigma(W_z [h_{t-1}, x_t] + b_z) \) &nbsp; <em>// Update gate</em> </div>
+  <div> \( r_t = \sigma(W_r [h_{t-1}, x_t] + b_r) \) &nbsp; <em>// Reset gate</em> </div>
+  <div> \( \tilde{h}_t = \tanh(W_h [r_t \odot h_{t-1}, x_t] + b_h) \) &nbsp; <em>// Candidate hidden</em> </div>
+  <div> \( h_t = (1-z_t) \odot h_{t-1} + z_t \odot \tilde{h}_t \) &nbsp; <em>// Hidden state update</em> </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <h2>Conclusion: Choosing the Right Tool</h2>
+                    <p>RNNs laid the groundwork for processing sequential data but suffered from limitations in learning long-term patterns. LSTMs and GRUs significantly advanced the field by introducing gating mechanisms that allow networks to selectively remember and forget information, mitigating the vanishing gradient problem.</p>
+                    <ul>
+                        <li>Use a **Simple RNN** if sequences are short or long-range dependencies are not critical (rarely the first choice nowadays).</li>
+                        <li>Use an **LSTM** when you need maximum expressiveness and control over memory, potentially at a higher computational cost.</li>
+                        <li>Use a **GRU** for a good balance between performance and computational efficiency, often performing comparably to LSTMs on many tasks.</li>
+                    </ul>
+                    <p>These architectures form the backbone of many state-of-the-art models in NLP, time series forecasting, and other sequence modeling domains, demonstrating the power of incorporating memory into neural networks.</p>
+
+                    <div class="mt-5">
+                        <h3>References</h3>
+                        <ul>
+                            <li>Rumelhart, D. E., Hinton, G. E., and Williams, R. J. Learning Internal Representations by Error Propagation (1986) <em>MIT Press.</em>, page 318–362.</li>
+                            <li>Hochreiter, S., & Schmidhuber, J. (1997). Long Short-Term Memory. <em>Neural Computation</em>, 9(8), 1735-1780.</li>
+                            <li>Cho, K., Van Merriënboer, B., Gulcehre, C., Bahdanau, D., Bougares, F., Schwenk, H., & Bengio, Y. (2014). Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation. <em>arXiv preprint arXiv:1406.1078</em>.</li>
+                        </ul>
+                    </div>
                 </div>
-                <!-- Article Content Ends -->
-            </article>
-            <!-- Article Ends -->
-        </div>
+                </article>
+            </div>
     </div>
 </section>
-<!-- Template JS Files -->
 <script src="js/jquery-3.5.0.min.js"></script>
 <script src="js/styleswitcher.js"></script>
 <script src="js/preloader.min.js"></script>
@@ -197,6 +412,5 @@ MathJax.Hub.Config({
 <script src="js/custom.js"></script>
 
 </body>
-
 
 </html>
