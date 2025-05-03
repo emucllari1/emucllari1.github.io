@@ -8,11 +8,9 @@
     <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Template Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
 
-    <!-- Template CSS Files -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/preloader.min.css" rel="stylesheet">
     <link href="css/circle.css" rel="stylesheet">
@@ -20,10 +18,8 @@
     <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- CSS Skin File -->
     <link href="css/skins/green.css" rel="stylesheet">
 
-    <!-- Live Style Switcher - demo only -->
     <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
     <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
     <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
@@ -36,23 +32,26 @@
     <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
     <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
 
-    <!-- Modernizr JS File -->
     <script src="js/modernizr.custom.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
-MathJax.Hub.Config({
- extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
- jax: ["input/TeX", "output/HTML-CSS"],
- tex2jax: {
-     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-     displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
- },
- "HTML-CSS": { availableFonts: ["TeX"] }
-});
-</script>
-</head>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true // Allows \$ to be treated as text
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    </head>
 
 <body class="blog-post light">
-<!-- Live Style Switcher Starts - demo only -->
 <div id="switcher" class="">
     <div class="content-switcher">
         <h4>STYLE SWITCHER</h4>
@@ -93,10 +92,7 @@ MathJax.Hub.Config({
     </div>
 </div>
 <div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
-<!-- Live Style Switcher Ends - demo only -->
-<!-- Header Starts -->
 <header class="header" id="navbar-collapse-toggle">
-    <!-- Fixed Navigation Starts -->
     <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
         <li class="icon-box">
             <i class="fa fa-home"></i>
@@ -129,8 +125,6 @@ MathJax.Hub.Config({
             </a>
         </li>
     </ul>
-    <!-- Fixed Navigation Ends -->
-    <!-- Mobile Menu Starts -->
     <nav role="navigation" class="d-block d-lg-none">
         <div id="menuToggle">
             <input type="checkbox" />
@@ -146,63 +140,54 @@ MathJax.Hub.Config({
             </ul>
         </div>
     </nav>
-    <!-- Mobile Menu Ends -->
-</header>
-<!-- Header Ends -->
-<!-- Page Title Starts -->
+    </header>
 <section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
     <h1>my <span>blog</span></h1>
     <span class="title-bg">posts</span>
 </section>
-<!-- Page Title Ends -->
-<!-- Main Content Starts -->
 <section class="main-content revealator-slideup revealator-once revealator-delay1">
     <div class="container">
         <div class="row">
-            <!-- Article Starts -->
             <article class="col-12">
-                <!-- Meta Starts -->
                 <div class="meta open-sans-font">
                     <span><i class="fa fa-user"></i> Edison Mucllari</span>
                     <span class="date"><i class="fa fa-calendar"></i> 2021</span>
                     <span><i class="fa fa-tags"></i> attentions, transformers</span>
                 </div>
-                <!-- Meta Ends -->
-                <!-- Article Content Starts -->
                 <h1 class="text-uppercase text-capitalize">Attentions and Transformers</h1>
                 <img src="img/blog/blog-post-6.jpg" class="img-fluid" alt="Blog image"/>
                 <div class="blog-excerpt open-sans-font pb-5">
                     <p>Attention has gotten plenty of attention lately, after yielding state of the art results in multiple fields of research. From image captioning and language translation to interactive question answering, the Transformer architecture has revolutionized how we approach machine learning problems. In this blog post, I'll dive deep into the mechanics of Transformers, focusing particularly on the self-attention mechanism that makes them so powerful.</p>
-                    
+
                     <h2>The Rise of Transformers</h2>
                     <p>Introduced in the groundbreaking 2017 paper "Attention Is All You Need" by Vaswani et al., the Transformer architecture has become the foundation for most state-of-the-art natural language processing models. Unlike previous sequence-to-sequence models that relied on recurrent neural networks (RNNs) or convolutional neural networks (CNNs), Transformers use attention mechanisms exclusively, allowing them to process all tokens in a sequence simultaneously rather than sequentially.</p>
-                    
+
                     <p>This parallelization not only speeds up training significantly but also allows the model to capture long-range dependencies in the data more effectively. Let's explore the key components that make Transformers work, starting with the embedding layer.</p>
-                    
+
                     <h2>Embedding Layer: Turning Words into Vectors</h2>
                     <p>Before any processing can happen, we need to convert discrete tokens (like words) into continuous vector spaces where mathematical operations are possible. The embedding layer does exactly this by mapping each token to a high-dimensional vector.</p>
-                    
+
                     <p>For a vocabulary of size $V$ and an embedding dimension $d_m$, we create an embedding matrix $E \in \mathbb{R}^{V \times d_m}$. Each row of this matrix represents the embedding vector for a token in our vocabulary. Formally, for a token $t$, its embedding is:</p>
-                    
+
                     $$\text{Embedding}(t) = E[t] \in \mathbb{R}^{d_m}$$
-                    
+
                     <p>These embeddings are learned during training, gradually organizing the vector space so that semantically similar words end up close to each other.</p>
-                    
+
                     <h2>Positional Encoding: Adding Sequential Information</h2>
                     <p>Unlike RNNs, Transformers process all tokens in parallel, which means they have no inherent understanding of token order. To inject this crucial sequential information, we add positional encodings to the token embeddings.</p>
-                    
+
                     <p>The original Transformer paper uses sinusoidal functions to generate these positional encodings:</p>
-                    
+
                     $$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_m}}\right)$$
                     $$PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_m}}\right)$$
-                    
+
                     <p>Where $pos$ is the position of the token in the sequence and $i$ is the dimension. This creates a unique pattern for each position that the model can learn to interpret. The final input to the Transformer is then:</p>
-                    
+
                     $$\text{Input} = \text{Embedding} + \text{PositionalEncoding}$$
-                    
+
                     <h2>Self-Attention: The Heart of Transformers</h2>
                     <p>Self-attention is the key innovation that makes Transformers so powerful. It allows each token in a sequence to attend to all other tokens, creating a rich contextual representation. Let's break down how it works, using the query, key, and value concept.</p>
-                    
+
                     <h3>The Query, Key, Value Paradigm</h3>
                     <p>In self-attention, each token generates three vectors:</p>
                     <ul>
@@ -210,80 +195,80 @@ MathJax.Hub.Config({
                         <li><strong>Key (K)</strong>: What the token offers as a match for queries</li>
                         <li><strong>Value (V)</strong>: The actual information the token provides</li>
                     </ul>
-                    
+
                     <p>These vectors are created by multiplying the input embeddings by three different learned weight matrices:</p>
-                    
+
                     $$Q = X W^Q$$
                     $$K = X W^K$$
                     $$V = X W^V$$
-                    
+
                     <p>Where $X$ is the input embeddings matrix, and $W^Q, W^K, W^V \in \mathbb{R}^{d_m \times d_k}$ are the weight matrices ($d_k$ is typically $d_m/h$ where $h$ is the number of attention heads).</p>
-                    
-                    <h3>The YouTube Search Analogy</h3>
+
+                    <h3>The Youtube Analogy</h3>
                     <p>To understand self-attention intuitively, think about how YouTube's search function works:</p>
-                    
+
                     <p>When you search for a video on YouTube (your query), the platform compares your search terms against the metadata of all videos in its database (the keys). Videos with metadata closely matching your search query receive higher relevance scores. YouTube then returns the actual videos (the values) ranked by these relevance scores.</p>
-                    
+
                     <p>In self-attention, each token (word) in your sequence is doing something similar:</p>
                     <ol>
                         <li>It creates a query representing what contextual information it's looking for</li>
                         <li>It compares this query against the keys of all tokens (including itself)</li>
                         <li>It collects information from other tokens' values, weighted by how well their keys matched its query</li>
                     </ol>
-                    
+
                     <p>This process allows each token to gather relevant information from the entire sequence, regardless of distance.</p>
-                    
+
                     <h3>The Mathematics of Self-Attention</h3>
                     <p>Formally, self-attention is computed as:</p>
-                    
+
                     $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
-                    
+
                     <p>Breaking this down step by step:</p>
-                    
+
                     <ol>
                         <li>Compute the dot product of query and key: $QK^T$</li>
                         <li>Scale by $\sqrt{d_k}$: $\frac{QK^T}{\sqrt{d_k}}$</li>
                         <li>Apply softmax to get attention weights: $\text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)$</li>
                         <li>Multiply by values to get weighted sum: $\text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$</li>
                     </ol>
-                    
+
                     <h3>The Connection to Cosine Similarity</h3>
                     <p>The dot product $QK^T$ is key to understanding self-attention. For two vectors $\vec{q}$ and $\vec{k}$, their dot product is:</p>
-                    
+
                     $$\vec{q} \cdot \vec{k} = |\vec{q}||\vec{k}|\cos(\theta)$$
-                    
+
                     <p>Where $\theta$ is the angle between them. This is closely related to cosine similarity, which is defined as:</p>
-                    
+
                     $$\text{cosine similarity}(\vec{q}, \vec{k}) = \frac{\vec{q} \cdot \vec{k}}{|\vec{q}||\vec{k}|} = \cos(\theta)$$
-                    
+
                     <p>The dot product in self-attention essentially measures how aligned or similar the query and key vectors are. The higher the dot product, the more attention one token pays to another.</p>
-                    
+
                     <p>But why do we scale by $\sqrt{d_k}$? As the dimension $d_k$ gets larger, the dot products grow in magnitude, potentially pushing the softmax function into regions with extremely small gradients. By scaling with $\sqrt{d_k}$, we keep the values in a reasonable range, ensuring stable gradients during training.</p>
-                    
+
                     <h3>Multi-Head Attention: Attending from Multiple Perspectives</h3>
                     <p>Rather than performing a single attention operation, Transformers use multi-head attention, which allows the model to jointly attend to information from different representation subspaces. Each head has its own set of learned query, key, and value projections:</p>
-                    
+
                     $$\text{head}_i = \text{Attention}(XW_i^Q, XW_i^K, XW_i^V)$$
-                    
+
                     <p>The outputs from all heads are concatenated and linearly transformed:</p>
-                    
+
                     $$\text{MultiHead}(X) = \text{Concat}(\text{head}_1, \text{head}_2, ..., \text{head}_h)W^O$$
-                    
+
                     <p>Where $W^O$ is another learned parameter matrix. With $h$ heads, typically each head's dimension $d_k = d_m / h$, so the total computation remains roughly constant.</p>
-                    
+
                     <h2>Why Self-Attention Works So Well</h2>
                     <p>Self-attention has several key advantages that contribute to its effectiveness:</p>
-                    
+
                     <ol>
                         <li><strong>Global Context</strong>: Each token can directly attend to every other token, regardless of their distance in the sequence. This is a stark contrast to RNNs, where information must flow sequentially through all intermediate states.</li>
                         <li><strong>Parallelization</strong>: All attention calculations can happen simultaneously, allowing for efficient processing on modern hardware.</li>
                         <li><strong>Interpretability</strong>: The attention weights can be visualized to show which tokens are attending to which others, providing insights into how the model is processing the data.</li>
                         <li><strong>Flexibility</strong>: Self-attention can be applied to various data types beyond just text, including images, audio, and more.</li>
                     </ol>
-                    
+
                     <h2>Beyond the Basics: The Complete Transformer</h2>
                     <p>While self-attention is the core innovation, a complete Transformer consists of several other components:</p>
-                    
+
                     <ul>
                         <li><strong>Feed-Forward Networks</strong>: Each attention layer is followed by a position-wise feed-forward network, applying the same transformation to each position independently:
                         $$\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$$</li>
@@ -291,29 +276,25 @@ MathJax.Hub.Config({
                         <li><strong>Residual Connections</strong>: Around each sub-layer to help with gradient flow</li>
                         <li><strong>Encoder-Decoder Structure</strong>: For sequence-to-sequence tasks like translation</li>
                     </ul>
-                    
+
                     <h2>Conclusion</h2>
                     <p>Transformers have fundamentally changed how we approach sequence modeling tasks. By replacing recurrence with self-attention, they've enabled models to process longer sequences more efficiently while capturing richer contextual information.</p>
-                    
+
                     <p>The query-key-value paradigm, inspired by information retrieval systems like search engines, provides an elegant framework for contextual understanding. And the mathematics behind it—rooted in concepts like dot products and cosine similarity—gives us insight into why these models work so well.</p>
-                    
+
                     <p>As Transformers continue to evolve and find applications in diverse domains, understanding their core mechanisms becomes increasingly valuable for anyone working in artificial intelligence and machine learning.</p>
-                    
+
                     <div class="mt-5">
                         <h3>References</h3>
                         <ul>
-                            <li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention Is All You Need. <em>Advances in Neural Information Processing Systems</em>, 30.</li>
-                            <li>Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2018). BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. <em>arXiv preprint arXiv:1810.04805</em>.</li>
+                            <li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). <a href="https://arxiv.org/abs/1706.03762" target="_blank">Attention Is All You Need</a>. <em>Advances in Neural Information Processing Systems</em>, 30.</li>
                         </ul>
                     </div>
                 </div>
-                <!-- Article Content Ends -->
-            </article>
-            <!-- Article Ends -->
-        </div>
+                </article>
+            </div>
     </div>
 </section>
-<!-- Template JS Files -->
 <script src="js/jquery-3.5.0.min.js"></script>
 <script src="js/styleswitcher.js"></script>
 <script src="js/preloader.min.js"></script>
