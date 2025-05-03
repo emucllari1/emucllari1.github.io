@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
     <meta charset="utf-8">
-    <title>Edison's Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edison's Blog - Optimal Transport</title> <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Template Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
 
-    <!-- Template CSS Files -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/preloader.min.css" rel="stylesheet">
     <link href="css/circle.css" rel="stylesheet">
@@ -21,10 +17,8 @@
     <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- CSS Skin File -->
     <link href="css/skins/green.css" rel="stylesheet">
 
-    <!-- Live Style Switcher - demo only -->
     <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
     <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
     <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
@@ -37,23 +31,27 @@
     <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
     <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
 
-    <!-- Modernizr JS File -->
     <script src="js/modernizr.custom.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
-MathJax.Hub.Config({
- extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
- jax: ["input/TeX", "output/HTML-CSS"],
- tex2jax: {
-     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-     displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
- },
- "HTML-CSS": { availableFonts: ["TeX"] }
-});
-</script>
-</head>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true, // Allows \$ to be treated as text
+        tags: 'ams' // Enable automatic equation numbering like (1), (2), ...
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    </head>
 
 <body class="blog-post light">
-<!-- Live Style Switcher Starts - demo only -->
 <div id="switcher" class="">
     <div class="content-switcher">
         <h4>STYLE SWITCHER</h4>
@@ -94,10 +92,7 @@ MathJax.Hub.Config({
     </div>
 </div>
 <div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
-<!-- Live Style Switcher Ends - demo only -->
-<!-- Header Starts -->
 <header class="header" id="navbar-collapse-toggle">
-    <!-- Fixed Navigation Starts -->
     <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
         <li class="icon-box">
             <i class="fa fa-home"></i>
@@ -130,8 +125,6 @@ MathJax.Hub.Config({
             </a>
         </li>
     </ul>
-    <!-- Fixed Navigation Ends -->
-    <!-- Mobile Menu Starts -->
     <nav role="navigation" class="d-block d-lg-none">
         <div id="menuToggle">
             <input type="checkbox" />
@@ -147,42 +140,105 @@ MathJax.Hub.Config({
             </ul>
         </div>
     </nav>
-    <!-- Mobile Menu Ends -->
-</header>
-<!-- Header Ends -->
-<!-- Page Title Starts -->
+    </header>
 <section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
     <h1>my <span>blog</span></h1>
     <span class="title-bg">posts</span>
 </section>
-<!-- Page Title Ends -->
-<!-- Main Content Starts -->
 <section class="main-content revealator-slideup revealator-once revealator-delay1">
     <div class="container">
         <div class="row">
-            <!-- Article Starts -->
             <article class="col-12">
-                <!-- Meta Starts -->
                 <div class="meta open-sans-font">
                     <span><i class="fa fa-user"></i> Edison Mucllari</span>
-                    <span class="date"><i class="fa fa-calendar"></i> 2021</span>
-                    <span><i class="fa fa-tags"></i> optimal transport, monge, kantarovich</span>
-                </div>
-                <!-- Meta Ends -->
-                <!-- Article Content Starts -->
-                <h1 class="text-uppercase text-capitalize">Optimal Transport, Monge Problem and Kantarovich Formulation</h1>
+                    <span class="date"><i class="fa fa-calendar"></i>2025</span> <span><i class="fa fa-tags"></i> optimal transport, monge, kantorovich, mathematics</span> </div>
+                <h1 class="text-uppercase text-capitalize">Optimal Transport: From Monge to Kantorovich</h1>
                 <img src="img/blog/blog-post-1.jpg" class="img-fluid" alt="Blog image"/>
                 <div class="blog-excerpt open-sans-font pb-5">
-                    <p>In mathematics and economics, transportation theory or transport theory is a name given to the study of optimal transportation and allocation of resources. The problem was formalized by the French mathematician Gaspard Monge in 1781....Coming soon with new material.</p>
-                    $\frac{1}{2}$
+
+                    <p>Optimal Transport (OT) is a fascinating field of mathematics dealing with the optimal way to move mass from one configuration to another, minimizing a certain transportation cost. Its origins date back to the late 18th century, but its modern formulation and applications span across economics, statistics, computer graphics, machine learning, and more. In this post, we'll explore the foundational problems posed by Gaspard Monge and Leonid Kantorovich.</p>
+
+                    <h2>A Brief History</h2>
+                    <p>The story begins in 1781 with the French mathematician and engineer **Gaspard Monge**. He was tasked with a practical problem: finding the most cost-effective way to move soil from embankments (déblais) to fill excavations (remblais) for fortifications. He formalized this as finding a *transport map* $T$ that moves mass distributed according to a measure $\mu$ to match a target distribution $\nu$, while minimizing the total work done, where work is defined by a cost function $c(x, y)$ representing the cost of moving a unit of mass from location $x$ to location $y$.</p>
+                    <p>While Monge's formulation was intuitive, it proved mathematically challenging and didn't always guarantee a solution. It took over 150 years for a major breakthrough. In the 1940s, the Soviet mathematician and economist **Leonid Kantorovich** revisited the problem from the perspective of resource allocation. He proposed a *relaxed formulation* that considered not just deterministic maps but *probabilistic couplings* or *transport plans*. This relaxation not only guaranteed the existence of a solution under general conditions but also opened the door to linear programming techniques and duality theory. For his contributions to the theory of optimal allocation of resources, Kantorovich was awarded the Nobel Prize in Economic Sciences in 1975 (shared with Tjalling Koopmans).</p>
+
+                    <h2>Mathematical Setup</h2>
+                    <p>Let's formalize the problem. We consider two Polish spaces (complete separable metric spaces) $\mathcal{X}$ and $\mathcal{Y}$. Let $\mu \in \mathcal{P}(\mathcal{X})$ and $\nu \in \mathcal{P}(\mathcal{Y})$ be two Borel probability measures on these spaces, representing the initial and target distributions of mass, respectively. We assume $\mu(\mathcal{X}) = \nu(\mathcal{Y}) = 1$.</p>
+                    <p>We also need a **cost function** $c: \mathcal{X} \times \mathcal{Y} \to [0, \infty]$, which is assumed to be measurable (and often lower semi-continuous). This function $c(x, y)$ represents the cost of moving one unit of mass from point $x \in \mathcal{X}$ to point $y \in \mathcal{Y}$. A common choice is the squared Euclidean distance $c(x, y) = \|x - y\|^2$ when $\mathcal{X} = \mathcal{Y} = \mathbb{R}^d$.</p>
+
+                    <h2>The Monge Problem</h2>
+                    <p>Monge sought a deterministic **transport map** $T: \mathcal{X} \to \mathcal{Y}$ such that it transforms the measure $\mu$ into the measure $\nu$. This transformation property is called the **pushforward condition**. </p>
+
+                    <p><strong>Definition (Pushforward Measure):</strong> A map $T: \mathcal{X} \to \mathcal{Y}$ pushes $\mu$ forward to $\nu$, denoted $T_\# \mu = \nu$, if for every measurable set $B \subseteq \mathcal{Y}$, we have:</p>
+                    $$ \nu(B) = \mu(T^{-1}(B)) = \mu(\{x \in \mathcal{X} \mid T(x) \in B\}) $$
+                    <p>The goal of the Monge problem is to find a map $T$ satisfying the pushforward condition $T_\# \mu = \nu$ that minimizes the total transportation cost:</p>
+                    $$ \mathcal{C}_M(T) = \int_{\mathcal{X}} c(x, T(x)) \, d\mu(x) \label{eq:MongeCost} \tag{1} $$
+                    <p>The Monge problem is then:</p>
+                    $$ \inf_{T: T_\# \mu = \nu} \int_{\mathcal{X}} c(x, T(x)) \, d\mu(x) \label{eq:MongeProblem} \tag{2} $$
+
+                    <p>However, the Monge problem has limitations:</p>
+                    <ul>
+                        <li>If $\mu$ assigns positive mass to a single point $x_0$ (i.e., $\mu(\{x_0\}) > 0$), while $\nu$ is diffuse (e.g., absolutely continuous w.r.t. Lebesgue measure), no map $T$ can satisfy $T_\# \mu = \nu$. The mass at $x_0$ must be mapped to a single point $T(x_0)$, but it needs to be spread out according to $\nu$.</li>
+                        <li>Even if $\mu$ is diffuse, a solution might not exist. Consider $\mu = \frac{1}{2}\delta_{-1} + \frac{1}{2}\delta_{1}$ and $\nu = \delta_0$ in $\mathbb{R}$. No single map $T$ can transport both masses at $-1$ and $1$ to $0$. A map must send each point $x$ to a single $T(x)$.</li>
+                    </ul>
+
+                    <h2>The Kantorovich Relaxation</h2>
+                    <p>Kantorovich proposed looking for a **transport plan** instead of a map. A transport plan is a probability measure $\gamma$ on the product space $\mathcal{X} \times \mathcal{Y}$. Intuitively, $\gamma(A \times B)$ represents the amount of mass transported from a set $A \subseteq \mathcal{X}$ to a set $B \subseteq \mathcal{Y}$.</p>
+
+                    <p><strong>Definition (Admissible Transport Plan):</strong> A probability measure $\gamma \in \mathcal{P}(\mathcal{X} \times \mathcal{Y})$ is called an admissible transport plan (or coupling) between $\mu$ and $\nu$ if its marginals are $\mu$ and $\nu$. That is, for all measurable sets $A \subseteq \mathcal{X}$ and $B \subseteq \mathcal{Y}$:</p>
+                    <ul>
+                        <li>$\gamma(A \times \mathcal{Y}) = \mu(A)$ (First marginal is $\mu$)</li>
+                        <li>$\gamma(\mathcal{X} \times B) = \nu(B)$ (Second marginal is $\nu$)</li>
+                    </ul>
+                    <p>Let $\Pi(\mu, \nu)$ denote the set of all admissible transport plans between $\mu$ and $\nu$. Note that $\Pi(\mu, \nu)$ is never empty (e.g., the product measure $\mu \otimes \nu$ belongs to it, although it usually doesn't have the correct marginals unless $\mu, \nu$ are trivial; a simple valid plan is always $\mu \otimes \nu$ if we don't require the probability constraint, but for probability measures, the existence proof is needed). A correct trivial plan is $\gamma_0 = \mu \otimes \nu$? No, that does not satisfy the marginal constraint in general. The set $\Pi(\mu, \nu)$ is guaranteed to be non-empty, a proof exists but is slightly non-trivial.</p>
+
+                    <p>The Kantorovich problem is to find a plan $\gamma \in \Pi(\mu, \nu)$ that minimizes the total transportation cost:</p>
+                    $$ \mathcal{C}_K(\gamma) = \int_{\mathcal{X} \times \mathcal{Y}} c(x, y) \, d\gamma(x, y) \label{eq:KantorovichCost} \tag{3} $$
+                    <p>The Kantorovich problem formulation is:</p>
+                    $$ \inf_{\gamma \in \Pi(\mu, \nu)} \int_{\mathcal{X} \times \mathcal{Y}} c(x, y) \, d\gamma(x, y) \label{eq:KantorovichProblem} \tag{4} $$
+
+                    <p>This is a relaxation because any Monge map $T$ induces a transport plan $\gamma_T = (id \times T)_\# \mu$, defined by $\gamma_T(A \times B) = \mu(A \cap T^{-1}(B))$. This plan $\gamma_T$ is concentrated on the graph of $T$, $\{(x, T(x)) \mid x \in \mathcal{X}\}$. If $\gamma_T \in \Pi(\mu, \nu)$ (which holds if $T_\# \mu = \nu$), then $\mathcal{C}_K(\gamma_T) = \mathcal{C}_M(T)$. Therefore, the infimum in the Kantorovich problem is always less than or equal to the infimum in the Monge problem.</p>
+                    <p>Crucially, the Kantorovich formulation allows for mass splitting: a unit of mass at $x$ can be distributed among several points $y$ according to the conditional probability measure $d\gamma(y|x)$.</p>
+
+                    <h2>Fundamental Theorems</h2>
+                    <p>The Kantorovich formulation benefits from being a linear programming problem (albeit infinite-dimensional), which allows for powerful theoretical results.</p>
+
+                    <p><strong>Theorem (Kantorovich Existence):</strong> Assume $\mathcal{X}$ and $\mathcal{Y}$ are Polish spaces and the cost function $c: \mathcal{X} \times \mathcal{Y} \to [0, \infty]$ is lower semi-continuous. Then the set $\Pi(\mu, \nu)$ is non-empty and compact for the weak topology of measures. Furthermore, there exists at least one optimal transport plan $\gamma^* \in \Pi(\mu, \nu)$ that solves the Kantorovich problem \eqref{eq:KantorovichProblem}.</p>
+                    <p><em>Proof sketch:</em> The set $\Pi(\mu, \nu)$ can be shown to be tight (hence relatively compact by Prokhorov's theorem) and closed under weak convergence. Since $c$ is lower semi-continuous, the total cost functional $\mathcal{C}_K(\gamma)$ is lower semi-continuous with respect to the weak topology. By the direct method of the calculus of variations, a lower semi-continuous function achieves its minimum on a non-empty compact set. $\square$</p>
+
+                    <p><strong>Theorem (Kantorovich Duality):</strong> Let $c$ be lower semi-continuous and assume suitable integrability conditions (e.g., $c$ is continuous and bounded, or $\int c \, d(\mu \otimes \nu) < \infty$). Then strong duality holds: </p>
+                    $$ \inf_{\gamma \in \Pi(\mu, \nu)} \int_{\mathcal{X} \times \mathcal{Y}} c(x, y) \, d\gamma(x, y) = \sup_{(\phi, \psi) \in L^1(\mu) \times L^1(\nu)} \left\{ \int_{\mathcal{X}} \phi(x) \, d\mu(x) + \int_{\mathcal{Y}} \psi(y) \, d\nu(y) \right\} $$
+                    <p>where the supremum is taken over all pairs of potentials $(\phi, \psi)$ such that $\phi(x) + \psi(y) \le c(x, y)$ for $\mu$-almost every $x$ and $\nu$-almost every $y$. The functions $\phi$ and $\psi$ are called Kantorovich potentials.</p>
+                    <p><em>Interpretation:</em> The dual problem can be seen as maximizing the total value extracted by setting prices $\phi(x)$ at the source and $\psi(y)$ at the destination, subject to the constraint that the combined price does not exceed the transport cost $c(x, y)$. At optimality, the value achieved equals the minimum transport cost.</p>
+
+                    <p><strong>Relation between Monge and Kantorovich Solutions:</strong> While Kantorovich guarantees existence, one might still prefer a deterministic Monge map. Under certain conditions, the optimal Kantorovich plan $\gamma^*$ is indeed induced by a Monge map $T^*$. A cornerstone result in this direction is Brenier's theorem:</p>
+
+                    <p><strong>Theorem (Brenier, 1991):</strong> Let $\mathcal{X} = \mathcal{Y} = \mathbb{R}^d$ and let the cost be the squared Euclidean distance $c(x, y) = \|x - y\|^2$. Assume $\mu$ is absolutely continuous with respect to the Lebesgue measure on $\mathbb{R}^d$. Then:</p>
+                    <ol>
+                        <li>There exists a unique optimal transport plan $\gamma^*$ for the Kantorovich problem \eqref{eq:KantorovichProblem}.</li>
+                        <li>This unique plan is of the Monge form: $\gamma^* = (id \times T^*)_\# \mu$ for some map $T^*$.</li>
+                        <li>The map $T^*$ is the gradient of a convex function $\phi$: $\mathbb{R}^d \to \mathbb{R}$, i.e., $T^*(x) = \nabla \phi(x)$ for $\mu$-almost every $x$.</li>
+                    </ol>
+                    <p>This theorem connects Optimal Transport to convex analysis and PDEs (specifically the Monge-Ampère equation).</p>
+
+                    <h2>Conclusion</h2>
+                    <p>Optimal Transport theory provides a powerful framework for comparing probability distributions and finding efficient ways to transform one into another. Starting from Monge's intuitive but limited formulation, Kantorovich's relaxation broadened the scope, guaranteed existence, and unlocked connections to linear programming and duality. Modern OT, particularly fueled by results like Brenier's theorem and computational advances, finds applications in diverse fields, demonstrating the enduring power of this elegant mathematical concept.</p>
+
+                    <div class="mt-5">
+                        <h3>Further Reading (Examples)</h3>
+                        <ul>
+                            <li>Villani, C. (2003). <em>Topics in Optimal Transportation</em>. Graduate Studies in Mathematics, AMS.</li>
+                            <li>Villani, C. (2009). <em>Optimal Transport: Old and New</em>. Grundlehren der mathematischen Wissenschaften, Springer.</li>
+                            <li>Peyré, G., & Cuturi, M. (2019). <a href="https://arxiv.org/abs/1803.00567" target="_blank">Computational Optimal Transport</a>. <em>Foundations and Trends® in Machine Learning</em>, 11(5–6), 355-607.</li>
+                            <li>Santambrogio, F. (2015). <em>Optimal Transport for Applied Mathematicians</em>. Progress in Nonlinear Differential Equations and Their Applications, Birkhäuser.</li>
+                        </ul>
+                    </div>
+
                 </div>
-                <!-- Article Content Ends -->
-            </article>
-            <!-- Article Ends -->
-        </div>
+                </article>
+            </div>
     </div>
 </section>
-<!-- Template JS Files -->
 <script src="js/jquery-3.5.0.min.js"></script>
 <script src="js/styleswitcher.js"></script>
 <script src="js/preloader.min.js"></script>
@@ -197,6 +253,5 @@ MathJax.Hub.Config({
 <script src="js/custom.js"></script>
 
 </body>
-
 
 </html>
