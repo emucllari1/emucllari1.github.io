@@ -37,19 +37,103 @@
     <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
     <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
 
-    <!-- Modernizr JS File -->
     <script src="js/modernizr.custom.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
-MathJax.Hub.Config({
- extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
- jax: ["input/TeX", "output/HTML-CSS"],
- tex2jax: {
-     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-     displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
- },
- "HTML-CSS": { availableFonts: ["TeX"] }
-});
-</script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true // Allows \$ to be treated as text
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .gan-highlight {
+        background: #e3f2fd;
+        border-left: 6px solid #1976d2;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .gan-formula {
+        background: #fffde7;
+        border-left: 6px solid #fbc02d;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+        font-size: 1.09em;
+    }
+    .gan-tip {
+        background: #e8f5e9;
+        border-left: 6px solid #388e3c;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .gan-warning {
+        background: #fff3e0;
+        border-left: 6px solid #f57c00;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .gan-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .gan-table th, .gan-table td {
+        border: 1px solid #bdbdbd;
+        padding: 10px;
+        text-align: left;
+    }
+    .gan-table th {
+        background: #f0f4c3;
+    }
+    .gan-table tr:nth-child(even) {
+        background: #f9fbe7;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
 <body class="blog-post light">
@@ -166,15 +250,385 @@ MathJax.Hub.Config({
                 <div class="meta open-sans-font">
                     <span><i class="fa fa-user"></i> Edison Mucllari</span>
                     <span class="date"><i class="fa fa-calendar"></i> 2021</span>
-                    <span><i class="fa fa-tags"></i> optimal transport, wasserstein GAN</span>
+                    <span><i class="fa fa-tags"></i> wasserstein GAN</span>
                 </div>
                 <!-- Meta Ends -->
                 <!-- Article Content Starts -->
                 <h1 class="text-uppercase text-capitalize">Wasserstein Generative Adversarial Network</h1>
                 <img src="img/blog/blog-post-4.jpg" class="img-fluid" alt="Blog image"/>
                 <div class="blog-excerpt open-sans-font pb-5">
-                    <p>The Wasserstein Generative Adversarial Network, or Wasserstein GAN, is an extension to the generative adversarial network that both improves the stability when training the model and provides a loss function that correlates with the quality of generated images......Coming soon with new material.</p>
-                    $\frac{1}{2}$
+                    
+
+
+
+
+
+
+
+
+<h1>Wasserstein Generative Adversarial Networks (WGANs)</h1>
+
+<div class="gan-highlight">
+    <b>What is a Wasserstein GAN?</b><br>
+    A <b>Wasserstein GAN (WGAN)</b> is an improvement to the original GAN that uses the Wasserstein distance (also called Earth Mover's distance) instead of Jensen-Shannon divergence to measure the difference between the real and generated data distributions. This leads to more stable training and better quality results.
+</div>
+
+<h2>Why Traditional GANs Have Problems</h2>
+
+<div class="gan-warning">
+    <b>Issues with Standard GANs:</b>
+    <ul>
+        <li><b>Mode collapse:</b> The generator produces a limited variety of samples</li>
+        <li><b>Vanishing gradients:</b> When the discriminator becomes too good, the generator stops learning</li>
+        <li><b>Training instability:</b> Oscillations instead of convergence</li>
+        <li><b>Lack of correlation:</b> Loss doesn't correlate well with output quality</li>
+    </ul>
+</div>
+
+<h2>The Limitations of JS Divergence</h2>
+
+<div class="gan-formula">
+    <b>The Problem with Jensen-Shannon Divergence:</b><br>
+    When two distributions have non-overlapping supports (which happens early in GAN training), the JS divergence returns a constant value:<br><br>
+    
+    $$
+    \text{JSD}(P_r || P_g) = \log 2
+    $$
+    
+    <br>
+    This leads to uninformative gradients for the generator, causing training difficulties.
+</div>
+
+<h2>Optimal Transport and Wasserstein Distance</h2>
+
+<div class="gan-highlight">
+    <b>What is Optimal Transport?</b><br>
+    Optimal Transport is a mathematical framework for comparing probability distributions by finding the most efficient way to transform one distribution into another, minimizing a "transportation cost."
+</div>
+
+<div class="gan-formula">
+    <b>The Wasserstein-1 Distance (Earth Mover's Distance):</b><br>
+    
+    $$
+    W_1(P_r, P_g) = \inf_{\gamma \in \Pi(P_r, P_g)} \mathbb{E}_{(x,y) \sim \gamma} \left[ \|x - y\| \right]
+    $$
+    
+    <br>
+    Where:
+    <ul>
+        <li>$\Pi(P_r, P_g)$ is the set of all joint distributions $\gamma(x,y)$ whose marginals are $P_r$ and $P_g$</li>
+        <li>$\|x - y\|$ represents the cost of moving a unit of mass from $x$ to $y$</li>
+    </ul>
+    <b>This can be interpreted as finding the optimal way to "move earth" from one distribution to another with minimal effort.</b>
+</div>
+
+<div class="gan-tip">
+    <b>Why Wasserstein is Better:</b>
+    <ul>
+        <li>Provides meaningful gradients even when distributions don't overlap</li>
+        <li>Gives a continuous measure of distance between distributions</li>
+        <li>The Wasserstein loss correlates well with generated sample quality</li>
+    </ul>
+</div>
+
+<h2>Kantorovich-Rubinstein Duality</h2>
+
+<div class="gan-formula">
+    <b>The Dual Form of the Wasserstein Distance:</b><br>
+    The Wasserstein distance can be rewritten using Kantorovich-Rubinstein duality as:
+    
+    $$
+    W_1(P_r, P_g) = \sup_{f \in \text{Lip}_1} \mathbb{E}_{x \sim P_r}[f(x)] - \mathbb{E}_{x \sim P_g}[f(x)]
+    $$
+    
+    <br>
+    Where $\text{Lip}_1$ is the set of all 1-Lipschitz functions (functions where $|f(x) - f(y)| \leq |x - y|$ for all $x, y$).
+</div>
+
+<div class="gan-formula">
+<b>Proof of Kantorovich-Rubinstein Duality</b><br>
+Let's show the equivalence between the primal form:
+$$
+W_1(P_r, P_g) = \inf_{\gamma \in \Pi(P_r, P_g)} \mathbb{E}_{(x,y) \sim \gamma} \left[ \|x - y\| \right]
+$$
+
+And the dual form:
+$$
+W_1(P_r, P_g) = \sup_{f \in \text{Lip}_1} \mathbb{E}_{x \sim P_r}[f(x)] - \mathbb{E}_{x \sim P_g}[f(x)]
+$$
+
+The proof relies on linear programming duality. The primal problem can be formulated as a linear program over coupling measures, and the dual involves optimizing over the space of 1-Lipschitz functions.
+
+For any coupling $\gamma \in \Pi(P_r, P_g)$ and any 1-Lipschitz function $f$:
+$$
+\mathbb{E}_{x \sim P_r}[f(x)] - \mathbb{E}_{x \sim P_g}[f(x)] = \int f(x)dP_r(x) - \int f(y)dP_g(y)
+$$
+
+Since $\gamma$ has marginals $P_r$ and $P_g$:
+$$
+\int f(x)dP_r(x) - \int f(y)dP_g(y) = \iint f(x)d\gamma(x,y) - \iint f(y)d\gamma(x,y)
+$$
+$$
+= \iint [f(x) - f(y)]d\gamma(x,y)
+$$
+
+Since $f$ is 1-Lipschitz, $f(x) - f(y) \leq \|x - y\|$, so:
+$$
+\iint [f(x) - f(y)]d\gamma(x,y) \leq \iint \|x - y\|d\gamma(x,y) = \mathbb{E}_{(x,y) \sim \gamma}[\|x - y\|]
+$$
+
+This shows that the dual objective is bounded by the primal objective. The equality can be proved by carefully constructing optimal solutions.
+</div>
+
+<h2>From Theory to Practice: WGAN Architecture</h2>
+
+<table class="gan-table">
+    <tr>
+        <th>Standard GAN</th>
+        <th>Wasserstein GAN</th>
+    </tr>
+    <tr>
+        <td>Discriminator outputs probabilities (0-1)</td>
+        <td>Critic outputs real numbers (unbounded)</td>
+    </tr>
+    <tr>
+        <td>Uses sigmoid in final layer</td>
+        <td>No sigmoid in final layer</td>
+    </tr>
+    <tr>
+        <td>Log loss for training</td>
+        <td>Wasserstein loss (difference of expectations)</td>
+    </tr>
+    <tr>
+        <td>No explicit constraint on discriminator</td>
+        <td>Weight clipping or gradient penalty for Lipschitz constraint</td>
+    </tr>
+</table>
+
+<div class="gan-formula">
+    <b>The WGAN Objective Function:</b><br>
+    
+    $$
+    \min_G \max_{D \in \mathcal{D}} \mathbb{E}_{x \sim P_r}[D(x)] - \mathbb{E}_{z \sim p(z)}[D(G(z))]
+    $$
+    
+    <br>
+    Where:
+    <ul>
+        <li>$D$ is the critic (renamed from discriminator) constrained to be 1-Lipschitz</li>
+        <li>$G$ is the generator</li>
+        <li>$z$ is random noise</li>
+        <li>$\mathcal{D}$ is the set of 1-Lipschitz functions</li>
+    </ul>
+</div>
+
+<h2>Enforcing the Lipschitz Constraint</h2>
+
+<div class="gan-warning">
+    <b>Two Main Approaches:</b>
+    <ol>
+        <li><b>Weight Clipping (Original WGAN):</b> Clip weights to a small range like [-0.01, 0.01]</li>
+        <li><b>Gradient Penalty (WGAN-GP):</b> Add a penalty term to enforce gradient norm of 1</li>
+    </ol>
+</div>
+
+<div class="gan-formula">
+    <b>WGAN-GP Objective:</b><br>
+    
+    $$
+    L = \mathbb{E}_{\tilde{x} \sim P_g}[D(\tilde{x})] - \mathbb{E}_{x \sim P_r}[D(x)] + \lambda \mathbb{E}_{\hat{x} \sim P_{\hat{x}}}[(||\nabla_{\hat{x}} D(\hat{x})||_2 - 1)^2]
+    $$
+    
+    <br>
+    Where:
+    <ul>
+        <li>$\hat{x}$ are points sampled uniformly along lines between pairs of points from $P_r$ and $P_g$</li>
+        <li>$\lambda$ is the gradient penalty coefficient (usually 10)</li>
+    </ul>
+</div>
+
+<div class="gan-formula">
+<b>Detailed Explanation of the Gradient Penalty</b><br>
+The 1-Lipschitz constraint requires that:
+$$
+|D(x) - D(y)| \leq |x - y| \quad \text{for all } x, y
+$$
+
+This is equivalent to requiring the gradient norm to be at most 1 everywhere:
+$$
+||\nabla_x D(x)||_2 \leq 1 \quad \text{for all } x
+$$
+
+The WGAN-GP enforces this by penalizing the model when the gradient norm deviates from 1 at randomly sampled points. The samples are taken along straight lines between real and generated data points:
+$$
+\hat{x} = t \cdot x + (1-t) \cdot \tilde{x}
+$$
+where $t \sim U[0,1]$, $x \sim P_r$, and $\tilde{x} \sim P_g$.
+
+The penalty term is:
+$$
+\lambda \cdot \mathbb{E}_{\hat{x}}[(||\nabla_{\hat{x}} D(\hat{x})||_2 - 1)^2]
+$$
+
+This penalty forces the gradient norm to be close to 1 along important regions of the data space, effectively enforcing the Lipschitz constraint without explicitly clipping weights.
+</div>
+
+<h2>The WGAN Training Algorithm</h2>
+
+<div class="gan-highlight">
+    <b>WGAN Training Loop:</b>
+    <ol>
+        <li>For each critic training step:
+            <ul>
+                <li>Sample real data batch $\{x^{(i)}\}_{i=1}^m$ from real data distribution $P_r$</li>
+                <li>Sample noise batch $\{z^{(i)}\}_{i=1}^m$ from noise distribution $p(z)$</li>
+                <li>Generate fake data $\{\tilde{x}^{(i)} = G(z^{(i)})\}_{i=1}^m$</li>
+                <li>Update critic by ascending its stochastic gradient:
+                    $$\nabla_{\theta_D} \frac{1}{m} \sum_{i=1}^m [D(x^{(i)}) - D(G(z^{(i)}))]$$</li>
+                <li>Apply weight clipping to critic parameters: $w \leftarrow \text{clip}(w, -c, c)$ (Original WGAN)</li>
+                <li>OR apply gradient penalty (WGAN-GP)</li>
+            </ul>
+        </li>
+        <li>For each generator training step:
+            <ul>
+                <li>Sample noise batch $\{z^{(i)}\}_{i=1}^m$ from noise distribution $p(z)$</li>
+                <li>Update generator by descending its stochastic gradient:
+                    $$\nabla_{\theta_G} \frac{1}{m} \sum_{i=1}^m [-D(G(z^{(i)}))]$$</li>
+            </ul>
+        </li>
+    </ol>
+</div>
+
+<div class="gan-tip">
+    <b>Key Implementation Details:</b>
+    <ul>
+        <li>Train the critic more frequently than the generator (often 5:1 ratio)</li>
+        <li>Use RMSProp or Adam with a low learning rate (e.g., 0.00005)</li>
+        <li>Avoid using batch normalization in the critic (can use layer normalization instead)</li>
+        <li>WGAN-GP tends to be more stable than the original weight clipping approach</li>
+    </ul>
+</div>
+
+<h2>WGAN Benefits and Applications</h2>
+
+<div class="gan-highlight">
+    <b>Advantages of WGANs:</b>
+    <ul>
+        <li><b>More stable training:</b> Less sensitive to architectural choices and hyperparameters</li>
+        <li><b>Meaningful loss:</b> The Wasserstein distance correlates well with generated sample quality</li>
+        <li><b>Reduced mode collapse:</b> Better coverage of the data distribution</li>
+        <li><b>Improved convergence:</b> Clearer signals when training is complete</li>
+    </ul>
+</div>
+
+<h2>Mathematical Comparison of Distance Metrics</h2>
+
+<div class="gan-formula">
+    <b>Comparing Different Probability Divergences/Distances:</b><br>
+    
+    <ul>
+        <li><b>KL Divergence:</b> $D_{KL}(P || Q) = \int P(x) \log \frac{P(x)}{Q(x)} dx$</li>
+        <li><b>JS Divergence:</b> $D_{JS}(P || Q) = \frac{1}{2} D_{KL}(P || M) + \frac{1}{2} D_{KL}(Q || M)$ where $M = \frac{1}{2}(P+Q)$</li>
+        <li><b>Wasserstein Distance:</b> $W_1(P, Q) = \inf_{\gamma \in \Pi(P, Q)} \mathbb{E}_{(x,y) \sim \gamma} \left[ \|x - y\| \right]$</li>
+    </ul>
+    
+    <b>Key Differences:</b>
+    <ul>
+        <li>KL and JS divergences are not well-defined when distributions don't overlap</li>
+        <li>Wasserstein distance gives meaningful values and gradients even for non-overlapping distributions</li>
+        <li>Wasserstein distance respects the underlying geometry of the space</li>
+    </ul>
+</div>
+
+<div class="gan-formula">
+<b>Visual Intuition: Why Wasserstein Works Better</b><br>
+
+Consider two 1D Gaussian distributions $P$ and $Q$ moving away from each other:
+
+When they have significant overlap:
+- KL: Defined, provides useful gradients
+- JS: Defined, provides useful gradients
+- W1: Defined, provides useful gradients
+
+As they move further apart with minimal overlap:
+- KL: Approaches infinity (extremely high gradients)
+- JS: Approaches $\log 2$ (vanishing gradients)
+- W1: Equals the distance between distributions (stable gradients)
+
+When they have no overlap:
+- KL: Infinite (undefined)
+- JS: Constant $\log 2$ (zero gradients)
+- W1: Exactly the distance between means (meaningful, useful gradients)
+
+This is why Wasserstein distance provides a more stable learning signal throughout the entire training process.
+</div>
+
+<h2>Advanced Topics: Extensions of WGAN</h2>
+
+<table class="gan-table">
+    <tr>
+        <th>Extension</th>
+        <th>Key Idea</th>
+        <th>Benefit</th>
+    </tr>
+    <tr>
+        <td>WGAN-GP</td>
+        <td>Gradient penalty instead of weight clipping</td>
+        <td>Better Lipschitz enforcement, more stable training</td>
+    </tr>
+    <tr>
+        <td>WGAN-LP</td>
+        <td>Gradient penalty only where gradient > 1</td>
+        <td>Less restrictive constraint, faster training</td>
+    </tr>
+    <tr>
+        <td>Spectral Normalization</td>
+        <td>Normalize weights to control Lipschitz constant</td>
+        <td>Efficient Lipschitz enforcement, stable training</td>
+    </tr>
+    <tr>
+        <td>WGAN-div</td>
+        <td>Alternative regularization of critic gradients</td>
+        <td>Improved sample quality and training stability</td>
+    </tr>
+</table>
+
+<h2>Practical Implementation Advice</h2>
+
+<div class="gan-tip">
+    <b>Tips for Implementing WGANs:</b>
+    <ul>
+        <li>Use the WGAN-GP variant for better stability</li>
+        <li>Choose a gradient penalty coefficient of 10</li>
+        <li>Remove batch normalization from the critic (use layer norm or instance norm)</li>
+        <li>Train the critic 5 times for each generator update</li>
+        <li>Use the Adam optimizer with a learning rate of 0.0001 and betas=(0.5, 0.9)</li>
+        <li>Monitor the Wasserstein estimate (critic loss) to gauge training progress</li>
+    </ul>
+</div>
+
+<h2>References</h2>
+<ul>
+    <li>
+        Arjovsky, M., Chintala, S., & Bottou, L. (2017). <b>Wasserstein Generative Adversarial Networks</b>. <i>International Conference on Machine Learning (ICML)</i>.
+    </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
                 <!-- Article Content Ends -->
             </article>
