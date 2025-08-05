@@ -215,15 +215,16 @@
                 <!-- Meta Starts -->
                 <div class="meta open-sans-font">
                     <span><i class="fa fa-user"></i> Edison Mucllari</span>
-                    <span class="date"><i class="fa fa-calendar"></i> 2024</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2025</span>
                     <span><i class="fa fa-tags"></i> causal inference, machine learning, causality, statistics</span>
                 </div>
                 <!-- Meta Ends -->
                 <!-- Article Content Starts -->
-                <h1 class="text-uppercase text-capitalize">A  Beginner's Guide to Causal Inference in Machine Learning: The "Why" Beyond the "What"</h1>
+                <h1 class="text-uppercase text-capitalize">A Beginner's Guide to Causal Inference in Machine Learning</h1>
+                <img src="img/blog/causal_inf.png" class="img-fluid" alt="Blog image"/>
                 <div class="blog-excerpt open-sans-font pb-5">
                     
-<!-- <h1>A Beginner's Guide to Causal Inference in Machine Learning: The "Why" Beyond the "What"</h1> -->
+<h1>A Beginner's Guide to Causal Inference in Machine Learning: The "Why" Beyond the "What"</h1>
 
 <div class="cnn-highlight">
     <b>What is Causal Inference?</b><br>
@@ -234,7 +235,7 @@
 
 <div class="cnn-warning">
     <b>The Ice Cream and Shark Attacks Example</b><br>
-    Imagine discovering that ice cream sales are highly correlated with shark attacks. A simple ML model might conclude that to reduce shark attacks, we should ban ice cream. But the real cause is a <b>confounding variable</b>: weather. When it's hot, more people buy ice cream AND more people go swimming, leading to more shark encounters. This is the classic "correlation does not imply causation" problem, and it's a major limitation of many machine learning models. They are great at finding patterns, but they don't understand the "why" behind them.
+    Imagine discovering that ice cream sales are highly correlated with shark attacks. A simple ML model might conclude that to reduce shark attacks, we should ban ice cream. But the real cause is a <b>confounding variable</b>: weather. When it's hot, more people buy ice cream AND more people go swimming, leading to more shark encounters.
 </div>
 
 <table class="cnn-table">
@@ -426,26 +427,54 @@
 <h2>Causal Machine Learning: Modern Approaches</h2>
 
 <div class="cnn-highlight">
-    <b>Double Machine Learning (DML)</b><br>
-    Combines machine learning for nuisance parameter estimation with robust causal inference. The key insight is to use ML to estimate nuisance functions (like propensity scores and outcome models) while maintaining valid statistical inference for the causal parameter of interest.
+    <b>T-Learner: The Two-Model Approach</b><br>
+    The simplest causal ML approach uses <b>two separate machine learning models</b>:
+    <ul>
+        <li><b>Model 1:</b> Train on data where treatment = 1 (treated group)</li>
+        <li><b>Model 2:</b> Train on data where treatment = 0 (control group)</li>
+    </ul>
+    For any new individual, predict outcomes from both models and take the difference to estimate the treatment effect.
 </div>
 
 <div class="cnn-formula">
-    <b>DML for Average Treatment Effect</b><br>
-    The DML estimator for ATE involves:
-    <br><br>
-    1. Split data into folds
-    <br>
-    2. For each fold, estimate nuisance functions on other folds:
+    <b>T-Learner Step-by-Step</b><br>
+    1. <b>Split your data:</b>
     <ul>
-        <li>$\hat{m}_0(x)$: Expected outcome under control</li>
-        <li>$\hat{e}(x)$: Propensity score</li>
+        <li>$D_1 = \{(x_i, y_i) : t_i = 1\}$ (treated individuals)</li>
+        <li>$D_0 = \{(x_i, y_i) : t_i = 0\}$ (control individuals)</li>
     </ul>
     <br>
-    3. Compute the doubly robust score:
-    $$
-    \psi(W; \theta, \eta) = \frac{T(Y - \hat{m}_1(X))}{\hat{e}(X)} - \frac{(1-T)(Y - \hat{m}_0(X))}{1 - \hat{e}(X)} + \hat{m}_1(X) - \hat{m}_0(X) - \theta
-    $$
+    2. <b>Train two models:</b>
+    <ul>
+        <li>$\hat{m}_1(x) = $ ML model trained on $D_1$</li>
+        <li>$\hat{m}_0(x) = $ ML model trained on $D_0$</li>
+    </ul>
+    <br>
+    3. <b>Estimate treatment effect for new individual:</b>
+    $
+    \hat{\tau}(x) = \hat{m}_1(x) - \hat{m}_0(x)
+    $
+</div>
+
+<div class="cnn-tip">
+    <b>Model Calibration Enhancement</b><br>
+    To improve the reliability of predictions, we can add a calibration step similar to temperature scaling:
+    <br><br>
+    1. Use validation data to learn a temperature parameter $T$
+    <br>
+    2. Apply calibration: $\text{Calibrated Output} = \text{Softmax}(\text{Model Output} / T)$
+    <br>
+    3. This helps ensure the models are well-calibrated and their difference is meaningful
+</div>
+
+<div class="cnn-highlight">
+    <b>Why This Works</b><br>
+    This approach directly estimates what we want to know: "What would happen to this person if they got the treatment vs. if they didn't?" By training separate models on each group, we can predict both potential outcomes and compute their difference.
+</div>
+
+<div class="cnn-warning">
+    <b>Advanced: Double Machine Learning (DML)</b><br>
+    For more robust results, DML adds statistical corrections to handle biases that can occur when using ML models for causal inference. It uses cross-fitting and doubly robust estimation to maintain valid statistical inference even when the ML models aren't perfect.
 </div>
 
 <h2>Real-World Applications</h2>
@@ -496,18 +525,6 @@
         <li><b>Multiple Methods:</b> Use different causal inference approaches and compare results</li>
         <li><b>Domain Expertise:</b> Collaborate with subject matter experts to build realistic causal models</li>
         <li><b>Transparency:</b> Clearly state assumptions and limitations of causal analyses</li>
-    </ul>
-</div>
-
-<h2>The Future of Causal ML</h2>
-
-<div class="cnn-highlight">
-    <b>Emerging Directions:</b>
-    <ul>
-        <li><b>Causal Discovery:</b> Automatically learning causal structures from data</li>
-        <li><b>Heterogeneous Treatment Effects:</b> Understanding how treatment effects vary across individuals</li>
-        <li><b>Causal Reinforcement Learning:</b> Making decisions based on causal understanding</li>
-        <li><b>Fairness and Causality:</b> Using causal reasoning to build fairer AI systems</li>
     </ul>
 </div>
 
