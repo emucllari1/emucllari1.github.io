@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS Skin File -->
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <!-- Live Style Switcher - demo only -->
+    <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
+    <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
+    <link rel="alternate stylesheet" type="text/css" title="blueviolet" href="css/skins/blueviolet.css" />
+    <link rel="alternate stylesheet" type="text/css" title="goldenrod" href="css/skins/goldenrod.css" />
+    <link rel="alternate stylesheet" type="text/css" title="magenta" href="css/skins/magenta.css" />
+    <link rel="alternate stylesheet" type="text/css" title="orange" href="css/skins/orange.css" />
+    <link rel="alternate stylesheet" type="text/css" title="purple" href="css/skins/purple.css" />
+    <link rel="alternate stylesheet" type="text/css" title="red" href="css/skins/red.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+
+    <script src="js/modernizr.custom.js"></script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true // Allows \$ to be treated as text
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+<style>
+    .cnn-highlight {
+        background: #e3f2fd;
+        border-left: 6px solid #1976d2;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-formula {
+        background: #fffde7;
+        border-left: 6px solid #fbc02d;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+        font-size: 1.09em;
+    }
+    .cnn-tip {
+        background: #e8f5e9;
+        border-left: 6px solid #388e3c;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-warning {
+        background: #fff3e0;
+        border-left: 6px solid #f57c00;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .cnn-table th, .cnn-table td {
+        border: 1px solid #bdbdbd;
+        padding: 10px;
+        text-align: left;
+    }
+    .cnn-table th {
+        background: #f0f4c3;
+    }
+    .cnn-table tr:nth-child(even) {
+        background: #f9fbe7;
+    }
+</style>
+</head>
+
+<body class="blog-post light">
+<!-- Live Style Switcher Starts - demo only -->
+<div id="switcher" class="">
+    <div class="content-switcher">
+        <h4>STYLE SWITCHER</h4>
+        <ul>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('purple');" title="purple" class="color"><img src="img/styleswitcher/purple.png" alt="purple"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('red');" title="red" class="color"><img src="img/styleswitcher/red.png" alt="red"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blueviolet');" title="blueviolet" class="color"><img src="img/styleswitcher/blueviolet.png" alt="blueviolet"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blue');" title="blue" class="color"><img src="img/styleswitcher/blue.png" alt="blue"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('goldenrod');" title="goldenrod" class="color"><img src="img/styleswitcher/goldenrod.png" alt="goldenrod"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('magenta');" title="magenta" class="color"><img src="img/styleswitcher/magenta.png" alt="magenta"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellowgreen');" title="yellowgreen" class="color"><img src="img/styleswitcher/yellowgreen.png" alt="yellowgreen"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('orange');" title="orange" class="color"><img src="img/styleswitcher/orange.png" alt="orange"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('green');" title="green" class="color"><img src="img/styleswitcher/green.png" alt="green"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellow');" title="yellow" class="color"><img src="img/styleswitcher/yellow.png" alt="yellow"/></a>
+            </li>
+        </ul>
+
+        <div id="hideSwitcher">&times;</div>
+    </div>
+</div>
+<div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
+<!-- Live Style Switcher Ends - demo only -->
+<!-- Header Starts -->
+<header class="header" id="navbar-collapse-toggle">
+    <!-- Fixed Navigation Starts -->
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box">
+            <i class="fa fa-home"></i>
+            <a href="index.html">
+                <h2>Home</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-university"></i>
+            <a href="about.html">
+                <h2>Research</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-briefcase"></i>
+            <a href="portfolio.html">
+                <h2>Portfolio</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-photo"></i>
+            <a href="contact.html">
+                <h2>Hometown</h2>
+            </a>
+        </li>
+        <li class="icon-box active">
+            <i class="fa fa-comments"></i>
+            <a href="blog.html">
+                <h2>Blog</h2>
+            </a>
+        </li>
+    </ul>
+    <!-- Fixed Navigation Ends -->
+    <!-- Mobile Menu Starts -->
+    <nav role="navigation" class="d-block d-lg-none">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul class="list-unstyled" id="menu">
+                <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                <li><a href="about.html"><i class="fa fa-university"></i><span>Research</span></a></li>
+                <li><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li>
+                <li><a href="contact.html"><i class="fa fa-photo"></i><span>Hometown</span></a></li>
+                <li class="active"><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Mobile Menu Ends -->
+</header>
+<!-- Header Ends -->
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>my <span>blog</span></h1>
+    <span class="title-bg">posts</span>
+</section>
+<!-- Page Title Ends -->
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <!-- Article Starts -->
+            <article class="col-12">
+                <!-- Meta Starts -->
+                <div class="meta open-sans-font">
+                    <span><i class="fa fa-user"></i> Edison Mucllari</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2024</span>
+                    <span><i class="fa fa-tags"></i> causal inference, machine learning, causality, statistics</span>
+                </div>
+                <!-- Meta Ends -->
+                <!-- Article Content Starts -->
+                <h1 class="text-uppercase text-capitalize">A  Beginner's Guide to Causal Inference in Machine Learning: The "Why" Beyond the "What"</h1>
+                <div class="blog-excerpt open-sans-font pb-5">
+                    
+<!-- <h1>A Beginner's Guide to Causal Inference in Machine Learning: The "Why" Beyond the "What"</h1> -->
+
+<div class="cnn-highlight">
+    <b>What is Causal Inference?</b><br>
+    <b>Causal Inference</b> is the process of determining if a change in one variable causes a change in another. It moves beyond simply observing correlations to understanding the underlying cause-and-effect relationships. In machine learning, this means building models that can answer "what if" questions and make better decisions based on understanding causality.
+</div>
+
+<h2>The Fundamental Problem: Correlation vs. Causation</h2>
+
+<div class="cnn-warning">
+    <b>The Ice Cream and Shark Attacks Example</b><br>
+    Imagine discovering that ice cream sales are highly correlated with shark attacks. A simple ML model might conclude that to reduce shark attacks, we should ban ice cream. But the real cause is a <b>confounding variable</b>: weather. When it's hot, more people buy ice cream AND more people go swimming, leading to more shark encounters. This is the classic "correlation does not imply causation" problem, and it's a major limitation of many machine learning models. They are great at finding patterns, but they don't understand the "why" behind them.
+</div>
+
+<table class="cnn-table">
+    <tr>
+        <th>Approach</th>
+        <th>Question Answered</th>
+        <th>Method</th>
+        <th>Limitation</th>
+    </tr>
+    <tr>
+        <td>Traditional ML</td>
+        <td>"What patterns exist?"</td>
+        <td>Pattern recognition and prediction</td>
+        <td>Cannot distinguish correlation from causation</td>
+    </tr>
+    <tr>
+        <td>Causal Inference</td>
+        <td>"What would happen if...?"</td>
+        <td>Causal modeling and intervention analysis</td>
+        <td>Requires strong assumptions about causal structure</td>
+    </tr>
+</table>
+
+<h2>The Potential Outcomes Framework</h2>
+
+<div class="cnn-formula">
+    <b>Fundamental Problem of Causal Inference</b><br>
+    For each individual $i$, we define two potential outcomes:
+    <ul>
+        <li>$Y_i(1)$: Outcome if individual $i$ receives treatment</li>
+        <li>$Y_i(0)$: Outcome if individual $i$ does not receive treatment</li>
+    </ul>
+    <br>
+    The individual causal effect is:
+    $$
+    \tau_i = Y_i(1) - Y_i(0)
+    $$
+    <br>
+    <b>The Problem:</b> We can only observe one of these outcomes for each individual!
+</div>
+
+<div class="cnn-highlight">
+    <b>Average Treatment Effect (ATE)</b><br>
+    Since we cannot observe individual causal effects, we estimate the average causal effect across the population:
+    $$
+    \text{ATE} = E[Y_i(1) - Y_i(0)] = E[Y_i(1)] - E[Y_i(0)]
+    $$
+    This represents the expected difference in outcomes if everyone received treatment versus if no one received treatment.
+</div>
+
+<h2>Key Concepts in Causal Inference</h2>
+
+<div class="cnn-tip">
+    <b>1. Confounding Variables</b>
+    <p>Variables that influence both the treatment and the outcome, creating misleading correlations. Proper causal inference requires identifying and controlling for confounders.</p>
+</div>
+
+<div class="cnn-tip">
+    <b>2. Causal Graphs (DAGs - Directed Acyclic Graphs)</b>
+    <p>Visual representations of causal relationships. An arrow from X to Y indicates that X has a direct causal effect on Y.</p>
+    <p><b>Example for Ice Cream/Shark Attacks:</b></p>
+    <p>Weather → Ice Cream Sales</p>
+    <p>Weather → Swimming → Shark Attacks</p>
+</div>
+
+<div class="cnn-formula">
+    <b>3. The Do-Operator</b><br>
+    We distinguish between <b>seeing</b> and <b>doing</b>:
+    <ul>
+        <li>$P(Y | X)$: Probability of Y given that we <i>observe</i> X</li>
+        <li>$P(Y | \text{do}(X))$: Probability of Y given that we <i>intervene</i> and set X</li>
+    </ul>
+    <br>
+    The do-operator captures the effect of intervention, which is fundamentally different from observation.
+</div>
+
+<h2>The Four Steps of Causal Inference</h2>
+
+<table class="cnn-table">
+    <tr>
+        <th>Step</th>
+        <th>Description</th>
+        <th>Key Questions</th>
+    </tr>
+    <tr>
+        <td>1. Model</td>
+        <td>Create a causal model (usually a DAG)</td>
+        <td>What are the causal relationships? What are the confounders?</td>
+    </tr>
+    <tr>
+        <td>2. Identify</td>
+        <td>Determine if the causal effect is identifiable</td>
+        <td>Can we estimate the causal effect from observational data?</td>
+    </tr>
+    <tr>
+        <td>3. Estimate</td>
+        <td>Use statistical methods to estimate the effect</td>
+        <td>What is the magnitude of the causal effect?</td>
+    </tr>
+    <tr>
+        <td>4. Refute</td>
+        <td>Test assumptions and robustness</td>
+        <td>How sensitive are our results to violations of assumptions?</td>
+    </tr>
+</table>
+
+<h2>Mathematical Framework: Do-Calculus</h2>
+
+<div class="cnn-formula">
+    <b>Three Rules of Do-Calculus (Pearl's Rules)</b><br>
+    Given a causal graph G, we can manipulate do-expressions using these rules:
+    <br><br>
+    <b>Rule 1 (Insertion/Deletion of observations):</b>
+    $$
+    P(y | \text{do}(x), z, w) = P(y | \text{do}(x), w)
+    $$
+    if $(Y \perp Z | X, W)_{G_{\overline{X}}}$
+    <br><br>
+    <b>Rule 2 (Action/Observation exchange):</b>
+    $$
+    P(y | \text{do}(x), \text{do}(z), w) = P(y | \text{do}(x), z, w)
+    $$
+    if $(Y \perp Z | X, W)_{G_{\overline{X}\underline{Z}}}$
+    <br><br>
+    <b>Rule 3 (Insertion/Deletion of actions):</b>
+    $$
+    P(y | \text{do}(x), \text{do}(z), w) = P(y | \text{do}(x), w)
+    $$
+    if $(Y \perp Z | X, W)_{G_{\overline{X}\overline{Z(W)}}}$
+</div>
+
+<h2>Common Causal Inference Methods</h2>
+
+<table class="cnn-table">
+    <tr>
+        <th>Method</th>
+        <th>When to Use</th>
+        <th>Key Assumption</th>
+        <th>Advantage</th>
+    </tr>
+    <tr>
+        <td>Randomized Controlled Trials (RCTs)</td>
+        <td>When intervention is possible and ethical</td>
+        <td>Random assignment eliminates confounding</td>
+        <td>Gold standard for causal inference</td>
+    </tr>
+    <tr>
+        <td>Instrumental Variables</td>
+        <td>When treatment is endogenous</td>
+        <td>Instrument affects outcome only through treatment</td>
+        <td>Handles unobserved confounding</td>
+    </tr>
+    <tr>
+        <td>Regression Discontinuity</td>
+        <td>When treatment assignment has a cutoff</td>
+        <td>Smooth potential outcomes around cutoff</td>
+        <td>Quasi-experimental design</td>
+    </tr>
+    <tr>
+        <td>Difference-in-Differences</td>
+        <td>When we have before/after and treated/control groups</td>
+        <td>Parallel trends assumption</td>
+        <td>Controls for time-invariant confounders</td>
+    </tr>
+</table>
+
+<h2>Propensity Score Methods</h2>
+
+<div class="cnn-formula">
+    <b>Propensity Score Definition</b><br>
+    The propensity score is the probability of receiving treatment given observed covariates:
+    $$
+    e(x) = P(T = 1 | X = x)
+    $$
+    <br>
+    <b>Key Property:</b> If treatment assignment is unconfounded given X, then it is also unconfounded given the propensity score e(X).
+</div>
+
+<div class="cnn-tip">
+    <b>Propensity Score Applications:</b>
+    <ul>
+        <li><b>Matching:</b> Match treated and control units with similar propensity scores</li>
+        <li><b>Stratification:</b> Stratify analysis by propensity score quintiles</li>
+        <li><b>Weighting:</b> Weight observations by inverse propensity scores (IPW)</li>
+        <li><b>Covariate Adjustment:</b> Include propensity score as a covariate in regression</li>
+    </ul>
+</div>
+
+<h2>Causal Machine Learning: Modern Approaches</h2>
+
+<div class="cnn-highlight">
+    <b>Double Machine Learning (DML)</b><br>
+    Combines machine learning for nuisance parameter estimation with robust causal inference. The key insight is to use ML to estimate nuisance functions (like propensity scores and outcome models) while maintaining valid statistical inference for the causal parameter of interest.
+</div>
+
+<div class="cnn-formula">
+    <b>DML for Average Treatment Effect</b><br>
+    The DML estimator for ATE involves:
+    <br><br>
+    1. Split data into folds
+    <br>
+    2. For each fold, estimate nuisance functions on other folds:
+    <ul>
+        <li>$\hat{m}_0(x)$: Expected outcome under control</li>
+        <li>$\hat{e}(x)$: Propensity score</li>
+    </ul>
+    <br>
+    3. Compute the doubly robust score:
+    $$
+    \psi(W; \theta, \eta) = \frac{T(Y - \hat{m}_1(X))}{\hat{e}(X)} - \frac{(1-T)(Y - \hat{m}_0(X))}{1 - \hat{e}(X)} + \hat{m}_1(X) - \hat{m}_0(X) - \theta
+    $$
+</div>
+
+<h2>Real-World Applications</h2>
+
+<div class="cnn-tip">
+    <b>Healthcare:</b>
+    <ul>
+        <li>Estimating treatment effects from observational data</li>
+        <li>Personalized medicine and treatment recommendations</li>
+        <li>Understanding the causal impact of lifestyle factors on health outcomes</li>
+    </ul>
+</div>
+
+<div class="cnn-tip">
+    <b>Economics and Policy:</b>
+    <ul>
+        <li>Evaluating the impact of policy interventions</li>
+        <li>Understanding the causal effects of education on earnings</li>
+        <li>Measuring the impact of minimum wage laws on employment</li>
+    </ul>
+</div>
+
+<div class="cnn-tip">
+    <b>Technology and Business:</b>
+    <ul>
+        <li>A/B testing and experimentation platforms</li>
+        <li>Measuring the causal impact of product features</li>
+        <li>Understanding the effect of marketing campaigns on customer behavior</li>
+    </ul>
+</div>
+
+<h2>Challenges and Limitations</h2>
+
+<div class="cnn-warning">
+    <b>Key Challenges:</b>
+    <ul>
+        <li><b>Unobserved Confounding:</b> We may miss important confounding variables</li>
+        <li><b>Model Specification:</b> Causal graphs require domain knowledge and assumptions</li>
+        <li><b>External Validity:</b> Causal effects may not generalize across populations or contexts</li>
+        <li><b>Measurement Error:</b> Errors in measuring variables can bias causal estimates</li>
+    </ul>
+</div>
+
+<div class="cnn-tip">
+    <b>Best Practices:</b>
+    <ul>
+        <li><b>Sensitivity Analysis:</b> Test how robust results are to violations of key assumptions</li>
+        <li><b>Multiple Methods:</b> Use different causal inference approaches and compare results</li>
+        <li><b>Domain Expertise:</b> Collaborate with subject matter experts to build realistic causal models</li>
+        <li><b>Transparency:</b> Clearly state assumptions and limitations of causal analyses</li>
+    </ul>
+</div>
+
+<h2>The Future of Causal ML</h2>
+
+<div class="cnn-highlight">
+    <b>Emerging Directions:</b>
+    <ul>
+        <li><b>Causal Discovery:</b> Automatically learning causal structures from data</li>
+        <li><b>Heterogeneous Treatment Effects:</b> Understanding how treatment effects vary across individuals</li>
+        <li><b>Causal Reinforcement Learning:</b> Making decisions based on causal understanding</li>
+        <li><b>Fairness and Causality:</b> Using causal reasoning to build fairer AI systems</li>
+    </ul>
+</div>
+
+<h2>Conclusion: Building AI That Understands "Why"</h2>
+
+<p>Causal inference represents a fundamental shift in how we think about machine learning and AI. By moving beyond pattern recognition to understanding cause and effect, we can build systems that are more robust, interpretable, and capable of making better decisions in the real world.</p>
+
+<p>The field combines rigorous mathematical frameworks with practical machine learning techniques, offering a path toward AI systems that don't just predict what will happen, but understand why it happens and what we can do to change it.</p>
+
+<h2>References</h2>
+<ul>
+    <li>
+        Pearl, J. (2009). <b>Causality: Models, Reasoning and Inference</b>. Cambridge University Press.
+    </li>
+</ul>
+
+                </div>
+                <!-- Article Content Ends -->
+            </article>
+            <!-- Article Ends -->
+        </div>
+    </div>
+</section>
+<!-- Template JS Files -->
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpGridGallery.js"></script>
+<script src="js/jquery.hoverdir.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>
