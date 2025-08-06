@@ -215,7 +215,7 @@
                 <!-- Meta Starts -->
                 <div class="meta open-sans-font">
                     <span><i class="fa fa-user"></i> Edison Mucllari</span>
-                    <span class="date"><i class="fa fa-calendar"></i> 2025</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2024</span>
                     <span><i class="fa fa-tags"></i> causal inference, machine learning, causality, statistics</span>
                 </div>
                 <!-- Meta Ends -->
@@ -235,7 +235,7 @@
 
 <div class="cnn-warning">
     <b>The Ice Cream and Shark Attacks Example</b><br>
-    Imagine discovering that ice cream sales are highly correlated with shark attacks. A simple ML model might conclude that to reduce shark attacks, we should ban ice cream. But the real cause is a <b>confounding variable</b>: weather. When it's hot, more people buy ice cream AND more people go swimming, leading to more shark encounters.
+    Imagine discovering that ice cream sales are highly correlated with shark attacks. A simple ML model might conclude that to reduce shark attacks, we should ban ice cream. But the real cause is a <b>confounding variable</b>: weather. When it is hot, more people buy ice cream AND more people go swimming, leading to more shark encounters. This is the classic "correlation does not imply causation" problem, and it is a major limitation of many machine learning models. They are great at finding patterns, but they do not understand the "why" behind them.
 </div>
 
 <table class="cnn-table">
@@ -291,6 +291,54 @@
 <div class="cnn-tip">
     <b>1. Confounding Variables</b>
     <p>Variables that influence both the treatment and the outcome, creating misleading correlations. Proper causal inference requires identifying and controlling for confounders.</p>
+    
+    <div class="confounder-examples" style="margin-top: 15px;">
+        <button onclick="toggleExamples('healthcare')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+            <span id="healthcare-icon">+</span> Healthcare Examples
+        </button>
+        <button onclick="toggleExamples('economics')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="economics-icon">+</span> Economics Examples
+        </button>
+        
+        <div id="healthcare-examples" style="display: none; margin-top: 15px; padding: 10px; background: #f1f8e9; border-radius: 4px;">
+            <b>Common Healthcare Confounders:</b>
+            <ul>
+                <li><b>Age:</b> Affects treatment selection and baseline health outcomes</li>
+                <li><b>Sex:</b> Influences treatment response and disease progression</li>
+                <li><b>Smoking Status:</b> Impacts both treatment choices and health outcomes</li>
+                <li><b>Diet & Exercise:</b> Affects both treatment adherence and natural recovery</li>
+                <li><b>Comorbidities:</b> Other diseases influence treatment decisions and outcomes</li>
+                <li><b>Healthy Adherer Effect:</b> Compliant patients follow treatments better and have healthier behaviors</li>
+            </ul>
+        </div>
+        
+        <div id="economics-examples" style="display: none; margin-top: 15px; padding: 10px; background: #f1f8e9; border-radius: 4px;">
+            <b>Common Economic Confounders:</b>
+            <ul>
+                <li><b>Interest Rates:</b> Affect both policy implementation and economic outcomes</li>
+                <li><b>Inflation:</b> Influences both intervention timing and measured effects</li>
+                <li><b>GDP Growth:</b> Affects both treatment adoption and economic performance</li>
+                <li><b>Regulatory Environment:</b> Shapes both policy choices and market outcomes</li>
+                <li><b>Market Conditions:</b> Influence both intervention decisions and results</li>
+                <li><b>Seasonal Factors:</b> Affect both timing of policies and economic indicators</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+    function toggleExamples(type) {
+        const examples = document.getElementById(type + '-examples');
+        const icon = document.getElementById(type + '-icon');
+        
+        if (examples.style.display === 'none') {
+            examples.style.display = 'block';
+            icon.textContent = '−';
+        } else {
+            examples.style.display = 'none';
+            icon.textContent = '+';
+        }
+    }
+    </script>
 </div>
 
 <div class="cnn-tip">
@@ -302,14 +350,32 @@
 </div>
 
 <div class="cnn-formula">
-    <b>3. The Do-Operator</b><br>
-    We distinguish between <b>seeing</b> and <b>doing</b>:
-    <ul>
-        <li>$P(Y | X)$: Probability of Y given that we <i>observe</i> X</li>
-        <li>$P(Y | \text{do}(X))$: Probability of Y given that we <i>intervene</i> and set X</li>
-    </ul>
+    <b>3. The Do-Operator: The Difference Between Seeing and Doing</b><br>
+    <p>Imagine you want to know if taking vitamin D improves health. There are two very different questions you could ask:</p>
+    
+    <div style="background: #fff; padding: 15px; margin: 10px 0; border-left: 4px solid #2196f3; border-radius: 4px;">
+        <b>🔍 SEEING (Observation):</b><br>
+        <i>"What's the health of people who happen to take vitamin D?"</i><br>
+        Math: $P(\text{Health} | \text{Vitamin D})$<br>
+        <small>This includes all the reasons why some people take vitamin D - maybe healthier people are more likely to take supplements!</small>
+    </div>
+    
+    <div style="background: #fff; padding: 15px; margin: 10px 0; border-left: 4px solid #4caf50; border-radius: 4px;">
+        <b>⚡ DOING (Intervention):</b><br>
+        <i>"What would happen if we forced everyone to take vitamin D?"</i><br>
+        Math: $P(\text{Health} | \text{do}(\text{Vitamin D}))$<br>
+        <small>This is the pure effect of the vitamin, removing all other factors that influence who takes it.</small>
+    </div>
+    
     <br>
-    The do-operator captures the effect of intervention, which is fundamentally different from observation.
+    <b>Key Insight:</b> These two numbers are usually different! The do-operator $\text{do}(X)$ means "imagine we could magically force X to happen, ignoring all the usual reasons why X happens or doesn't happen."
+    
+    <br><br>
+    <b>Simple Example:</b>
+    <ul>
+        <li><b>Seeing:</b> Some people have better health AND are more likely to afford vitamin D supplements</li>
+        <li><b>Doing:</b> If we gave vitamin D to everyone (rich and poor), what would be the pure effect of the vitamin itself?</li>
+    </ul>
 </div>
 
 <h2>The Four Steps of Causal Inference</h2>
@@ -342,7 +408,7 @@
     </tr>
 </table>
 
-<h2>Mathematical Framework: Do-Calculus</h2>
+<!-- <h2>Mathematical Framework: Do-Calculus</h2>
 
 <div class="cnn-formula">
     <b>Three Rules of Do-Calculus (Pearl's Rules)</b><br>
@@ -365,7 +431,7 @@
     P(y | \text{do}(x), \text{do}(z), w) = P(y | \text{do}(x), w)
     $$
     if $(Y \perp Z | X, W)_{G_{\overline{X}\overline{Z(W)}}}$
-</div>
+</div> -->
 
 <h2>Common Causal Inference Methods</h2>
 
@@ -525,6 +591,18 @@
         <li><b>Multiple Methods:</b> Use different causal inference approaches and compare results</li>
         <li><b>Domain Expertise:</b> Collaborate with subject matter experts to build realistic causal models</li>
         <li><b>Transparency:</b> Clearly state assumptions and limitations of causal analyses</li>
+    </ul>
+</div>
+
+<h2>The Future of Causal ML</h2>
+
+<div class="cnn-highlight">
+    <b>Emerging Directions:</b>
+    <ul>
+        <li><b>Causal Discovery:</b> Automatically learning causal structures from data</li>
+        <li><b>Heterogeneous Treatment Effects:</b> Understanding how treatment effects vary across individuals</li>
+        <li><b>Causal Reinforcement Learning:</b> Making decisions based on causal understanding</li>
+        <li><b>Fairness and Causality:</b> Using causal reasoning to build fairer AI systems</li>
     </ul>
 </div>
 
