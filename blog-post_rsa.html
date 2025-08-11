@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS Skin File -->
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <!-- Live Style Switcher - demo only -->
+    <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
+    <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
+    <link rel="alternate stylesheet" type="text/css" title="blueviolet" href="css/skins/blueviolet.css" />
+    <link rel="alternate stylesheet" type="text/css" title="goldenrod" href="css/skins/goldenrod.css" />
+    <link rel="alternate stylesheet" type="text/css" title="magenta" href="css/skins/magenta.css" />
+    <link rel="alternate stylesheet" type="text/css" title="orange" href="css/skins/orange.css" />
+    <link rel="alternate stylesheet" type="text/css" title="purple" href="css/skins/purple.css" />
+    <link rel="alternate stylesheet" type="text/css" title="red" href="css/skins/red.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+
+    <script src="js/modernizr.custom.js"></script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true // Allows \$ to be treated as text
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+
+
+
+
+<script>
+    function toggleContent(id) {
+        const content = document.getElementById(id);
+        const icon = document.getElementById(id + '-icon');
+
+        if (content.style.display === 'none') {
+            content.style.display = 'block';
+            icon.textContent = '−';
+            icon.style.fontWeight = 'bold';
+        } else {
+            content.style.display = 'none';
+            icon.textContent = '+';
+            icon.style.fontWeight = 'normal';
+        }
+    }
+    
+    // Call a single function for all toggle buttons
+    function toggleProof(id) {
+        toggleContent(id);
+    }
+    
+    function toggleExample(id) {
+        toggleContent(id);
+    }
+    
+    // Use an event listener to handle clicks without modifying HTML
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const toggleButtons = document.querySelectorAll('button[onclick^="toggleProof"], button[onclick^="toggleExample"]');
+        toggleButtons.forEach(button => {
+            const functionName = button.getAttribute('onclick').split('(')[0];
+            const contentId = button.getAttribute('onclick').split("'")[1];
+            
+            // Remove the old onclick attribute
+            button.removeAttribute('onclick');
+
+            // Add new event listener
+            button.addEventListener('click', () => {
+                toggleContent(contentId);
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<style>
+    .cnn-highlight {
+        background: #e3f2fd;
+        border-left: 6px solid #1976d2;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-formula {
+        background: #fffde7;
+        border-left: 6px solid #fbc02d;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+        font-size: 1.09em;
+    }
+    .cnn-tip {
+        background: #e8f5e9;
+        border-left: 6px solid #388e3c;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-warning {
+        background: #fff3e0;
+        border-left: 6px solid #f57c00;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .cnn-table th, .cnn-table td {
+        border: 1px solid #bdbdbd;
+        padding: 10px;
+        text-align: left;
+    }
+    .cnn-table th {
+        background: #f0f4c3;
+    }
+    .cnn-table tr:nth-child(even) {
+        background: #f9fbe7;
+    }
+</style>
+</head>
+
+<body class="blog-post light">
+<!-- Live Style Switcher Starts - demo only -->
+<div id="switcher" class="">
+    <div class="content-switcher">
+        <h4>STYLE SWITCHER</h4>
+        <ul>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('purple');" title="purple" class="color"><img src="img/styleswitcher/purple.png" alt="purple"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('red');" title="red" class="color"><img src="img/styleswitcher/red.png" alt="red"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blueviolet');" title="blueviolet" class="color"><img src="img/styleswitcher/blueviolet.png" alt="blueviolet"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blue');" title="blue" class="color"><img src="img/styleswitcher/blue.png" alt="blue"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('goldenrod');" title="goldenrod" class="color"><img src="img/styleswitcher/goldenrod.png" alt="goldenrod"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('magenta');" title="magenta" class="color"><img src="img/styleswitcher/magenta.png" alt="magenta"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellowgreen');" title="yellowgreen" class="color"><img src="img/styleswitcher/yellowgreen.png" alt="yellowgreen"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('orange');" title="orange" class="color"><img src="img/styleswitcher/orange.png" alt="orange"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('green');" title="green" class="color"><img src="img/styleswitcher/green.png" alt="green"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellow');" title="yellow" class="color"><img src="img/styleswitcher/yellow.png" alt="yellow"/></a>
+            </li>
+        </ul>
+
+        <div id="hideSwitcher">&times;</div>
+    </div>
+</div>
+<div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
+<!-- Live Style Switcher Ends - demo only -->
+<!-- Header Starts -->
+<header class="header" id="navbar-collapse-toggle">
+    <!-- Fixed Navigation Starts -->
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box">
+            <i class="fa fa-home"></i>
+            <a href="index.html">
+                <h2>Home</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-university"></i>
+            <a href="about.html">
+                <h2>Research</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-briefcase"></i>
+            <a href="portfolio.html">
+                <h2>Portfolio</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-photo"></i>
+            <a href="contact.html">
+                <h2>Hometown</h2>
+            </a>
+        </li>
+        <li class="icon-box active">
+            <i class="fa fa-comments"></i>
+            <a href="blog.html">
+                <h2>Blog</h2>
+            </a>
+        </li>
+    </ul>
+    <!-- Fixed Navigation Ends -->
+    <!-- Mobile Menu Starts -->
+    <nav role="navigation" class="d-block d-lg-none">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul class="list-unstyled" id="menu">
+                <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                <li><a href="about.html"><i class="fa fa-university"></i><span>Research</span></a></li>
+                <li><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li>
+                <li><a href="contact.html"><i class="fa fa-photo"></i><span>Hometown</span></a></li>
+                <li class="active"><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Mobile Menu Ends -->
+</header>
+<!-- Header Ends -->
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>my <span>blog</span></h1>
+    <span class="title-bg">posts</span>
+</section>
+<!-- Page Title Ends -->
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <!-- Article Starts -->
+            <article class="col-12">
+                <!-- Meta Starts -->
+                <div class="meta open-sans-font">
+                    <span><i class="fa fa-user"></i> Edison Mucllari</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2025</span>
+                    <span><i class="fa fa-tags"></i> cryptography, RSA, number theory, public key, encryption</span>
+                </div>
+                <!-- Meta Ends -->
+                <!-- Article Content Starts -->
+                <h1 class="text-uppercase text-capitalize">RSA Encryption: The Mathematical Foundation of Modern Cryptography</h1>
+                <img src="img/blog/rsa_encryption.png" class="img-fluid" alt="RSA Encryption Blog image"/>
+                <div class="blog-excerpt open-sans-font pb-5">
+                    
+<h1>RSA Encryption</h1>
+
+        <div class="cnn-highlight">
+            <b>What is RSA Encryption?</b><br>
+            <b>RSA (Rivest-Shamir-Adleman)</b> is a public-key cryptosystem that enables secure communication over insecure channels. Named after its inventors Ron Rivest, Adi Shamir, and Leonard Adleman, RSA relies on the mathematical difficulty of factoring large composite numbers into two prime numbers. It allows anyone to encrypt messages using a public key, but only the holder of the corresponding private key can decrypt them.
+        </div>
+
+        <h2>The Problem RSA Solves: The Key Distribution Problem</h2>
+
+        <div class="cnn-warning">
+            <b>The Classical Cryptography Dilemma</b><br>
+            Before RSA, all encryption systems were <b>symmetric</b> - the same key was used for both encryption and decryption. This created a fundamental problem: <i>How do you securely share the secret key with someone over an insecure channel?</i> 
+            <br><br>
+            Imagine Alice wants to send a secret message to Bob. With symmetric encryption, she first needs to secretly give Bob the key. But if they could communicate secretly to share the key, why not just send the original message that way? This circular problem plagued cryptography for centuries.
+        </div>
+
+        <table class="cnn-table">
+            <tr>
+                <th>Encryption Type</th>
+                <th>Key Structure</th>
+                <th>Key Distribution</th>
+                <th>Main Advantage</th>
+                <th>Main Disadvantage</th>
+            </tr>
+            <tr>
+                <td>Symmetric (Classical)</td>
+                <td>Single shared key</td>
+                <td>Must be shared secretly beforehand</td>
+                <td>Fast encryption/decryption</td>
+                <td>Key distribution problem</td>
+            </tr>
+            <tr>
+                <td>Asymmetric (RSA)</td>
+                <td>Public/Private key pair</td>
+                <td>Public key can be shared openly</td>
+                <td>Solves key distribution problem</td>
+                <td>Slower than symmetric encryption</td>
+            </tr>
+        </table>
+
+        <h2>The Beautiful Idea: Public Key Cryptography</h2>
+
+        <div class="cnn-highlight">
+            <b>The Revolutionary Concept</b><br>
+            RSA introduced the revolutionary idea of <b>asymmetric cryptography</b>:
+            <ul>
+                <li><b>Public Key:</b> Can be shared with everyone - used for encryption</li>
+                <li><b>Private Key:</b> Kept secret by the owner - used for decryption</li>
+            </ul>
+            <br>
+            <b>The Magic:</b> Messages encrypted with the public key can <i>only</i> be decrypted with the corresponding private key. This means anyone can send you encrypted messages, but only you can read them!
+        </div>
+
+        <h2>Mathematical Foundation: Number Theory Concepts</h2>
+
+        <div class="cnn-formula">
+            <b>Prime Numbers</b><br>
+            A <b>prime number</b> is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+            <br><br>
+            Examples: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47...
+            <br><br>
+            <b>Fundamental Theorem of Arithmetic:</b> Every integer greater than 1 can be represented uniquely as a product of prime numbers.
+            <br>
+            Example: $60 = 2^2 \times 3 \times 5$
+        </div>
+
+        <div class="cnn-formula">
+            <b>Modular Arithmetic</b><br>
+            We say $a \equiv b \pmod{n}$ (read as "a is congruent to b modulo n") if $n$ divides $(a - b)$.
+            <br><br>
+            <b>Examples:</b>
+            <ul>
+                <li>$17 \equiv 5 \pmod{12}$ because $17 - 5 = 12$ is divisible by 12</li>
+                <li>$25 \equiv 1 \pmod{8}$ because $25 - 1 = 24$ is divisible by 8</li>
+            </ul>
+            <br>
+            <b>Think of it as clock arithmetic:</b> On a 12-hour clock, 17 o'clock is the same as 5 o'clock.
+        </div>
+
+        <div class="cnn-formula">
+            <b>Euler's Totient Function φ(n)</b><br>
+            φ(n) counts the number of integers from 1 to n that are relatively prime to n (i.e., gcd(k,n) = 1).
+            <br><br>
+            <b>For prime p:</b> φ(p) = p - 1
+            <br>
+            <b>For product of two primes:</b> φ(pq) = φ(p)φ(q) = (p-1)(q-1)
+            <br><br>
+            <b>Example:</b> φ(15) = φ(3×5) = φ(3)×φ(5) = 2×4 = 8
+            <br>
+            The numbers relatively prime to 15: {1, 2, 4, 7, 8, 11, 13, 14}
+        </div>
+
+        <h2>Euler's Theorem: The Heart of RSA</h2>
+
+<div class="cnn-formula">
+    <b>Euler's Theorem</b><br>
+    If gcd(a,n) = 1, then:
+    $$a^{\phi(n)} \equiv 1 \pmod{n}$$
+    <br>
+    <b>Special Case - Fermat's Little Theorem:</b> If p is prime and gcd(a,p) = 1, then:
+    $$a^{p-1} \equiv 1 \pmod{p}$$
+</div>
+
+<div class="cnn-tip">
+    <b>Why Euler's Theorem Matters for RSA</b>
+    <p>This theorem gives us a way to "undo" exponentiation in modular arithmetic. If we can find exponents e and d such that $ed \equiv 1 \pmod{\phi(n)}$, then:</p>
+    
+    <div class="proof-section" style="margin-top: 15px;">
+        <button onclick="toggleProof('euler-proof')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="euler-proof-icon">+</span> Show Proof
+        </button>
+        
+        <div id="euler-proof" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>Proof that $(m^e)^d \equiv m \pmod{n}$:</b><br><br>
+            
+            Given: $ed \equiv 1 \pmod{\phi(n)}$, which means $ed = 1 + k\phi(n)$ for some integer k.
+            <br><br>
+            
+            $(m^e)^d = m^{ed} = m^{1 + k\phi(n)} = m \cdot m^{k\phi(n)} = m \cdot (m^{\phi(n)})^k$
+            <br><br>
+            
+            By Euler's Theorem: $m^{\phi(n)} \equiv 1 \pmod{n}$ (assuming gcd(m,n) = 1)
+            <br><br>
+            
+            Therefore: $(m^{\phi(n)})^k \equiv 1^k \equiv 1 \pmod{n}$
+            <br><br>
+            
+            So: $(m^e)^d \equiv m \cdot 1 \equiv m \pmod{n}$ ✓
+            <br><br>
+            
+            <b>Note:</b> This proof assumes gcd(m,n) = 1. For RSA where n = pq (product of two primes), this holds for almost all messages m. For the rare case where gcd(m,n) ≠ 1, the result still holds by the Chinese Remainder Theorem.
+        </div>
+    </div>
+</div>
+
+        <h2>RSA Algorithm: Step-by-Step Construction</h2>
+
+        <div class="cnn-formula">
+            <b>RSA Key Generation</b><br>
+            <b>Step 1:</b> Choose two large prime numbers p and q
+            <br>
+            <b>Step 2:</b> Compute n = pq (this will be part of both keys)
+            <br>
+            <b>Step 3:</b> Compute φ(n) = (p-1)(q-1)
+            <br>
+            <b>Step 4:</b> Choose e such that 1 < e < φ(n) and gcd(e, φ(n)) = 1
+            <br>
+            <b>Step 5:</b> Find d such that ed ≡ 1 (mod φ(n))
+            <br><br>
+            <b>Public Key:</b> (n, e)
+            <br>
+            <b>Private Key:</b> (n, d)
+        </div>
+
+        <div class="cnn-highlight">
+            <b>RSA Encryption and Decryption</b><br>
+            <b>To encrypt message m:</b> $c \equiv m^e \pmod{n}$
+            <br>
+            <b>To decrypt ciphertext c:</b> $m \equiv c^d \pmod{n}$
+            <br><br>
+            <b>Why this works:</b> $c^d \equiv (m^e)^d \equiv m^{ed} \equiv m \pmod{n}$ (by Euler's Theorem)
+        </div>
+
+        <h2>Worked Example: Small-Scale RSA</h2>
+
+<div class="cnn-tip">
+    <b>Let's build an RSA system step by step:</b>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="toggleExample('rsa-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="rsa-example-icon">+</span> Show Complete Example
+        </button>
+        
+        <div id="rsa-example" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>Step 1: Choose primes</b><br>
+            Let p = 11, q = 13
+            <br><br>
+            
+            <b>Step 2: Compute n</b><br>
+            n = pq = 11 × 13 = 143
+            <br><br>
+            
+            <b>Step 3: Compute φ(n)</b><br>
+            φ(n) = (p-1)(q-1) = 10 × 12 = 120
+            <br><br>
+            
+            <b>Step 4: Choose e</b><br>
+            We need gcd(e, 120) = 1. Let's choose e = 7.
+            <br>
+            Check: gcd(7, 120) = gcd(7, 120) = 1 ✓
+            <br><br>
+            
+            <b>Step 5: Find d</b><br>
+            We need 7d ≡ 1 (mod 120)
+            <br>
+            Using the extended Euclidean algorithm: d = 103
+            <br>
+            Verify: 7 × 103 = 721 = 6 × 120 + 1 ≡ 1 (mod 120) ✓
+            <br><br>
+            
+            <b>Keys:</b>
+            <ul>
+                <li>Public Key: (n=143, e=7)</li>
+                <li>Private Key: (n=143, d=103)</li>
+            </ul>
+            <br>
+            
+            <b>Example Encryption:</b><br>
+            Message: m = 9
+            <br>
+            Ciphertext: c ≡ 9^7 ≡ 4782969 ≡ 48 (mod 143)
+            <br><br>
+            
+            <b>Example Decryption:</b><br>
+            Ciphertext: c = 48
+            <br>
+            Message: m ≡ 48^103 ≡ 9 (mod 143) ✓
+        </div>
+    </div>
+</div>
+
+        <h2>Finding the Private Key: Extended Euclidean Algorithm</h2>
+
+        <div class="cnn-formula">
+            <b>The Extended Euclidean Algorithm</b><br>
+            To find d such that ed ≡ 1 (mod φ(n)), we need to solve:
+            $$ed + k\phi(n) = 1$$
+            for integers d and k.
+            <br><br>
+            This is equivalent to finding the multiplicative inverse of e modulo φ(n).
+        </div>
+
+        <div class="cnn-tip">
+    <b>Extended Euclidean Algorithm Example</b>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="toggleProof('euclidean-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="euclidean-example-icon">+</span> Show Algorithm Steps
+        </button>
+        
+        <div id="euclidean-example" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>Find d such that 7d ≡ 1 (mod 120)</b><br><br>
+            
+            We work backwards from the Euclidean algorithm:
+            <br><br>
+            
+            120 = 17 × 7 + 1<br>
+            7 = 7 × 1 + 0<br><br>
+            
+            Working backwards:<br>
+            1 = 120 - 17 × 7<br><br>
+            
+            This means: 1 = 1 × 120 + (-17) × 7<br><br>
+            
+            Comparing with ed + kφ(n) = 1:<br>
+            e = 7, d = -17, k = 1, φ(n) = 120<br><br>
+            
+            Since d must be positive: d = -17 + 120 = 103<br><br>
+            
+            <b>Verification:</b> 7 × 103 = 721 = 6 × 120 + 1 ≡ 1 (mod 120) ✓
+        </div>
+    </div>
+</div>
+
+        <h2>Security of RSA: Why It's Hard to Break</h2>
+
+        <div class="cnn-warning">
+            <b>The Integer Factorization Problem</b><br>
+            RSA's security relies on the fact that while it's easy to multiply two large primes together, it's extremely difficult to factor the result back into its prime factors.
+            <br><br>
+            <b>Easy Direction:</b> 1009 × 1013 = 1,022,117 (milliseconds on any computer)
+            <br>
+            <b>Hard Direction:</b> Factor 1,022,117 = ? × ? (could take years for large numbers)
+        </div>
+
+        <table class="cnn-table">
+            <tr>
+                <th>Key Size (bits)</th>
+                <th>Decimal Digits</th>
+                <th>Security Level</th>
+                <th>Time to Factor (estimated)</th>
+            </tr>
+            <tr>
+                <td>512</td>
+                <td>154</td>
+                <td>Broken</td>
+                <td>Months (with modern hardware)</td>
+            </tr>
+            <tr>
+                <td>1024</td>
+                <td>308</td>
+                <td>Deprecated</td>
+                <td>Years to decades</td>
+            </tr>
+            <tr>
+                <td>2048</td>
+                <td>617</td>
+                <td>Current standard</td>
+                <td>Thousands of years</td>
+            </tr>
+            <tr>
+                <td>4096</td>
+                <td>1234</td>
+                <td>High security</td>
+                <td>Millions of years</td>
+            </tr>
+        </table>
+
+        <h2>Real-World Applications</h2>
+
+        <div class="cnn-tip">
+            <b>Where RSA is Used Today:</b>
+            <ul>
+                <li><b>HTTPS/TLS:</b> Securing web traffic and online transactions</li>
+                <li><b>Digital Signatures:</b> Verifying the authenticity of documents and software</li>
+                <li><b>Email Encryption:</b> PGP/GPG systems for secure email</li>
+                <li><b>VPNs:</b> Establishing secure tunnels over public networks</li>
+                <li><b>Code Signing:</b> Ensuring software hasn't been tampered with</li>
+                <li><b>Cryptocurrency:</b> Bitcoin and other blockchain systems</li>
+            </ul>
+        </div>
+
+        <h2>Conclusion: The Elegance of Mathematical Security</h2>
+
+        <p>RSA encryption represents one of the most elegant applications of pure mathematics to real-world problems. By leveraging the fundamental properties of prime numbers and modular arithmetic, it provides a foundation for secure communication that has enabled the digital age.</p>
+
+        <p>The beauty of RSA lies not just in its mathematical sophistication, but in its conceptual simplicity: anyone can encrypt, but only the intended recipient can decrypt. This revolutionary idea continues to protect billions of communications every day.</p>
+
+        <h2>References</h2>
+        <ul>
+            <li>Rivest, R., Shamir, A., & Adleman, L. (1978). <b>A method for obtaining digital signatures and public-key cryptosystems</b>. Communications of the ACM, 21(2), 120-126.</li>
+        </ul>
+
+
+                </div>
+                <!-- Article Content Ends -->
+            </article>
+            <!-- Article Ends -->
+        </div>
+    </div>
+</section>
+<!-- Template JS Files -->
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js">
