@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files (Keeping your original links for structure compatibility) -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS Skin File -->
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <!-- Live Style Switcher - demo only -->
+    <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
+    <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellow" href="css="css/skins/yellow.css" />
+    <link rel="alternate stylesheet" type="text/css" title="blueviolet" href="css/skins/blueviolet.css" />
+    <link rel="alternate stylesheet" type="text/css" title="goldenrod" href="css/skins/goldenrod.css" />
+    <link rel="alternate stylesheet" type="text/css" title="magenta" href="css/skins/magenta.css" />
+    <link rel="alternate stylesheet" type="text/css" title="orange" href="css/skins/orange.css" />
+    <link rel="alternate stylesheet" type="text/css" title="purple" href="css/skins/purple.css" />
+    <link rel="alternate stylesheet" type="text/css" title="red" href="css/skins/red.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+
+    <script src="js/modernizr.custom.js"></script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true // Allows \$ to be treated as text
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+                src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            // Use getComputedStyle to reliably check if the element is currently hidden
+            const isHidden = window.getComputedStyle(content).display === 'none';
+
+            if (isHidden) {
+                content.style.display = 'block';
+                icon.textContent = '−';
+                icon.style.fontWeight = 'bold';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '+';
+                icon.style.fontWeight = 'normal';
+            }
+        }
+        
+        // Use an event listener to handle clicks without modifying HTML
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleButtons = document.querySelectorAll('button[id$="-toggle"]'); // Select buttons by ID ending with -toggle
+            toggleButtons.forEach(button => {
+                const contentId = button.id.replace('-toggle', ''); // Extract content ID
+                
+                // Remove the old onclick attribute if it exists, though not strictly needed with this approach
+                button.removeAttribute('onclick');
+
+                // Add new event listener
+                button.addEventListener('click', () => {
+                    toggleContent(contentId);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .cnn-highlight {
+            background: #e3f2fd;
+            border-left: 6px solid #1976d2;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-formula {
+            background: #fffde7;
+            border-left: 6px solid #fbc02d;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+            font-size: 1.09em;
+        }
+        .cnn-tip {
+            background: #e8f5e9;
+            border-left: 6px solid #388e3c;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-warning {
+            background: #fff3e0;
+            border-left: 6px solid #f57c00;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .cnn-table th, .cnn-table td {
+            border: 1px solid #bdbdbd;
+            padding: 10px;
+            text-align: left;
+        }
+        .cnn-table th {
+            background: #f0f4c3;
+        }
+        .cnn-table tr:nth-child(even) {
+            background: #f9fbe7;
+        }
+        .toggle-button-style {
+            background: #388e3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 15px; /* Added spacing */
+        }
+    </style>
+</head>
+
+<body class="blog-post light">
+<!-- Live Style Switcher Starts - demo only -->
+<div id="switcher" class="">
+    <div class="content-switcher">
+        <h4>STYLE SWITCHER</h4>
+        <ul>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('purple');" title="purple" class="color"><img src="img/styleswitcher/purple.png" alt="purple"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('red');" title="red" class="color"><img src="img/styleswitcher/red.png" alt="red"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blueviolet');" title="blueviolet" class="color"><img src="img/styleswitcher/blueviolet.png" alt="blueviolet"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blue');" title="blue" class="color"><img src="img/styleswitcher/blue.png" alt="blue"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('goldenrod');" title="goldenrod" class="color"><img src="img/styleswitcher/goldenrod.png" alt="goldenrod"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('magenta');" title="magenta" class="color"><img src="img/styleswitcher/magenta.png" alt="magenta"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellowgreen');" title="yellowgreen" class="color"><img src="img/styleswitcher/yellowgreen.png" alt="yellowgreen"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('orange');" title="orange" class="color"><img src="img/styleswitcher/orange.png" alt="orange"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('green');" title="green" class="color"><img src="img/styleswitcher/green.png" alt="green"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellow');" title="yellow" class="color"><img src="img/styleswitcher/yellow.png" alt="yellow"/></a>
+            </li>
+        </ul>
+
+        <div id="hideSwitcher">&times;</div>
+    </div>
+</div>
+<div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
+<!-- Live Style Switcher Ends - demo only -->
+<!-- Header Starts -->
+<header class="header" id="navbar-collapse-toggle">
+    <!-- Fixed Navigation Starts -->
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box">
+            <i class="fa fa-home"></i>
+            <a href="index.html">
+                <h2>Home</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-university"></i>
+            <a href="about.html">
+                <h2>Research</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-briefcase"></i>
+            <a href="portfolio.html">
+                <h2>Portfolio</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-photo"></i>
+            <a href="contact.html">
+                <h2>Hometown</h2>
+            </a>
+        </li>
+        <li class="icon-box active">
+            <i class="fa fa-comments"></i>
+            <a href="blog.html">
+                <h2>Blog</h2>
+            </a>
+        </li>
+    </ul>
+    <!-- Fixed Navigation Ends -->
+    <!-- Mobile Menu Starts -->
+    <nav role="navigation" class="d-block d-lg-none">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul class="list-unstyled" id="menu">
+                <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                <li><a href="about.html"><i class="fa fa-university"></i><span>Research</span></a></li>
+                <li><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li>
+                <li><a href="contact.html"><i class="fa fa-photo"></i><span>Hometown</span></a></li>
+                <li class="active"><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Mobile Menu Ends -->
+</header>
+<!-- Header Ends -->
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>my <span>blog</span></h1>
+    <span class="title-bg">posts</span>
+</section>
+<!-- Page Title Ends -->
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <!-- Article Starts -->
+            <article class="col-12">
+                <!-- Meta Starts -->
+                <div class="meta open-sans-font">
+                    <span><i class="fa fa-user"></i> Edison Mucllari</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2025</span>
+                    <span><i class="fa fa-tags"></i> cybersecurity, encryption, TLS, HTTPS, VPN, hashing, PKI, digital signatures, confidentiality, integrity, authentication</span>
+                </div>
+                <!-- Meta Ends -->
+                <!-- Article Content Starts -->
+                <h1 class="text-uppercase text-capitalize">Understanding the Pillars of Cybersecurity: Protocols, Primitives, and Trust</h1>
+                <img src="img/blog/cyber_security.png" class="img-fluid" alt="Cybersecurity Blog image"/>
+                <div class="blog-excerpt open-sans-font pb-5">
+                    
+                    <h1>Introduction: Core Principles of Cybersecurity</h1>
+
+                    <div class="cnn-highlight">
+                        <b>What is Cybersecurity?</b><br>
+                        Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks. These cyberattacks are usually aimed at accessing, changing, or destroying sensitive information; extorting money from users; or interrupting normal business processes. At its heart, cybersecurity is built on a few fundamental principles: **Confidentiality**, **Integrity**, and **Authentication**, often referred to as the "CIA Triad". Other important concepts include **Anti-Replay** and **Non-Repudiation**.
+                    </div>
+
+                    <h2>The CIA Triad and Beyond</h2>
+
+                    <div class="cnn-tip">
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><b>Confidentiality:</b> This ensures that information is accessible only to those authorized to have access. It's about preventing unauthorized disclosure of data.
+                                <br>Example: Encrypting your emails so only the intended recipient can read them.</li>
+                            <li><b>Integrity:</b> This ensures the accuracy and completeness of data. It prevents unauthorized modification or destruction of information.
+                                <br>Example: Using a checksum or hash to verify a downloaded file hasn't been tampered with.</li>
+                            <li><b>Authentication:</b> This confirms the identity of a user, process, or device. It ensures that the entity claiming to be who they are is indeed that entity.
+                                <br>Example: Logging into a website with a username and password.</li>
+                            <li><b>Anti-Replay:</b> This protects against malicious re-transmission of a valid data transmission. Attackers might capture a valid login request and "replay" it to gain unauthorized access. Anti-replay mechanisms prevent this by using timestamps or nonces (numbers used once).
+                                <br>Example: In secure protocols, each message might include a unique sequence number or timestamp to detect and reject duplicate or out-of-order messages.</li>
+                            <li><b>Non-Repudiation:</b> This ensures that a party cannot deny having sent or received a message. It provides undeniable proof of the origin and integrity of data.
+                                <br>Example: Digital signatures provide non-repudiation, proving that a specific person signed a document and that the document hasn't changed since.</li>
+                        </ul>
+                    </div>
+
+                    ---
+
+                    <h1>Secure Communication Protocols</h1>
+
+                    <h2>SSL/TLS: The Foundation of Web Security</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What are SSL and TLS?</b><br>
+                        <b>SSL (Secure Sockets Layer)</b> and its successor, <b>TLS (Transport Layer Security)</b>, are cryptographic protocols designed to provide communication security over a computer network. They are the backbone of secure internet communication. SSL was first developed by Netscape in 1995, and TLS 1.0 was defined in 1999 as an upgrade to SSL 3.0. Modern web browsers and applications primarily use TLS, though the term "SSL" is still commonly used to refer to these technologies collectively.
+                        <br><br>
+                        They establish an encrypted link between a server and a client (e.g., a web server and a web browser), ensuring that all data passed between them remains private and integral.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>How TLS Works (Simplified Handshake):</b>
+                        <ol class="list-decimal list-inside ml-4 mt-2">
+                            <li><b>Client Hello:</b> The client sends a "Client Hello" message to the server, listing its supported TLS versions, cipher suites (encryption algorithms), and a random number.</li>
+                            <li><b>Server Hello:</b> The server responds with a "Server Hello," choosing the best TLS version and cipher suite supported by both, its own random number, and its digital certificate.</li>
+                            <li><b>Authentication (Certificate Exchange):</b> The client verifies the server's digital certificate (checking its validity, trust chain to a CA). This step authenticates the server's identity.</li>
+                            <li><b>Key Exchange:</b> Using asymmetric encryption (often RSA or Diffie-Hellman, as discussed previously), the client and server exchange pre-master secret information securely. Both parties then use this, along with the random numbers, to generate a shared symmetric "master secret" key.</li>
+                            <li><b>Cipher Spec Change & Finished:</b> Both parties send "Change Cipher Spec" and "Finished" messages, signaling that all subsequent communication will be encrypted using the newly derived symmetric key.</li>
+                            <li><b>Secure Data Transfer:</b> Encrypted data can now flow securely between the client and server using the agreed-upon symmetric key.</li>
+                        </ol>
+                    </div>
+
+                    <h2>HTTPS: Secure Web Browsing</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What is HTTPS?</b><br>
+                        <b>HTTPS (Hypertext Transfer Protocol Secure)</b> is simply the secure version of HTTP, the protocol over which data is sent between your browser and the website you're connecting to. The 'S' at the end stands for 'Secure', meaning all communications between your browser and the website are encrypted using SSL/TLS.
+                        <br><br>
+                        When you see `https://` in a website's URL and a padlock icon in your browser's address bar, it indicates that your connection to that site is secure. This protects your data (like login credentials, credit card numbers, or personal information) from eavesdropping and tampering by malicious third parties as it travels across the internet.
+                    </div>
+
+                    <h2>SSL VPN: Secure Remote Access</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What is SSL VPN?</b><br>
+                        An <b>SSL VPN (Virtual Private Network)</b> provides secure remote access to a private network (like a company's internal network) over a public network (the internet) using SSL/TLS protocols. Unlike traditional IPsec VPNs that often require specialized client software, SSL VPNs are typically accessed via a web browser, making them very flexible and easy to deploy for remote users.
+                        <br><br>
+                        They create a secure, encrypted tunnel through which remote users can access internal network resources as if they were physically connected to the office network.
+                    </div>
+
+                    ---
+
+                    <h1>Key Players in Online Security</h1>
+
+                    <div class="cnn-tip">
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><b>Client:</b> This refers to your device (e.g., laptop, smartphone) and the software (e.g., web browser, email client) that initiates a secure connection or requests a resource.</li>
+                            <li><b>Server:</b> This is the computer system that hosts resources (e.g., websites, applications, files) and responds to client requests. It holds the private keys for its digital certificates.</li>
+                            <li><b>Certificate Authority (CA):</b> A CA is a trusted third-party organization that issues and manages digital certificates. Their primary role is to verify the identity of individuals, organizations, and servers and bind them to their public keys. Browsers and operating systems come pre-installed with a list of trusted CAs, forming the foundation of trust in online communication. Without CAs, it would be difficult to verify if a website or server is legitimate.</li>
+                        </ul>
+                    </div>
+
+                    ---
+
+                    <h1>Cryptographic Primitives: The Building Blocks</h1>
+
+                    <h2>Hashing: Ensuring Data Integrity</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What is Hashing?</b><br>
+                        <b>Hashing</b> is a process that takes an input (or 'message') of any length and returns a fixed-size string of bytes, typically a short, unique alphanumeric code, called a **hash value** or **message digest**. It's a one-way function, meaning it's computationally infeasible to reverse the process and get the original input from the hash value.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Key Properties of Hash Functions:</b>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><b>One-Way (Preimage Resistance):</b> Given a hash value $h$, it's impossible to find an input $x$ such that $H(x) = h$.</li>
+                            <li><b>Collision Resistance:</b> It's computationally infeasible to find two different inputs $x$ and $y$ such that $H(x) = H(y)$.</li>
+                            <li><b>Deterministic:</b> The same input will always produce the same hash output.</li>
+                            <li><b>Fixed Output Size:</b> Regardless of input size, the output hash will always be of a fixed length (e.g., 256 bits for SHA-256).</li>
+                        </ul>
+                        <br>
+                        <b>Hashing Algorithms:</b>
+                        Popular hashing algorithms include:
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><b>MD5 (Message-Digest Algorithm 5):</b> Once widely used, but now considered cryptographically broken due to known collision vulnerabilities. Not recommended for security purposes.</li>
+                            <li><b>SHA-256 (Secure Hash Algorithm 256):</b> Part of the SHA-2 family, it produces a 256-bit (64-character hexadecimal) hash value. Widely used and considered secure for most applications.</li>
+                            <li><b>SHA-3 (Secure Hash Algorithm 3):</b> The latest standard from NIST, offering a different underlying construction than SHA-2, providing an alternative strong hash function.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cnn-warning">
+                        <b>Collisions:</b> A hash collision occurs when two different inputs produce the exact same hash output. While designed to be extremely rare, if a collision can be deliberately found, it undermines the integrity property of the hash function, as a malicious actor could substitute an original message with a fraudulent one that has the same hash. This is why algorithms like MD5 are no longer considered secure for integrity checks.
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>How Hashing Ensures Data is Not Modified:</b><br>
+                        Imagine you download a software file. The publisher provides the file along with its SHA-256 hash value.
+                        <ol class="list-decimal list-inside ml-4 mt-2">
+                            <li>You download the file.</li>
+                            <li>You compute the SHA-256 hash of the downloaded file on your local machine.</li>
+                            <li>You compare your computed hash with the hash provided by the publisher.</li>
+                        </ol>
+                        If the two hash values match, it's highly probable that the file you downloaded is exactly as the publisher intended, and hasn't been modified or corrupted during transit. If they don't match, the file has been altered or corrupted.
+                        <br><br>
+                        Conceptually:
+                        $$H(\text{Original Data}) = \text{Original Hash}$$
+                        $$H(\text{Downloaded Data}) = \text{Computed Hash}$$
+                        $$\text{If } \text{Original Hash} = \text{Computed Hash}, \text{ then Data Integrity is Maintained}$$
+                    </div>
+
+                    <h2>Symmetric and Asymmetric Encryption</h2>
+
+                    <div class="cnn-highlight">
+                        <b>Symmetric Encryption: Single Key Simplicity</b><br>
+                        In <b>symmetric encryption</b>, the same secret key is used for both encrypting plaintext into ciphertext and decrypting ciphertext back into plaintext. It's like having a single lock and key for a box; anyone with that key can both lock and unlock it.
+                        <br><br>
+                        <b>Process:</b>
+                        1. Alice and Bob agree on a secret key.
+                        2. Alice uses this key to encrypt her message.
+                        3. Alice sends the ciphertext to Bob.
+                        4. Bob uses the *same* key to decrypt the ciphertext and read the message.
+                        <br><br>
+                        <b>Example: AES (Advanced Encryption Standard)</b> is the most widely used symmetric encryption algorithm today, employed in everything from Wi-Fi security to file encryption.
+                        <br><br>
+                        <b>Pros:</b> Very fast and efficient, suitable for encrypting large amounts of data.
+                        <br><b>Cons:</b> The main challenge is the **key distribution problem** – how do Alice and Bob securely share this secret key over an insecure channel without an eavesdropper intercepting it?
+                    </div>
+
+                    <div class="cnn-highlight">
+                        <b>Asymmetric Encryption: Public and Private Keys</b><br>
+                        <b>Asymmetric encryption</b>, also known as **public-key cryptography**, uses a pair of mathematically linked keys: a **public key** and a **private key**. Data encrypted with one key can only be decrypted by the other key in the pair.
+                        <br><br>
+                        <b>Process:</b>
+                        1. Alice generates a public/private key pair. She keeps her private key secret and shares her public key with anyone who wants to send her an encrypted message.
+                        2. Bob wants to send a secret message to Alice. He uses Alice's **public key** to encrypt the message.
+                        3. Bob sends the ciphertext to Alice.
+                        4. Alice uses her **private key** (which only she possesses) to decrypt the ciphertext and read the message.
+                        <br><br>
+                        <b>Example: RSA</b> (Rivest-Shamir-Adleman) is a widely used asymmetric encryption algorithm, often used for secure key exchange and digital signatures.
+                        <br><br>
+                        <b>Pros:</b> Solves the key distribution problem as the public key can be freely shared. Enables digital signatures and secure key exchange.
+                        <br><b>Cons:</b> Much slower and more computationally intensive than symmetric encryption, making it unsuitable for encrypting large volumes of data directly.
+                    </div>
+
+                    ---
+
+                    <h1>Establishing Trust and Secret Sharing</h1>
+
+                    <h2>Signatures and Key Exchange</h2>
+
+                    <div class="cnn-highlight">
+                        While symmetric encryption is fast for data, and asymmetric encryption solves key distribution, they often work together. Asymmetric encryption is commonly used to securely exchange a symmetric key (e.g., during the TLS handshake), which is then used for the bulk of the secure communication. This is why **key exchange** is a critical component – it allows two parties to agree on a secret key without directly transmitting it.
+                        <br><br>
+                        Furthermore, asymmetric encryption is crucial for **digital signatures**, providing a way to verify the authenticity and integrity of messages or documents.
+                    </div>
+
+                    <h2>PKI: Public Key Infrastructure</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What is a PKI?</b><br>
+                        A <b>PKI (Public Key Infrastructure)</b> is a system of hardware, software, policies, and procedures that manages the creation, distribution, use, storage, and revocation of digital certificates and public-key encryption. Its primary purpose is to bind public keys with verifiable identities of individuals, organizations, or devices, thereby enabling secure communication and transactions in a large-scale network environment.
+                        <br><br>
+                        <b>Key Components of a PKI:</b>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><b>Certificate Authority (CA):</b> The trusted entity that issues digital certificates.</li>
+                            <li><b>Registration Authority (RA):</b> Verifies the identity of certificate applicants on behalf of the CA.</li>
+                            <li><b>Digital Certificates:</b> Electronic documents that link a public key to an identity, issued by a CA.</li>
+                            <li><b>Certificate Revocation Lists (CRLs) / Online Certificate Status Protocol (OCSP):</b> Mechanisms to check if a certificate has been revoked before its expiration date.</li>
+                        </ul>
+                    </div>
+
+                    <h2>Digital Signatures: Proving Authenticity and Integrity</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What are Digital Signatures?</b><br>
+                        A <b>digital signature</b> is a cryptographic mechanism used to verify the authenticity and integrity of a digital message or document. It's essentially a mathematical scheme for demonstrating the authenticity of a digital message or document. A valid digital signature gives a recipient reason to believe that the message was created by a known sender (authenticity), and that it has not been altered in transit (integrity). It also provides **non-repudiation**.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>How Digital Signatures Work:</b>
+                        <ol class="list-decimal list-inside ml-4 mt-2">
+                            <li><b>Sender (Signer) Action:</b>
+                                <ol class="list-lower-alpha list-inside ml-4">
+                                    <li>The sender (e.g., Alice) first generates a hash of the document she wants to sign.</li>
+                                    <li>Alice then encrypts this hash using her **private key**. This encrypted hash is the digital signature.</li>
+                                    <li>Alice sends the original document along with the digital signature to the recipient (e.g., Bob).</li>
+                                </ol>
+                            </li>
+                            <li><b>Recipient (Verifier) Action:</b>
+                                <ol class="list-lower-alpha list-inside ml-4">
+                                    <li>Bob receives the document and the digital signature.</li>
+                                    <li>Bob uses Alice's **public key** to decrypt the digital signature, recovering the original hash that Alice generated.</li>
+                                    <li>Bob independently generates a hash of the received document.</li>
+                                    <li>Bob compares the hash he computed with the hash he recovered from the signature. If they match, the signature is valid, confirming:
+                                        <ul>
+                                            <li><b>Authenticity:</b> The signature came from Alice (because only her private key could create it).</li>
+                                            <li><b>Integrity:</b> The document hasn't been altered since Alice signed it (because any change would result in a different hash).</li>
+                                            <li><b>Non-Repudiation:</b> Alice cannot credibly deny having signed the document.</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
+                        <br>
+                        The mathematical operation for signing and verifying often involves modular arithmetic, similar to asymmetric encryption itself, but applied to the hash of the message. For example, using RSA:
+                        $$ \text{Signature} = (\text{Hash of Message})^d \pmod{n} $$
+                        Where $d$ is the sender's private exponent and $n$ is their public modulus.
+                        To verify:
+                        $$ \text{Recovered Hash} = (\text{Signature})^e \pmod{n} $$
+                        Where $e$ is the sender's public exponent.
+                    </div>
+
+                    ---
+
+                    <h1>Conclusion: An Interconnected Web of Security</h1>
+
+                    <p>From the fundamental principles of Confidentiality, Integrity, and Authentication to the intricate workings of protocols like TLS/SSL and HTTPS, and the power of cryptographic primitives like hashing and asymmetric encryption, modern cybersecurity is an interconnected ecosystem. These technologies, managed by infrastructures like PKI and secured by digital signatures, work in concert to protect our digital lives, ensuring that our online communications are private, trustworthy, and verifiable. Understanding these building blocks is key to appreciating the robust security measures that safeguard the internet today.</p>
+
+                </div>
+                <!-- Article Content Ends -->
+            </article>
+            <!-- Article Ends -->
+        </div>
+    </div>
+</section>
+<!-- Template JS Files -->
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+</body>
+</html>
