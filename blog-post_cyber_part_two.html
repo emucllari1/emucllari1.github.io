@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS Skin File -->
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <script src="js/modernizr.custom.js"></script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], 
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], 
+        processEscapes: true 
+      },
+      svg: {
+        fontCache: 'global' 
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            const isHidden = window.getComputedStyle(content).display === 'none';
+
+            if (isHidden) {
+                content.style.display = 'block';
+                icon.textContent = '−';
+                icon.style.fontWeight = 'bold';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '+';
+                icon.style.fontWeight = 'normal';
+            }
+        }
+        
+        function toggleProof(id) {
+            toggleContent(id);
+        }
+        
+        function toggleExample(id) {
+            toggleContent(id);
+        }
+        
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleButtons = document.querySelectorAll('button[onclick^="toggleProof"], button[onclick^="toggleExample"]');
+            toggleButtons.forEach(button => {
+                const contentId = button.getAttribute('onclick').split("'")[1];
+                
+                button.removeAttribute('onclick');
+
+                button.addEventListener('click', () => {
+                    toggleContent(contentId);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .cnn-highlight {
+            background: #e3f2fd;
+            border-left: 6px solid #1976d2;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-formula {
+            background: #fffde7;
+            border-left: 6px solid #fbc02d;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+            font-size: 1.09em;
+        }
+        .cnn-tip {
+            background: #e8f5e9;
+            border-left: 6px solid #388e3c;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-warning {
+            background: #fff3e0;
+            border-left: 6px solid #f57c00;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .cnn-table th, .cnn-table td {
+            border: 1px solid #bdbdbd;
+            padding: 10px;
+            text-align: left;
+        }
+        .cnn-table th {
+            background: #f0f4c3;
+        }
+        .cnn-table tr:nth-child(even) {
+            background: #f9fbe7;
+        }
+    </style>
+</head>
+
+<body class="blog-post light">
+<!-- Header Starts -->
+<header class="header" id="navbar-collapse-toggle">
+    <!-- Fixed Navigation Starts -->
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box">
+            <i class="fa fa-home"></i>
+            <a href="index.html">
+                <h2>Home</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-university"></i>
+            <a href="about.html">
+                <h2>Research</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-briefcase"></i>
+            <a href="portfolio.html">
+                <h2>Portfolio</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-photo"></i>
+            <a href="contact.html">
+                <h2>Hometown</h2>
+            </a>
+        </li>
+        <li class="icon-box active">
+            <i class="fa fa-comments"></i>
+            <a href="blog.html">
+                <h2>Blog</h2>
+            </a>
+        </li>
+    </ul>
+    <!-- Fixed Navigation Ends -->
+    <!-- Mobile Menu Starts -->
+    <nav role="navigation" class="d-block d-lg-none">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul class="list-unstyled" id="menu">
+                <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                <li><a href="about.html"><i class="fa fa-university"></i><span>Research</span></a></li>
+                <li><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li>
+                <li><a href="contact.html"><i class="fa fa-photo"></i><span>Hometown</span></a></li>
+                <li class="active"><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Mobile Menu Ends -->
+</header>
+<!-- Header Ends -->
+
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>my <span>blog</span></h1>
+    <span class="title-bg">posts</span>
+</section>
+<!-- Page Title Ends -->
+
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <!-- Article Starts -->
+            <article class="col-12">
+                <!-- Meta Starts -->
+                <div class="meta open-sans-font">
+                    <span><i class="fa fa-user"></i> Edison Mucllari</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2025</span>
+                    <span><i class="fa fa-tags"></i> cybersecurity, cryptography, privacy, embedded systems, network security</span>
+                </div>
+                <!-- Meta Ends -->
+                
+                <!-- Article Content Starts -->
+                <h1 class="text-uppercase text-capitalize">Essential Cybersecurity and Cryptography Concepts: A Comprehensive Guide</h1>
+                <!-- <img src="img/blog/cybersecurity.png" class="img-fluid" alt="Cybersecurity Blog image"/> -->
+                <div class="blog-excerpt open-sans-font pb-5">
+                    
+                    <!-- <h1>Essential Cybersecurity and Cryptography Concepts</h1> -->
+
+                    <div class="cnn-highlight">
+                        <b>Introduction</b><br>
+                        In today's interconnected world, cybersecurity is not just about protecting data—it is about safeguarding our digital lives. This comprehensive guide explores nine critical cybersecurity and cryptography concepts that form the backbone of modern digital security. From understanding attack vectors to implementing cutting-edge privacy technologies, we'll dive deep into the mechanisms that keep our digital world secure.
+                    </div>
+
+                    <!-- MITM Attacks -->
+                    <h2>1. Man-in-the-Middle (MITM) Attacks and Prevention</h2>
+
+                    <div class="cnn-warning">
+                        <b>What is a Man-in-the-Middle Attack?</b><br>
+                        A Man-in-the-Middle (MITM) attack occurs when an attacker secretly intercepts and potentially alters communications between two parties who believe they are communicating directly with each other. The attacker positions themselves between the victim and the intended destination, gaining the ability to eavesdrop, steal sensitive information, or manipulate data in transit.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Common MITM Attack Types:</b>
+                        <ul style="margin-top: 10px;">
+                            <li><b>Wi-Fi Eavesdropping:</b> Attackers set up rogue Wi-Fi hotspots or compromise existing ones</li>
+                            <li><b>DNS Spoofing:</b> Redirecting domain name queries to malicious servers</li>
+                            <li><b>ARP Spoofing:</b> Manipulating network address resolution protocols</li>
+                            <li><b>SSL Stripping:</b> Downgrading secure HTTPS connections to unencrypted HTTP</li>
+                            <li><b>BGP Hijacking:</b> Redirecting internet traffic through attacker-controlled routes</li>
+                        </ul>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('mitm-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="mitm-example1-icon">+</span> Show Simple Coffee Shop Attack Example
+                            </button>
+                            
+                            <div id="mitm-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Scenario: Evil Twin Wi-Fi Attack</b><br>
+                                You're at "JavaBeans Coffee Shop" and see two Wi-Fi networks:
+                                <ul style="margin-top: 10px;">
+                                    <li>"JavaBeans_WiFi" (legitimate network)</li>
+                                    <li>"JavaBeans-Free-WiFi" (attacker's network)</li>
+                                </ul>
+                                You connect to the second one because it says "Free". Now the attacker can:
+                                <ul style="margin-top: 10px;">
+                                    <li>See all your web traffic</li>
+                                    <li>Capture login credentials</li>
+                                    <li>Inject malicious content into web pages</li>
+                                    <li>Redirect you to fake banking sites</li>
+                                </ul>
+                                <b>What you see:</b> Normal internet browsing<br>
+                                <b>What is actually happening:</b> All your data flows through the attacker's device first
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('mitm-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="mitm-example2-icon">+</span> Show Advanced SSL Stripping Attack
+                            </button>
+                            
+                            <div id="mitm-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>SSL Stripping Attack Process:</b><br><br>
+                                <b>Normal Flow:</b><br>
+                                1. User types "mybank.com" in browser<br>
+                                2. Browser automatically redirects to "https://mybank.com"<br>
+                                3. Secure encrypted connection established<br><br>
+                                
+                                <b>Attack Flow:</b><br>
+                                1. User connects through attacker's network<br>
+                                2. User types "mybank.com"<br>
+                                3. Attacker intercepts the redirect to HTTPS<br>
+                                4. Attacker serves "http://mybank.com" (no encryption)<br>
+                                5. User sees what looks like the real bank site<br>
+                                6. All login credentials are sent in plain text to attacker<br><br>
+                                
+                                <b>Technical Details:</b><br>
+                                • Attacker uses tools like SSLstrip<br>
+                                • Maintains connections: User ↔ HTTP ↔ Attacker ↔ HTTPS ↔ Real Bank<br>
+                                • User's browser shows no security indicators (no padlock)<br>
+                                • Many users don't notice the missing "s" in "http"
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>MITM Prevention Strategies:</b><br><br>
+                        <b>1. Certificate Pinning:</b> Applications verify that the server's certificate matches a known, trusted certificate<br><br>
+                        <b>2. HTTP Strict Transport Security (HSTS):</b> Forces browsers to use HTTPS connections<br><br>
+                        <b>3. Certificate Transparency:</b> Public logs of all SSL certificates to detect fraudulent ones<br><br>
+                        <b>4. Mutual Authentication:</b> Both client and server verify each other's identity<br><br>
+                        <b>5. VPN Usage:</b> Creates an encrypted tunnel for all traffic
+                    </div>
+
+                    <table class="cnn-table">
+                        <thead>
+                            <tr>
+                                <th>Prevention Method</th>
+                                <th>Protection Level</th>
+                                <th>Implementation Difficulty</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Always use HTTPS</td>
+                                <td>Medium</td>
+                                <td>Easy</td>
+                                <td>General web browsing</td>
+                            </tr>
+                            <tr>
+                                <td>Certificate Pinning</td>
+                                <td>High</td>
+                                <td>Hard</td>
+                                <td>Mobile applications</td>
+                            </tr>
+                            <tr>
+                                <td>VPN</td>
+                                <td>High</td>
+                                <td>Easy</td>
+                                <td>Public Wi-Fi usage</td>
+                            </tr>
+                            <tr>
+                                <td>Mutual TLS</td>
+                                <td>Very High</td>
+                                <td>Hard</td>
+                                <td>Enterprise systems</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Authentication vs Authorization -->
+                    <h2>2. Authentication vs Authorization: The Security Gatekeepers</h2>
+
+                    <div class="cnn-highlight">
+                        <b>The Fundamental Difference</b><br>
+                        <b>Authentication</b> answers "Who are you?" while <b>Authorization</b> answers "What are you allowed to do?" These two concepts work together but serve distinct security functions. Authentication verifies identity, while authorization determines permissions based on that verified identity.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Authentication Methods:</b>
+                        <ul style="margin-top: 10px;">
+                            <li><b>Something you know:</b> Passwords, PINs, security questions</li>
+                            <li><b>Something you have:</b> Smart cards, tokens, mobile phones</li>
+                            <li><b>Something you are:</b> Fingerprints, iris scans, facial recognition</li>
+                            <li><b>Somewhere you are:</b> Location-based authentication</li>
+                            <li><b>Something you do:</b> Typing patterns, voice recognition</li>
+                        </ul>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('auth-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="auth-example1-icon">+</span> Show Real-World Office Building Example
+                            </button>
+                            
+                            <div id="auth-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Office Building Security Analogy:</b><br><br>
+                                <b>Authentication (Identity Verification):</b><br>
+                                • You show your employee ID badge to the security guard<br>
+                                • The guard checks your photo, name, and badge validity<br>
+                                • Face recognition system verifies you are who you claim to be<br>
+                                • This answers: "Are you really John Smith from IT?"<br><br>
+                                
+                                <b>Authorization (Permission Control):</b><br>
+                                • Your badge has different access levels programmed into it<br>
+                                • You can enter floors 1-3 (general office areas)<br>
+                                • You cannot enter the executive floor (restricted)<br>
+                                • Your badge allows server room access only during business hours<br>
+                                • This answers: "What areas can John Smith access?"<br><br>
+                                
+                                <b>The Process:</b><br>
+                                1. Authentication: Prove you're John Smith ✓<br>
+                                2. Authorization: Check what John Smith can access ✓<br>
+                                3. Access granted or denied based on both steps
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('auth-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="auth-example2-icon">+</span> Show Technical OAuth 2.0 Example
+                            </button>
+                            
+                            <div id="auth-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>OAuth 2.0 Flow Example:</b><br><br>
+                                <b>Scenario:</b> You want to use a photo printing app that accesses your Google Photos<br><br>
+                                
+                                <b>Authentication Step:</b><br>
+                                1. App redirects you to Google login page<br>
+                                2. You enter your Google credentials<br>
+                                3. Google verifies your identity (2FA if enabled)<br>
+                                4. Google confirms: "Yes, this is really [your name]"<br><br>
+                                
+                                <b>Authorization Step:</b><br>
+                                5. Google shows: "PhotoPrint app wants to:"<br>
+                                   • View your Google Photos ✓<br>
+                                   • Access your contacts ✗ (you deny this)<br>
+                                   • Send emails on your behalf ✗ (you deny this)<br>
+                                6. You approve only photo access<br>
+                                7. Google gives app a limited token for photos only<br><br>
+                                
+                                <b>Result:</b><br>
+                                • Authentication proved your identity to Google<br>
+                                • Authorization limited what the app can do with your account<br>
+                                • App can view photos but can't read emails or send messages
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>Authorization Models:</b><br><br>
+                        <b>Role-Based Access Control (RBAC):</b> Users assigned roles, roles have permissions<br>
+                        Example: Doctor role → Access patient records, Nurse role → Update vitals only<br><br>
+                        <b>Attribute-Based Access Control (ABAC):</b> Dynamic permissions based on attributes<br>
+                        Example: Access granted if (user=doctor AND time=business_hours AND location=hospital)<br><br>
+                        <b>Discretionary Access Control (DAC):</b> Resource owners set permissions<br>
+                        Example: You decide who can view your shared Google Drive files
+                    </div>
+
+                    <!-- TLS and Cryptography -->
+                    <h2>3. Transport Layer Security (TLS): The Guardian of Internet Communications</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What is TLS?</b><br>
+                        Transport Layer Security (TLS) is a cryptographic protocol that provides secure communication over computer networks. It's the "S" in HTTPS and protects billions of internet connections daily. TLS ensures confidentiality (encryption), integrity (data hasn't been tampered with), and authentication (you're talking to the right server).
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>TLS Handshake Process:</b><br><br>
+                        <b>Step 1: Client Hello</b><br>
+                        Client sends: supported TLS versions, cipher suites, random number<br><br>
+                        <b>Step 2: Server Hello</b><br>
+                        Server responds: chosen TLS version, cipher suite, certificate, random number<br><br>
+                        <b>Step 3: Key Exchange</b><br>
+                        Both parties establish shared encryption keys using methods like RSA or ECDH<br><br>
+                        <b>Step 4: Secure Communication</b><br>
+                        All subsequent data encrypted with agreed-upon symmetric keys
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Cryptographic Components in TLS:</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('tls-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="tls-example1-icon">+</span> Show Symmetric vs Asymmetric Encryption in TLS
+                            </button>
+                            
+                            <div id="tls-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Why TLS Uses Both Encryption Types:</b><br><br>
+                                
+                                <b>Asymmetric Encryption (Public/Private Key):</b><br>
+                                • Used only during handshake<br>
+                                • Server has public key (in certificate) and private key<br>
+                                • Client encrypts data with server's public key<br>
+                                • Only server can decrypt with private key<br>
+                                • Problem: Very slow for large amounts of data<br><br>
+                                
+                                <b>Symmetric Encryption (Same Key):</b><br>
+                                • Used for actual data transmission<br>
+                                • Both client and server use the same key<br>
+                                • Much faster than asymmetric encryption<br>
+                                • Problem: How to share the key securely?<br><br>
+                                
+                                <b>TLS Solution:</b><br>
+                                1. Use asymmetric encryption to securely share symmetric keys<br>
+                                2. Switch to symmetric encryption for data transfer<br>
+                                3. Get the security of asymmetric + speed of symmetric encryption<br><br>
+                                
+                                <b>Real Numbers:</b><br>
+                                • RSA (asymmetric): ~2,048 operations per second<br>
+                                • AES (symmetric): ~1,000,000 operations per second<br>
+                                • TLS gets the best of both worlds!
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('tls-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="tls-example2-icon">+</span> Show Complete HTTPS Transaction Example
+                            </button>
+                            
+                            <div id="tls-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Step-by-Step HTTPS Transaction:</b><br><br>
+                                
+                                <b>1. Initial Connection:</b><br>
+                                • You type "https://bankofamerica.com"<br>
+                                • Browser connects to port 443 (HTTPS port)<br><br>
+                                
+                                <b>2. TLS Handshake:</b><br>
+                                • Browser: "I support TLS 1.3, AES encryption, SHA256 hashing"<br>
+                                • Server: "Let's use TLS 1.3, here's my certificate"<br>
+                                • Browser verifies certificate with Certificate Authority<br>
+                                • Both generate shared encryption keys<br><br>
+                                
+                                <b>3. Secure Data Exchange:</b><br>
+                                • Your login credentials encrypted with AES-256<br>
+                                • Each packet includes integrity check (HMAC)<br>
+                                • Server responses also encrypted<br><br>
+                                
+                                <b>4. What the Browser Shows:</b><br>
+                                • 🔒 Padlock icon<br>
+                                • "Connection is secure"<br>
+                                • Certificate details available for inspection<br><br>
+                                
+                                <b>Behind the Scenes:</b><br>
+                                • ~2048-bit RSA or 256-bit ECC for key exchange<br>
+                                • 256-bit AES for data encryption<br>
+                                • SHA-256 for integrity verification<br>
+                                • Perfect Forward Secrecy ensures past communications stay secure
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="cnn-table">
+                        <thead>
+                            <tr>
+                                <th>TLS Version</th>
+                                <th>Year Released</th>
+                                <th>Key Improvements</th>
+                                <th>Current Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TLS 1.0</td>
+                                <td>1999</td>
+                                <td>First standardized version</td>
+                                <td>Deprecated (insecure)</td>
+                            </tr>
+                            <tr>
+                                <td>TLS 1.1</td>
+                                <td>2006</td>
+                                <td>Fixes CBC attacks</td>
+                                <td>Deprecated (insecure)</td>
+                            </tr>
+                            <tr>
+                                <td>TLS 1.2</td>
+                                <td>2008</td>
+                                <td>Better ciphers, AEAD modes</td>
+                                <td>Widely used, secure</td>
+                            </tr>
+                            <tr>
+                                <td>TLS 1.3</td>
+                                <td>2018</td>
+                                <td>Faster handshake, forward secrecy</td>
+                                <td>Latest, most secure</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Zero-Knowledge Proofs -->
+                    <h2>4. Zero-Knowledge Proofs: Proving Without Revealing</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What are Zero-Knowledge Proofs?</b><br>
+                        A zero-knowledge proof is a cryptographic method where one party (the prover) can prove to another party (the verifier) that they know a secret, without revealing the secret itself. It's like proving you know the password to an account without ever saying what the password is.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Three Essential Properties:</b>
+                        <ul style="margin-top: 10px;">
+                            <li><b>Completeness:</b> If the statement is true, an honest prover can convince an honest verifier</li>
+                            <li><b>Soundness:</b> If the statement is false, no dishonest prover can convince an honest verifier (except with negligible probability)</li>
+                            <li><b>Zero-Knowledge:</b> The verifier learns nothing about the secret beyond the fact that the statement is true</li>
+                        </ul>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('zkp-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="zkp-example1-icon">+</span> Show Classic Cave Example (Ali Baba's Cave)
+                            </button>
+                            
+                            <div id="zkp-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Ali Baba's Cave Analogy:</b><br><br>
+                                
+                                <b>Setup:</b><br>
+                                • There's a cave with a circular path inside<br>
+                                • The path splits into two routes (A and B) that meet at a locked door<br>
+                                • Only someone who knows the magic word can open the door<br>
+                                • Alice claims she knows the magic word<br>
+                                • Bob wants proof but doesn't want to learn the word<br><br>
+                                
+                                <b>The Protocol:</b><br>
+                                1. Alice enters the cave while Bob waits outside<br>
+                                2. Alice randomly chooses path A or B (Bob doesn't see which)<br>
+                                3. Bob enters and randomly calls out "Come back via path A!" or "Come back via path B!"<br>
+                                4. If Alice knows the magic word, she can always comply (even if she needs to use the door)<br>
+                                5. If Alice doesn't know the word, she has only 50% chance of being on the correct path<br><br>
+                                
+                                <b>Repeat many times:</b><br>
+                                • After 20 rounds, if Alice doesn't know the word, probability of success = (1/2)^20 ≈ 0.0001%<br>
+                                • Bob becomes convinced Alice knows the word<br>
+                                • But Bob never learns what the magic word is!
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('zkp-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="zkp-example2-icon">+</span> Show Real-World Age Verification Example
+                            </button>
+                            
+                            <div id="zkp-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Age Verification Without Revealing Age:</b><br><br>
+                                
+                                <b>Problem:</b><br>
+                                • You want to buy alcohol online<br>
+                                • Store needs to verify you're 21+<br>
+                                • You don't want to reveal your exact age/birthdate<br><br>
+                                
+                                <b>Traditional Approach:</b><br>
+                                • Show ID with full birthdate<br>
+                                • Store learns you were born on March 15, 1985<br>
+                                • Store now knows your exact age (39 years old)<br><br>
+                                
+                                <b>Zero-Knowledge Approach:</b><br>
+                                1. Your ID has a cryptographic signature from the government<br>
+                                2. You use ZK proof to demonstrate:<br>
+                                   "I have a government-signed document that proves my birthdate is more than 21 years ago"<br>
+                                3. The math works out so the store can verify this is true<br>
+                                4. Store learns: "This person is 21+" (✓)<br>
+                                5. Store doesn't learn: exact age, birthdate, or any other personal info<br><br>
+                                
+                                <b>Technical Implementation:</b><br>
+                                • Uses cryptographic commitments<br>
+                                • Range proofs (prove a number is within a range)<br>
+                                • Digital signatures from trusted authorities
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>Types of Zero-Knowledge Proofs:</b><br><br>
+                        <b>Interactive ZK Proofs:</b> Require back-and-forth communication between prover and verifier<br><br>
+                        <b>Non-Interactive ZK Proofs (NIZKs):</b> Single message from prover to verifier<br><br>
+                        <b>zk-SNARKs:</b> Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge<br>
+                        • Succinct: Very short proofs<br>
+                        • Used in blockchain privacy coins like Zcash<br><br>
+                        <b>zk-STARKs:</b> Zero-Knowledge Scalable Transparent Arguments of Knowledge<br>
+                        • No trusted setup required<br>
+                        • Better scalability for large computations
+                    </div>
+
+                    <div class="cnn-warning">
+                        <b>Real-World Applications:</b><br>
+                        • <b>Blockchain Privacy:</b> Prove valid transactions without revealing amounts or addresses<br>
+                        • <b>Identity Verification:</b> Prove age, citizenship, or credentials without revealing personal details<br>
+                        • <b>Authentication:</b> Prove knowledge of passwords without transmitting them<br>
+                        • <b>Voting Systems:</b> Prove eligibility to vote without revealing vote choice<br>
+                        • <b>Financial Privacy:</b> Prove creditworthiness without revealing financial details
+                    </div>
+
+                    <!-- Secure Multi-Party Computation -->
+                    <h2>5. Secure Multi-Party Computation (MPC): Computing on Hidden Data</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What is Secure Multi-Party Computation?</b><br>
+                        Secure Multi-Party Computation (MPC) allows multiple parties to jointly compute a function over their inputs while keeping those inputs private. Imagine if multiple companies could collaborate on data analysis without any company seeing the others' sensitive data - that's MPC in action.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Core Principles of MPC:</b>
+                        <ul style="margin-top: 10px;">
+                            <li><b>Input Privacy:</b> No party learns anything about other parties' private inputs</li>
+                            <li><b>Correctness:</b> The computed result is accurate</li>
+                            <li><b>Collusion Resistance:</b> Even if some parties collude, honest parties' data remains private</li>
+                            <li><b>Verifiability:</b> Parties can verify the computation was performed correctly</li>
+                        </ul>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('mpc-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="mpc-example1-icon">+</span> Show Millionaire's Problem Example
+                            </button>
+                            
+                            <div id="mpc-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>The Millionaire's Problem:</b><br><br>
+                                
+                                <b>Scenario:</b><br>
+                                • Alice and Bob want to know who is richer<br>
+                                • Neither wants to reveal their exact wealth<br>
+                                • They need to compute: Is Alice's wealth > Bob's wealth?<br><br>
+                                
+                                <b>Simple MPC Solution (Simplified):</b><br>
+                                1. Alice's wealth: $2.5M (she keeps this secret)<br>
+                                2. Bob's wealth: $1.8M (he keeps this secret)<br>
+                                3. They use MPC protocol to compute comparison<br>
+                                4. Result revealed: "Alice is richer" ✓<br>
+                                5. Neither learns the other's exact amount ✓<br><br>
+                                
+                                <b>How it works (conceptually):</b><br>
+                                • Alice splits her number into random pieces<br>
+                                • Bob splits his number into random pieces<br>
+                                • They exchange pieces and do computations<br>
+                                • The math ensures only the comparison result is revealed<br>
+                                • Individual pieces reveal nothing about original numbers<br><br>
+                                
+                                <b>Real Applications:</b><br>
+                                • Salary comparison without revealing salaries<br>
+                                • Bid comparison in sealed auctions<br>
+                                • Medical research across hospitals without sharing patient data
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('mpc-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="mpc-example2-icon">+</span> Show Healthcare Research Example
+                            </button>
+                            
+                            <div id="mpc-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Multi-Hospital Drug Efficacy Study:</b><br><br>
+                                
+                                <b>Challenge:</b><br>
+                                • 5 hospitals want to study if a new drug reduces heart attacks<br>
+                                • Each has patient data, but can't share due to privacy laws (HIPAA)<br>
+                                • Need large sample size for statistical significance<br><br>
+                                
+                                <b>Traditional Approach Problems:</b><br>
+                                • Can't combine datasets due to privacy regulations<br>
+                                • Individual hospital studies lack statistical power<br>
+                                • Central data collection creates privacy risks<br><br>
+                                
+                                <b>MPC Solution:</b><br>
+                                1. Each hospital inputs their data into MPC system<br>
+                                2. System computes statistics across all hospitals:<br>
+                                   • Total patients in study: 50,000<br>
+                                   • Heart attack rate with drug: 2.1%<br>
+                                   • Heart attack rate without drug: 3.8%<br>
+                                   • Statistical significance: p < 0.001<br>
+                                3. All hospitals see final results<br>
+                                4. No hospital sees other hospitals' patient data<br><br>
+                                
+                                <b>Benefits:</b><br>
+                                • Maintains patient privacy ✓<br>
+                                • Complies with regulations ✓<br>
+                                • Enables large-scale research ✓<br>
+                                • Provides statistically significant results ✓
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>MPC Techniques:</b><br><br>
+                        <b>Secret Sharing:</b> Split sensitive data into shares distributed among parties<br>
+                        Example: Number 42 → Share 1: 17, Share 2: 25 (17 + 25 = 42)<br><br>
+                        <b>Garbled Circuits:</b> Convert computation into encrypted boolean circuits<br>
+                        Efficient for small computations, complex for large ones<br><br>
+                        <b>Homomorphic Encryption:</b> Perform computations on encrypted data<br>
+                        Result is encrypted version of what you'd get on plaintext<br><br>
+                        <b>Threshold Cryptography:</b> Distribute cryptographic operations among parties<br>
+                        No single party can perform operation alone
+                    </div>
+
+                    <!-- Differential Privacy -->
+                    <h2>6. Differential Privacy: Mathematical Privacy Protection</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What is Differential Privacy?</b><br>
+                        Differential Privacy is a mathematical framework for quantifying and limiting privacy loss when statistical information is released about a dataset. It provides a rigorous way to add "noise" to data or query results such that individual privacy is protected while maintaining statistical utility.
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>Formal Definition:</b><br>
+                        A randomized algorithm M is (ε, δ)-differentially private if for any two datasets D₁ and D₂ that differ by one individual, and for any subset S of possible outputs:<br><br>
+                        $P[M(D_1) \in S] \leq e^ε \cdot P[M(D_2) \in S] + δ$<br><br>
+                        Where:<br>
+                        • ε (epsilon): Privacy budget - smaller values = more privacy<br>
+                        • δ (delta): Probability of privacy failure (usually very small)<br>
+                        • The inequality bounds how much individual participation affects results
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Key Concepts:</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('dp-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="dp-example1-icon">+</span> Show Census Data Protection Example
+                            </button>
+                            
+                            <div id="dp-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>U.S. Census Bureau Example:</b><br><br>
+                                
+                                <b>Problem:</b><br>
+                                • Census must publish demographic statistics<br>
+                                • Public needs accurate data for planning, research<br>
+                                • Individual responses must remain private<br>
+                                • Previous methods failed - people could be re-identified<br><br>
+                                
+                                <b>Traditional Approach Failures:</b><br>
+                                • "Remove names and addresses" → Still could identify individuals<br>
+                                • Cross-referencing multiple tables revealed personal info<br>
+                                • Adversaries could determine if specific person was in dataset<br><br>
+                                
+                                <b>Differential Privacy Solution (2020 Census):</b><br>
+                                1. Add carefully calibrated random noise to all statistics<br>
+                                2. Noise amount determined by privacy budget (ε)<br>
+                                3. True count: 1,247 people in age group 25-30<br>
+                                4. Published count: 1,251 people (noise added)<br>
+                                5. Individual participation can't be determined<br><br>
+                                
+                                <b>Privacy Guarantee:</b><br>
+                                • Whether John (age 27) participated in census or not<br>
+                                • The published statistics look almost identical<br>
+                                • Adversary can't tell if John's data was included<br>
+                                • But overall statistics remain highly accurate
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('dp-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="dp-example2-icon">+</span> Show Simple Hospital Data Example
+                            </button>
+                            
+                            <div id="dp-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Hospital Salary Survey Example:</b><br><br>
+                                
+                                <b>Scenario:</b><br>
+                                • Hospital wants to publish salary statistics<br>
+                                • Researchers want to study healthcare compensation<br>
+                                • Employees want privacy protection<br><br>
+                                
+                                <b>Raw Data (Private):</b><br>
+                                • Doctor A: $280,000<br>
+                                • Doctor B: $295,000<br>
+                                • Nurse C: $75,000<br>
+                                • Nurse D: $78,000<br>
+                                • Average Doctor Salary: $287,500<br>
+                                • Average Nurse Salary: $76,500<br><br>
+                                
+                                <b>With Differential Privacy:</b><br>
+                                • Add Laplace noise based on sensitivity<br>
+                                • Sensitivity = maximum change if one person leaves<br>
+                                • Published Doctor Average: $289,200 (noise: +$1,700)<br>
+                                • Published Nurse Average: $75,800 (noise: -$700)<br><br>
+                                
+                                <b>Privacy Protection:</b><br>
+                                • If Doctor A quits, published average changes by ~$1,400<br>
+                                • With noise, this change is hidden<br>
+                                • Outside observer can't tell if Doctor A participated<br>
+                                • Statistics remain useful for research and planning
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cnn-warning">
+                        <b>Privacy Budget Concept:</b><br>
+                        Think of privacy as a finite resource. Each query "spends" some privacy budget:<br>
+                        • ε = 1.0: Strong privacy protection<br>
+                        • ε = 0.1: Very strong privacy protection<br>
+                        • ε = 10.0: Weak privacy protection<br><br>
+                        <b>Composition:</b> Multiple queries accumulate privacy loss<br>
+                        • Query 1: ε₁ = 0.5<br>
+                        • Query 2: ε₂ = 0.3<br>
+                        • Total privacy cost: ε₁ + ε₂ = 0.8<br><br>
+                        Once budget is exhausted, no more queries can be answered privately!
+                    </div>
+
+                    <table class="cnn-table">
+                        <thead>
+                            <tr>
+                                <th>Organization</th>
+                                <th>Use Case</th>
+                                <th>Privacy Level (ε)</th>
+                                <th>Implementation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>U.S. Census</td>
+                                <td>Population statistics</td>
+                                <td>0.5 - 4.0</td>
+                                <td>Nationwide deployment</td>
+                            </tr>
+                            <tr>
+                                <td>Apple</td>
+                                <td>iOS usage analytics</td>
+                                <td>1.0 - 8.0</td>
+                                <td>Local differential privacy</td>
+                            </tr>
+                            <tr>
+                                <td>Google</td>
+                                <td>Chrome usage data</td>
+                                <td>Variable</td>
+                                <td>RAPPOR system</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft</td>
+                                <td>Windows telemetry</td>
+                                <td>Variable</td>
+                                <td>Research applications</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Embedded Systems Security -->
+                    <h2>7. Embedded Systems Attack Vectors: Securing the IoT World</h2>
+
+                    <div class="cnn-warning">
+                        <b>Why Embedded Systems are Vulnerable</b><br>
+                        Embedded systems (including automotive ECUs) face unique security challenges: resource constraints, physical accessibility, long lifecycles, and often inadequate security design. Unlike traditional computers, they can't easily be updated, patched, or monitored, making them attractive targets for attackers.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Common Attack Vectors:</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('embedded-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="embedded-example1-icon">+</span> Show Automotive ECU Attack Example
+                            </button>
+                            
+                            <div id="embedded-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Real-World Car Hacking Example:</b><br><br>
+                                
+                                <b>Target:</b> 2014 Jeep Cherokee<br><br>
+                                
+                                <b>Attack Vector:</b><br>
+                                1. <b>Entry Point:</b> Uconnect infotainment system<br>
+                                2. <b>Network Access:</b> Connected to Sprint cellular network<br>
+                                3. <b>Vulnerability:</b> Unprotected network services on port 6667<br>
+                                4. <b>Lateral Movement:</b> From infotainment to CAN bus<br>
+                                5. <b>Privilege Escalation:</b> Access to critical vehicle systems<br><br>
+                                
+                                <b>Attack Progression:</b><br>
+                                • <b>Remote Access:</b> Attackers connect over internet to car's IP address<br>
+                                • <b>Code Execution:</b> Exploit buffer overflow in media player<br>
+                                • <b>CAN Bus Access:</b> Send commands to Engine Control Module<br>
+                                • <b>Physical Control:</b> Disable brakes, control steering, kill engine<br><br>
+                                
+                                <b>Impact:</b><br>
+                                • 1.4 million vehicles recalled<br>
+                                • Demonstrated at highway speeds<br>
+                                • Led to new cybersecurity regulations<br>
+                                • Showed internet → physical world attack path<br><br>
+                                
+                                <b>Technical Details:</b><br>
+                                • CAN bus has no authentication<br>
+                                • Messages trusted by default<br>
+                                • No encryption between ECUs<br>
+                                • Infotainment system over-privileged
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('embedded-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="embedded-example2-icon">+</span> Show IoT Device Attack Chain
+                            </button>
+                            
+                            <div id="embedded-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Smart Home Camera Compromise:</b><br><br>
+                                
+                                <b>Device:</b> Generic Wi-Fi security camera<br><br>
+                                
+                                <b>Attack Chain:</b><br>
+                                1. <b>Reconnaissance:</b><br>
+                                   • Port scan reveals telnet (port 23) open<br>
+                                   • Web interface on port 80<br>
+                                   • No firmware encryption<br><br>
+                                
+                                2. <b>Initial Access:</b><br>
+                                   • Default credentials: admin/admin<br>
+                                   • Or firmware extraction reveals hardcoded keys<br>
+                                   • Telnet access gained<br><br>
+                                
+                                3. <b>Persistence:</b><br>
+                                   • Install backdoor in firmware<br>
+                                   • Modify boot process<br>
+                                   • Survives device reboot<br><br>
+                                
+                                4. <b>Lateral Movement:</b><br>
+                                   • Scan internal network from compromised camera<br>
+                                   • Access other smart devices<br>
+                                   • Potentially reach computers, NAS devices<br><br>
+                                
+                                5. <b>Impact:</b><br>
+                                   • Privacy violation (camera access)<br>
+                                   • Botnet recruitment (DDoS attacks)<br>
+                                   • Network pivoting point<br>
+                                   • Data exfiltration<br><br>
+                                
+                                <b>Common IoT Vulnerabilities:</b><br>
+                                • Weak default passwords<br>
+                                • Unencrypted communications<br>
+                                • Insecure firmware updates<br>
+                                • Excessive network services<br>
+                                • Poor input validation
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>Categories of Embedded Attacks:</b><br><br>
+                        <b>Hardware Attacks:</b><br>
+                        • Side-channel attacks (power analysis, timing attacks)<br>
+                        • Fault injection (glitching, electromagnetic interference)<br>
+                        • Physical tampering (chip probing, circuit modification)<br><br>
+                        <b>Software Attacks:</b><br>
+                        • Buffer overflows, format string vulnerabilities<br>
+                        • Firmware reverse engineering<br>
+                        • Update mechanism exploitation<br><br>
+                        <b>Network Attacks:</b><br>
+                        • Wireless protocol exploitation (Bluetooth, ZigBee, Wi-Fi)<br>
+                        • Man-in-the-middle on device communications<br>
+                        • Command injection through network interfaces
+                    </div>
+
+                    <table class="cnn-table">
+                        <thead>
+                            <tr>
+                                <th>Attack Vector</th>
+                                <th>Difficulty</th>
+                                <th>Required Access</th>
+                                <th>Common Targets</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Default Credentials</td>
+                                <td>Very Easy</td>
+                                <td>Network</td>
+                                <td>IoT cameras, routers</td>
+                            </tr>
+                            <tr>
+                                <td>Firmware Extraction</td>
+                                <td>Medium</td>
+                                <td>Physical</td>
+                                <td>All embedded devices</td>
+                            </tr>
+                            <tr>
+                                <td>CAN Bus Injection</td>
+                                <td>Hard</td>
+                                <td>Physical/Network</td>
+                                <td>Automotive ECUs</td>
+                            </tr>
+                            <tr>
+                                <td>Power Analysis</td>
+                                <td>Very Hard</td>
+                                <td>Physical + Equipment</td>
+                                <td>Cryptographic devices</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Trusted Execution Environments -->
+                    <h2>8. Trusted Execution Environments (TEE): Hardware-Based Security</h2>
+
+                    <div class="cnn-highlight">
+                        <b>What is a Trusted Execution Environment?</b><br>
+                        A Trusted Execution Environment (TEE) is a secure area within a processor that provides hardware-based security features to protect sensitive code and data. It creates an isolated execution environment where applications can run securely, protected from the main operating system and other applications, even if they are compromised.
+                    </div>
+
+                    <div class="cnn-tip">
+                        <b>Key TEE Properties:</b>
+                        <ul style="margin-top: 10px;">
+                            <li><b>Isolation:</b> Code and data in TEE protected from outside access</li>
+                            <li><b>Integrity:</b> TEE detects unauthorized modifications</li>
+                            <li><b>Confidentiality:</b> TEE contents are encrypted and hidden</li>
+                            <li><b>Remote Attestation:</b> Ability to prove TEE authenticity to remote parties</li>
+                            <li><b>Secure Boot:</b> Only trusted code can initialize the TEE</li>
+                        </ul>
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('tee-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="tee-example1-icon">+</span> Show Mobile Payment Security Example
+                            </button>
+                            
+                            <div id="tee-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Smartphone Payment Processing:</b><br><br>
+                                
+                                <b>Problem:</b><br>
+                                • Mobile payment app needs to store credit card info<br>
+                                • Phone might have malware or be rooted/jailbroken<br>
+                                • Operating system could be compromised<br>
+                                • Need to protect payment credentials<br><br>
+                                
+                                <b>Traditional Approach Issues:</b><br>
+                                • Store encrypted data in main memory<br>
+                                • Malware with root access can read memory<br>
+                                • Decryption keys must be accessible to app<br>
+                                • Debug tools can extract sensitive information<br><br>
+                                
+                                <b>TEE Solution (ARM TrustZone example):</b><br>
+                                1. <b>Secure World:</b> Payment app runs in TEE<br>
+                                2. <b>Hardware Protection:</b> CPU enforces memory isolation<br>
+                                3. <b>Encrypted Storage:</b> Credit card data encrypted with TEE-only keys<br>
+                                4. <b>Secure Processing:</b> Payment calculations happen in TEE<br>
+                                5. <b>Limited Interface:</b> Only specific APIs exposed to regular OS<br><br>
+                                
+                                <b>Attack Resistance:</b><br>
+                                • Root malware cannot access TEE memory<br>
+                                • Debuggers cannot attach to secure world<br>
+                                • Memory dumps don't reveal TEE contents<br>
+                                • Even with kernel-level access, payment data protected<br><br>
+                                
+                                <b>Real Implementation:</b><br>
+                                • Apple: Secure Enclave for Touch ID/Face ID<br>
+                                • Samsung: Knox for enterprise security<br>
+                                • Google: Titan M security chip
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <!-- Article Content Ends -->
+            </article>
+            <!-- Article Ends -->
+        </div>
+    </div>
+</section>
+<!-- Template JS Files -->
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+</body>
+</html>
