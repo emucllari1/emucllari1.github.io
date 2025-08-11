@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files (Keeping your original links for structure compatibility) -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS Skin File -->
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <!-- Live Style Switcher - demo only -->
+    <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
+    <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
+    <link rel="alternate stylesheet" type="text/css" title="blueviolet" href="css/skins/blueviolet.css" />
+    <link rel="alternate stylesheet" type="text/css" title="goldenrod" href="css/skins/goldenrod.css" />
+    <link rel="alternate stylesheet" type="text/css" title="magenta" href="css/skins/magenta.css" />
+    <link rel="alternate stylesheet" type="text/css" title="orange" href="css/skins/orange.css" />
+    <link rel="alternate stylesheet" type="text/css" title="purple" href="css/skins/purple.css" />
+    <link rel="alternate stylesheet" type="text/css" title="red" href="css/skins/red.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+
+    <script src="js/modernizr.custom.js"></script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true // Allows \$ to be treated as text
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            // Use getComputedStyle to reliably check if the element is currently hidden
+            const isHidden = window.getComputedStyle(content).display === 'none';
+
+            if (isHidden) {
+                content.style.display = 'block';
+                icon.textContent = '−';
+                icon.style.fontWeight = 'bold';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '+';
+                icon.style.fontWeight = 'normal';
+            }
+        }
+        
+        // Call a single function for all toggle buttons
+        function toggleProof(id) {
+            toggleContent(id);
+        }
+        
+        function toggleExample(id) {
+            toggleContent(id);
+        }
+        
+        // Use an event listener to handle clicks without modifying HTML
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleButtons = document.querySelectorAll('button[onclick^="toggleProof"], button[onclick^="toggleExample"]');
+            toggleButtons.forEach(button => {
+                const contentId = button.getAttribute('onclick').split("'")[1];
+                
+                // Remove the old onclick attribute
+                button.removeAttribute('onclick');
+
+                // Add new event listener
+                button.addEventListener('click', () => {
+                    toggleContent(contentId);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .cnn-highlight {
+            background: #e3f2fd;
+            border-left: 6px solid #1976d2;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-formula {
+            background: #fffde7;
+            border-left: 6px solid #fbc02d;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+            font-size: 1.09em;
+        }
+        .cnn-tip {
+            background: #e8f5e9;
+            border-left: 6px solid #388e3c;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-warning {
+            background: #fff3e0;
+            border-left: 6px solid #f57c00;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .cnn-table th, .cnn-table td {
+            border: 1px solid #bdbdbd;
+            padding: 10px;
+            text-align: left;
+        }
+        .cnn-table th {
+            background: #f0f4c3;
+        }
+        .cnn-table tr:nth-child(even) {
+            background: #f9fbe7;
+        }
+    </style>
+</head>
+
+<body class="blog-post light">
+<!-- Live Style Switcher Starts - demo only -->
+<div id="switcher" class="">
+    <div class="content-switcher">
+        <h4>STYLE SWITCHER</h4>
+        <ul>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('purple');" title="purple" class="color"><img src="img/styleswitcher/purple.png" alt="purple"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('red');" title="red" class="color"><img src="img/styleswitcher/red.png" alt="red"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blueviolet');" title="blueviolet" class="color"><img src="img/styleswitcher/blueviolet.png" alt="blueviolet"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blue');" title="blue" class="color"><img src="img/styleswitcher/blue.png" alt="blue"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('goldenrod');" title="goldenrod" class="color"><img src="img/styleswitcher/goldenrod.png" alt="goldenrod"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('magenta');" title="magenta" class="color"><img src="img/styleswitcher/magenta.png" alt="magenta"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellowgreen');" title="yellowgreen" class="color"><img src="img/styleswitcher/yellowgreen.png" alt="yellowgreen"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('orange');" title="orange" class="color"><img src="img/styleswitcher/orange.png" alt="orange"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('green');" title="green" class="color"><img src="img/styleswitcher/green.png" alt="green"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellow');" title="yellow" class="color"><img src="img/styleswitcher/yellow.png" alt="yellow"/></a>
+            </li>
+        </ul>
+
+        <div id="hideSwitcher">&times;</div>
+    </div>
+</div>
+<div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
+<!-- Live Style Switcher Ends - demo only -->
+<!-- Header Starts -->
+<header class="header" id="navbar-collapse-toggle">
+    <!-- Fixed Navigation Starts -->
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box">
+            <i class="fa fa-home"></i>
+            <a href="index.html">
+                <h2>Home</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-university"></i>
+            <a href="about.html">
+                <h2>Research</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-briefcase"></i>
+            <a href="portfolio.html">
+                <h2>Portfolio</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-photo"></i>
+            <a href="contact.html">
+                <h2>Hometown</h2>
+            </a>
+        </li>
+        <li class="icon-box active">
+            <i class="fa fa-comments"></i>
+            <a href="blog.html">
+                <h2>Blog</h2>
+            </a>
+        </li>
+    </ul>
+    <!-- Fixed Navigation Ends -->
+    <!-- Mobile Menu Starts -->
+    <nav role="navigation" class="d-block d-lg-none">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul class="list-unstyled" id="menu">
+                <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                <li><a href="about.html"><i class="fa fa-university"></i><span>Research</span></a></li>
+                <li><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li>
+                <li><a href="contact.html"><i class="fa fa-photo"></i><span>Hometown</span></a></li>
+                <li class="active"><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Mobile Menu Ends -->
+</header>
+<!-- Header Ends -->
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>my <span>blog</span></h1>
+    <span class="title-bg">posts</span>
+</section>
+<!-- Page Title Ends -->
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <!-- Article Starts -->
+            <article class="col-12">
+                <!-- Meta Starts -->
+                <div class="meta open-sans-font">
+                    <span><i class="fa fa-user"></i> Edison Mucllari</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2025</span>
+                    <span><i class="fa fa-tags"></i> cryptography, Diffie-Hellman, key exchange, number theory, public key</span>
+                </div>
+                <!-- Meta Ends -->
+                <!-- Article Content Starts -->
+                <h1 class="text-uppercase text-capitalize">Diffie-Hellman Key Exchange: The Genesis of Public-Key Cryptography</h1>
+                <img src="img/blog/diffie_hellman.png" class="img-fluid" alt="Diffie Hellman  Blog image"/>
+                <div class="blog-excerpt open-sans-font pb-5">
+                    
+                    <h1>Diffie-Hellman Key Exchange</h1>
+
+                    <div class="cnn-highlight">
+                        <b>What is Diffie-Hellman Key Exchange?</b><br>
+                        The <b>Diffie-Hellman (DH) Key Exchange</b> is a method for two parties to establish a shared secret key over an insecure communication channel. Proposed by Whitfield Diffie and Martin Hellman in 1976, it was the first practical method for public key exchange. It doesn't encrypt or decrypt messages itself, but rather provides a secure way to agree on a symmetric key that can then be used for subsequent secure communication.
+                    </div>
+
+                    <h2>The Problem Diffie-Hellman Solves: Secure Key Distribution</h2>
+
+                    <div class="cnn-warning">
+                        <b>The Symmetric Key Distribution Problem</b><br>
+                        Before Diffie-Hellman, for two parties to communicate securely using symmetric encryption (where the same key is used for both encryption and decryption), they first needed to share a secret key. The challenge was how to share this key over an insecure channel without an eavesdropper intercepting it. This "key distribution problem" was a major hurdle for secure communication. Diffie-Hellman provided a revolutionary solution by allowing parties to derive a shared secret without ever actually transmitting it.
+                    </div>
+
+                    <table class="cnn-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Key Type</th>
+                                <th>Key Distribution Challenge</th>
+                                <th>Main Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Symmetric Encryption (e.g., AES)</td>
+                                <td>Single shared key</td>
+                                <td>Key must be shared secretly prior to communication.</td>
+                                <td>Encrypt/Decrypt data.</td>
+                            </tr>
+                            <tr>
+                                <td>Diffie-Hellman Key Exchange</td>
+                                <td>Public parameters, private secrets, shared derived secret</td>
+                                <td>Derives a shared secret over an insecure channel, no direct key transmission.</td>
+                                <td>Establish a shared secret key.</td>
+                            </tr>
+                            <tr>
+                                <td>Asymmetric Encryption (e.g., RSA)</td>
+                                <td>Public/Private key pair</td>
+                                <td>Public key can be shared openly; private key kept secret.</td>
+                                <td>Encrypt/Decrypt data (but slower than symmetric).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Mathematical Foundation: The Discrete Logarithm Problem</h2>
+
+                    <div class="cnn-formula">
+                        <b>Modular Exponentiation</b><br>
+                        The core operation involves modular exponentiation: calculating $a^b \pmod{n}$. This operation is computationally efficient even for very large numbers.
+                        <br><br>
+                        Example: $3^4 \pmod{7}$
+                        $3^4 = 81$
+                        $81 \pmod{7} = 4$
+                        So, $3^4 \equiv 4 \pmod{7}$
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>The Discrete Logarithm Problem (DLP)</b><br>
+                        Given a prime number $p$, a generator $g$ (a primitive root modulo $p$), and a value $Y$, it is computationally difficult to find the exponent $x$ such that:
+                        $$g^x \equiv Y \pmod{p}$$
+                        This is called the discrete logarithm problem. While calculating $g^x \pmod{p}$ is easy, finding $x$ when $g$, $Y$, and $p$ are known is extremely hard for large prime numbers. This asymmetry is what makes Diffie-Hellman secure.
+                        <br><br>
+                        Example: Given $2^x \equiv 5 \pmod{11}$. Finding $x$ is hard. (Here, $x=4$ because $2^4 = 16 \equiv 5 \pmod{11}$).
+                    </div>
+                    
+                    <div class="cnn-formula">
+                        <b>Prime Numbers (p) and Generators (g)</b><br>
+                        A <b>prime number $p$</b> is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+                        <br><br>
+                        A <b>generator (or primitive root) $g$</b> modulo $p$ is an integer such that every number from 1 to $p-1$ can be expressed as a power of $g$ modulo $p$. For Diffie-Hellman, $g$ must be a generator modulo $p$.
+                        <br><br>
+                        Example: For $p=7$, $g=3$ is a generator because:
+                        $3^1 \equiv 3 \pmod 7$
+                        $3^2 \equiv 2 \pmod 7$
+                        $3^3 \equiv 6 \pmod 7$
+                        $3^4 \equiv 4 \pmod 7$
+                        $3^5 \equiv 5 \pmod 7$
+                        $3^6 \equiv 1 \pmod 7$
+                        It generates all numbers from 1 to 6.
+                    </div>
+
+                    <h2>Diffie-Hellman Algorithm: Step-by-Step</h2>
+
+                    <div class="cnn-tip">
+                        <b>The Protocol Steps:</b>
+                        <ol class="list-decimal list-inside ml-4 mt-2">
+                            <li><b>Agreement on Public Parameters:</b> Alice and Bob publicly agree on a large prime number $p$ and a generator $g$ (where $g < p$). These values are not secret.</li>
+                            <li><b>Alice's Secret:</b> Alice chooses a private random integer $a$ ($1 < a < p-1$). She computes her public value $A$:
+                                $$A = g^a \pmod{p}$$
+                                Alice sends $A$ to Bob over the insecure channel.
+                            </li>
+                            <li><b>Bob's Secret:</b> Bob chooses a private random integer $b$ ($1 < b < p-1$). He computes his public value $B$:
+                                $$B = g^b \pmod{p}$$
+                                Bob sends $B$ to Alice over the insecure channel.
+                            </li>
+                            <li><b>Shared Secret Computation (Alice):</b> Alice receives $B$ from Bob. She computes the shared secret key $S_A$:
+                                $$S_A = B^a \pmod{p}$$
+                            </li>
+                            <li><b>Shared Secret Computation (Bob):</b> Bob receives $A$ from Alice. He computes the shared secret key $S_B$:
+                                $$S_B = A^b \pmod{p}$$
+                            </li>
+                        </ol>
+                        <br>
+                        <b>The Magic:</b> Both $S_A$ and $S_B$ will be equal to the same shared secret $S$, because:
+                        $$S_A = B^a \pmod{p} = (g^b)^a \pmod{p} = g^{ba} \pmod{p}$$                       $$S_B = A^b \pmod{p} = (g^a)^b \pmod{p} = g^{ab} \pmod{p}$$
+                        Since $g^{ba} = g^{ab}$, Alice and Bob arrive at the same shared secret key without ever exchanging their private exponents ($a$ and $b$).
+                    </div>
+
+                    <h2>Worked Example: Diffie-Hellman Key Exchange</h2>
+
+                    <div class="cnn-tip">
+                        <b>Let's see Diffie-Hellman in action with small numbers:</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('dh-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="dh-example-icon">+</span> Show Complete Example
+                            </button>
+                            
+                            <div id="dh-example" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Step 1: Public Agreement</b><br>
+                                Alice and Bob agree on a prime $p = 23$ and a generator $g = 5$.
+                                <br><br>
+                                <b>Step 2: Alice's Actions</b><br>
+                                Alice chooses her private key $a = 6$.
+                                She computes her public value $A$:
+                                $$A = g^a \pmod{p} = 5^6 \pmod{23}$$
+                                $5^6 = 15625$
+                                $15625 \pmod{23} = 8$
+                                So, Alice's public value $A = 8$. Alice sends '8' to Bob.
+                                <br><br>
+                                <b>Step 3: Bob's Actions</b><br>
+                                Bob chooses his private key $b = 15$.
+                                He computes his public value $B$:
+                                $$B = g^b \pmod{p} = 5^{15} \pmod{23}$$
+                                $5^{15} = 30517578125$
+                                $30517578125 \pmod{23} = 19$
+                                So, Bob's public value $B = 19$. Bob sends '19' to Alice.
+                                <br><br>
+                                <b>Step 4: Shared Secret (Alice's side)</b><br>
+                                Alice receives $B = 19$ from Bob. She computes the shared secret $S_A$:
+                                $$S_A = B^a \pmod{p} = 19^6 \pmod{23}$$
+                                $19^6 = 47045881$
+                                $47045881 \pmod{23} = 2$
+                                Alice's shared secret $S_A = 2$.
+                                <br><br>
+                                <b>Step 5: Shared Secret (Bob's side)</b><br>
+                                Bob receives $A = 8$ from Alice. He computes the shared secret $S_B$:
+                                $$S_B = A^b \pmod{p} = 8^{15} \pmod{23}$$
+                                $8^{15} = 35184372088832$
+                                $35184372088832 \pmod{23} = 2$
+                                Bob's shared secret $S_B = 2$.
+                                <br><br>
+                                <b>Result:</b> Both Alice and Bob have successfully computed the same shared secret key, $S = 2$, without an eavesdropper (like Eve) being able to easily derive it from the publicly exchanged values ($p=23, g=5, A=8, B=19$). Eve would need to solve the discrete logarithm problem to find $a$ or $b$.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Security of Diffie-Hellman: The DLP Challenge</h2>
+
+                    <div class="cnn-warning">
+                        <b>The Discrete Logarithm Problem (DLP)</b><br>
+                        The security of the Diffie-Hellman key exchange fundamentally rests on the computational difficulty of solving the Discrete Logarithm Problem (DLP). An eavesdropper (Eve) observes $p$, $g$, $A = g^a \pmod{p}$, and $B = g^b \pmod{p}$. To find the shared secret $g^{ab} \pmod{p}$, Eve would need to find either $a$ from $A$ or $b$ from $B$. For sufficiently large prime numbers $p$, finding these exponents ($a$ or $b$) is currently intractable with classical computers.
+                        <br><br>
+                        <b>Man-in-the-Middle (MitM) Attack:</b><br>
+                        While Diffie-Hellman prevents an eavesdropper from learning the shared secret, it does not inherently protect against a "Man-in-the-Middle" (MitM) attack. In a MitM attack, a malicious third party (Mallory) intercepts the public values exchanged ($A$ and $B$) and establishes separate shared secrets with Alice and Bob. Mallory then decrypts messages from one party, reads/modifies them, and re-encrypts them with the other shared secret before forwarding. To mitigate this, Diffie-Hellman is often combined with other mechanisms, such as **digital signatures**, to authenticate the identities of the communicating parties.
+                    </div>
+
+                    <table class="cnn-table">
+                        <thead>
+                            <tr>
+                                <th>Key Size (bits)</th>
+                                <th>Security Equivalence</th>
+                                <th>Resistance to DLP</th>
+                                <th>MitM Protection</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1024</td>
+                                <td>80-bit symmetric</td>
+                                <td>Considered weak/deprecated for modern use</td>
+                                <td>None (DH alone)</td>
+                            </tr>
+                            <tr>
+                                <td>2048</td>
+                                <td>112-bit symmetric</td>
+                                <td>Current industry standard, good security</td>
+                                <td>None (DH alone)</td>
+                            </tr>
+                            <tr>
+                                <td>3072</td>
+                                <td>128-bit symmetric</td>
+                                <td>Recommended for long-term security</td>
+                                <td>None (DH alone)</td>
+                            </tr>
+                            <tr>
+                                <td>4096+</td>
+                                <td>Higher symmetric equiv.</td>
+                                <td>Very high security, future-proofed</td>
+                                <td>None (DH alone)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Real-World Applications of Diffie-Hellman</h2>
+
+                    <div class="cnn-tip">
+                        <b>Diffie-Hellman's widespread use underpins much of modern secure communication:</b>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><b>Transport Layer Security (TLS/SSL):</b> Used to secure web traffic (HTTPS) and establish secure connections. It's often used for "Ephemeral Diffie-Hellman" (DHE) to provide perfect forward secrecy.</li>
+                            <li><b>Secure Shell (SSH):</b> Provides secure remote access to computers. DH is used to establish the initial secure channel for key exchange.</li>
+                            <li><b>Virtual Private Networks (VPNs):</b> Securely extend a private network across a public network. DH is used to set up the secure tunnel.</li>
+                            <li><b>IPsec:</b> A suite of protocols used to secure Internet Protocol (IP) communications. DH is a common component for key exchange.</li>
+                            <li><b>Secure Email:</b> Protocols like OpenPGP often leverage DH for key agreement.</li>
+                        </ul>
+                    </div>
+
+                    <h2>Conclusion: A Cornerstone of Modern Cryptography</h2>
+
+                    <p>The Diffie-Hellman Key Exchange is a monumental achievement in the field of cryptography. By solving the seemingly intractable problem of securely distributing keys over insecure channels, it laid the groundwork for public-key cryptography and revolutionized how we protect digital communications. Its elegant reliance on the mathematical difficulty of the discrete logarithm problem continues to safeguard our online interactions, forming an indispensable part of the security infrastructure of the internet.</p>
+
+                    <h2>References</h2>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Diffie, W., & Hellman, M. E. (1976). <b>New directions in cryptography</b>. IEEE Transactions on Information Theory, 22(6), 644-654.</li>
+                        <li>Stallings, W. (2020). <b>Cryptography and Network Security: Principles and Practice</b>. Pearson.</li>
+                    </ul>
+
+
+                </div>
+                <!-- Article Content Ends -->
+            </article>
+            <!-- Article Ends -->
+        </div>
+    </div>
+</section>
+<!-- Template JS Files -->
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+</body>
+</html>
