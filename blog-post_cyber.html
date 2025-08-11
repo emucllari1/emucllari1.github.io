@@ -71,6 +71,30 @@
                 icon.style.fontWeight = 'normal';
             }
         }
+
+
+        // Caesar cipher example function
+        function caesarCipher(text, shift) {
+            return text.toUpperCase().replace(/[A-Z]/g, function(char) {
+                return String.fromCharCode(((char.charCodeAt(0) - 65 + shift) % 26) + 65);
+            });
+        }
+
+        function runCaesarExample() {
+            const message = "HELLO";
+            const shift = 2;
+            const encrypted = caesarCipher(message, shift);
+            const decrypted = caesarCipher(encrypted, -shift);
+            
+            document.getElementById('caesar-result').innerHTML = `
+                <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <strong>Original message:</strong> ${message}<br>
+                    <strong>Shift by ${shift} positions:</strong> A→C, B→D, C→E, etc.<br>
+                    <strong>Encrypted:</strong> ${encrypted}<br>
+                    <strong>Decrypted back:</strong> ${decrypted}
+                </div>
+            `;
+        }
         
         // Use an event listener to handle clicks without modifying HTML
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -143,6 +167,65 @@
             border-radius: 4px;
             cursor: pointer;
             margin-bottom: 15px; /* Added spacing */
+        }
+        .toggle-button-style:hover {
+            background: #2e7d32;
+        }
+        
+        /* CIA Triad Table Styles */
+        .cia-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .cia-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .cia-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .confidentiality-row {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+        }
+        .integrity-row {
+            background: linear-gradient(135deg, #a8e6cf 0%, #88d8a3 100%);
+        }
+        .authentication-row {
+            background: linear-gradient(135deg, #dceafe 0%, #a8d5ff 100%);
+        }
+        .anti-replay-row {
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffb3c6 100%);
+        }
+        .non-repudiation-row {
+            background: linear-gradient(135deg, #e6e6fa 0%, #d8bfd8 100%);
+        }
+        
+        /* Interactive example box */
+        .interactive-example {
+            background: #f8f9fa;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .example-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .example-button:hover {
+            background: #0056b3;
         }
     </style>
 </head>
@@ -293,6 +376,51 @@
                         </ul>
                     </div>
 
+                    <h2>The Five Pillars of Cybersecurity</h2>
+
+                    <table class="cia-table">
+                        <thead>
+                            <tr>
+                                <th>Security Principle</th>
+                                <th>What It Does</th>
+                                <th>Primary Technology</th>
+                                <th>Real-World Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="confidentiality-row">
+                                <td><strong>🔒 Confidentiality</strong></td>
+                                <td>Keeps your secrets secret - only authorized people can see your information</td>
+                                <td><strong>Encryption</strong><br><small>(Scrambles data so only the right people can read it)</small></td>
+                                <td>When you send a private message on WhatsApp, it's encrypted so only you and your friend can read it</td>
+                            </tr>
+                            <tr class="integrity-row">
+                                <td><strong>🛡️ Integrity</strong></td>
+                                <td>Ensures your data hasn't been tampered with or corrupted</td>
+                                <td><strong>Hashing</strong><br><small>(Creates a unique "fingerprint" for data)</small></td>
+                                <td>When you download software, you can check its hash to make sure it wasn't modified by hackers</td>
+                            </tr>
+                            <tr class="authentication-row">
+                                <td><strong>🔑 Authentication</strong></td>
+                                <td>Proves you are who you say you are</td>
+                                <td><strong>PKI & Digital Certificates</strong><br><small>(Digital IDs that verify identity)</small></td>
+                                <td>When you log into your bank account with username/password, or when websites show that green padlock</td>
+                            </tr>
+                            <tr class="anti-replay-row">
+                                <td><strong>🔄 Anti-Replay</strong></td>
+                                <td>Prevents hackers from copying and reusing your login attempts</td>
+                                <td><strong>Timestamps & Nonces</strong><br><small>(Unique numbers or time stamps)</small></td>
+                                <td>Your credit card has a security code that changes - old codes can't be reused</td>
+                            </tr>
+                            <tr class="non-repudiation-row">
+                                <td><strong>📝 Non-Repudiation</strong></td>
+                                <td>Provides undeniable proof of who sent what and when</td>
+                                <td><strong>Digital Signatures</strong><br><small>(Digital equivalent of handwritten signatures)</small></td>
+                                <td>When you digitally sign a contract, you can't later deny that you signed it</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     ---
 
                     <h1>Secure Communication Protocols</h1>
@@ -397,6 +525,29 @@
                         $$\text{If } \text{Original Hash} = \text{Computed Hash}, \text{ then Data Integrity is Maintained}$$
                     </div>
 
+
+                    <button class="toggle-button-style" id="hash-example-toggle">
+                        <span id="hash-example-icon">+</span> See How Hashing Detects Changes
+                    </button>
+                    <div id="hash-example" style="display: none;">
+                        <div class="interactive-example">
+                            <h4>Hash Example (Simplified)</h4>
+                            <p><strong>Original message:</strong> "Hello World"</p>
+                            <p><strong>Hash (fingerprint):</strong> "a591a6d4"</p>
+                            <hr>
+                            <p><strong>Changed message:</strong> "Hello World!" (just added one exclamation mark)</p>
+                            <p><strong>New hash:</strong> "b7e9c3f8" (completely different!)</p>
+                            <hr>
+                            <p><strong>How this protects you:</strong></p>
+                            <ol>
+                                <li>You download a file and its expected hash</li>
+                                <li>You calculate the hash of your downloaded file</li>
+                                <li>If the hashes match = file is intact ✅</li>
+                                <li>If hashes don't match = file was corrupted or tampered with ❌</li>
+                            </ol>
+                        </div>
+                    </div>
+
                     <h2>Symmetric and Asymmetric Encryption</h2>
 
                     <div class="cnn-highlight">
@@ -415,6 +566,45 @@
                         <br><b>Cons:</b> The main challenge is the **key distribution problem** – how do Alice and Bob securely share this secret key over an insecure channel without an eavesdropper intercepting it?
                     </div>
 
+
+                    <button class="toggle-button-style" id="caesar-example-toggle">
+                        <span id="caesar-example-icon">+</span> Try a Simple Encryption Example (Caesar Cipher)
+                    </button>
+                    <div id="caesar-example" style="display: none;">
+                        <div class="interactive-example">
+                            <h4>Caesar Cipher - A Simple Symmetric Encryption</h4>
+                            <p><strong>How it works:</strong> We shift each letter of the alphabet by a fixed number of positions.</p>
+                            <p><strong>Our Example:</strong> Shift by 2 positions</p>
+                            <ul>
+                                <li>A becomes C (A + 2 = C)</li>
+                                <li>B becomes D (B + 2 = D)</li>
+                                <li>E becomes G (E + 2 = G)</li>
+                                <li>And so on...</li>
+                            </ul>
+                            
+                            <button class="example-button" onclick="runCaesarExample()">🔐 Encrypt "HELLO" with Caesar Cipher</button>
+                            <div id="caesar-result"></div>
+                            
+                            <p style="margin-top: 15px;"><strong>Key Point:</strong> Both sender and receiver need to know the "shift by 2" rule - that's the shared secret key!</p>
+                        </div>
+                    </div>
+
+                    <button class="toggle-button-style" id="aes-details-toggle">
+                        <span id="aes-details-icon">+</span> Modern Symmetric Encryption (AES)
+                    </button>
+                    <div id="aes-details" style="display: none;">
+                        <div class="cnn-tip">
+                            <b>AES (Advanced Encryption Standard):</b>
+                            <p>AES is like the Caesar cipher but incredibly more complex and secure. Instead of shifting letters, it uses mathematical operations on blocks of data.</p>
+                            <ul>
+                                <li><strong>Speed:</strong> Very fast - can encrypt gigabytes of data quickly</li>
+                                <li><strong>Security:</strong> Even with today's most powerful computers, it would take longer than the age of the universe to crack</li>
+                                <li><strong>Usage:</strong> Used everywhere - Wi-Fi passwords, file encryption, secure messaging apps</li>
+                            </ul>
+                            <p><strong>The Challenge:</strong> How do you safely share the secret key? That's where asymmetric encryption comes in...</p>
+                        </div>
+                    </div>
+
                     <div class="cnn-highlight">
                         <b>Asymmetric Encryption: Public and Private Keys</b><br>
                         <b>Asymmetric encryption</b>, also known as **public-key cryptography**, uses a pair of mathematically linked keys: a **public key** and a **private key**. Data encrypted with one key can only be decrypted by the other key in the pair.
@@ -429,6 +619,38 @@
                         <br><br>
                         <b>Pros:</b> Solves the key distribution problem as the public key can be freely shared. Enables digital signatures and secure key exchange.
                         <br><b>Cons:</b> Much slower and more computationally intensive than symmetric encryption, making it unsuitable for encrypting large volumes of data directly.
+                    </div>
+
+
+                    <button class="toggle-button-style" id="asymmetric-example-toggle">
+                        <span id="asymmetric-example-icon">+</span> Simple Asymmetric Encryption Example
+                    </button>
+                    <div id="asymmetric-example" style="display: none;">
+                        <div class="interactive-example">
+                            <h4>The Mailbox Analogy</h4>
+                            <p><strong>Scenario:</strong> Alice wants to receive secret messages</p>
+                            <ol>
+                                <li><strong>Alice creates two keys:</strong>
+                                    <ul>
+                                        <li>🔑 <strong>Public Key:</strong> She gives copies to everyone (like having many "lock-only" keys)</li>
+                                        <li>🗝️ <strong>Private Key:</strong> She keeps this secret (the only "unlock" key)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Bob wants to send Alice a secret:</strong>
+                                    <ul>
+                                        <li>Bob uses Alice's public key to encrypt: "Hello Alice" → "X9#mK2@pL"</li>
+                                        <li>Bob sends the encrypted message</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Alice receives and decrypts:</strong>
+                                    <ul>
+                                        <li>Alice uses her private key to decrypt: "X9#mK2@pL" → "Hello Alice"</li>
+                                        <li>Only Alice can read it because only she has the private key!</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <p><strong>Magic:</strong> Even if a hacker intercepts the message and has Alice's public key, they still can't decrypt it!</p>
+                        </div>
                     </div>
 
                     ---
@@ -456,6 +678,45 @@
                             <li><b>Digital Certificates:</b> Electronic documents that link a public key to an identity, issued by a CA.</li>
                             <li><b>Certificate Revocation Lists (CRLs) / Online Certificate Status Protocol (OCSP):</b> Mechanisms to check if a certificate has been revoked before its expiration date.</li>
                         </ul>
+                    </div>
+
+
+                    <button class="toggle-button-style" id="pki-analogy-toggle">
+                        <span id="pki-analogy-icon">+</span> PKI Real-World Analogy
+                    </button>
+                    <div id="pki-analogy" style="display: none;">
+                        <div class="interactive-example">
+                            <h4>PKI is Like a Government ID System</h4>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr style="background: #f0f8ff;">
+                                    <td style="padding: 10px; border: 1px solid #ccc;"><strong>Real World</strong></td>
+                                    <td style="padding: 10px; border: 1px solid #ccc;"><strong>PKI World</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ccc;">Government (DMV)</td>
+                                    <td style="padding: 10px; border: 1px solid #ccc;">Certificate Authority (CA)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ccc;">Driver's License</td>
+                                    <td style="padding: 10px; border: 1px solid #ccc;">Digital Certificate</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ccc;">Your Photo & Info</td>
+                                    <td style="padding: 10px; border: 1px solid #ccc;">Website's Public Key & Identity</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ccc;">Police Officer Checking ID</td>
+                                    <td style="padding: 10px; border: 1px solid #ccc;">Your Browser Verifying Certificate</td>
+                                </tr>
+                            </table>
+                            <p><strong>The Process:</strong></p>
+                            <ol>
+                                <li>A website applies to a trusted CA (like applying for a driver's license)</li>
+                                <li>CA verifies the website's identity (like the DMV checking your documents)</li>
+                                <li>CA issues a digital certificate (like issuing a driver's license)</li>
+                                <li>When you visit the website, your browser checks this certificate with the trusted CA (like a police officer checking your ID is real)</li>
+                            </ol>
+                        </div>
                     </div>
 
                     <h2>Digital Signatures: Proving Authenticity and Integrity</h2>
@@ -499,11 +760,56 @@
                         Where $e$ is the sender's public exponent.
                     </div>
 
+
+                    <button class="toggle-button-style" id="signature-example-toggle">
+                        <span id="signature-example-icon">+</span> How Digital Signatures Work
+                    </button>
+                    <div id="signature-example" style="display: none;">
+                        <div class="interactive-example">
+                            <h4>Digital Signature Process</h4>
+                            <p><strong>Alice wants to digitally sign a contract:</strong></p>
+                            
+                            <div style="background: #fff8e1; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                                <h5>👩‍💼 Alice (Signing):</h5>
+                                <ol>
+                                    <li><strong>Create hash:</strong> Alice creates a "fingerprint" (hash) of the contract</li>
+                                    <li><strong>Encrypt hash:</strong> Alice encrypts this hash with her private key → this becomes the digital signature</li>
+                                    <li><strong>Send both:</strong> Alice sends the contract + signature to Bob</li>
+                                </ol>
+                            </div>
+                            
+                            <div style="background: #e8f5e9; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                                <h5>👨‍💼 Bob (Verifying):</h5>
+                                <ol>
+                                    <li><strong>Decrypt signature:</strong> Bob uses Alice's public key to decrypt the signature → gets the original hash</li>
+                                    <li><strong>Create fresh hash:</strong> Bob creates a new hash of the contract he received</li>
+                                    <li><strong>Compare:</strong> If both hashes match → signature is valid! ✅</li>
+                                </ol>
+                            </div>
+                            
+                            <p><strong>What this proves:</strong></p>
+                            <ul>
+                                <li>🔐 <strong>Authenticity:</strong> Only Alice could have created this signature (she has the private key)</li>
+                                <li>🛡️ <strong>Integrity:</strong> The contract wasn't changed (hash would be different)</li>
+                                <li>📝 <strong>Non-repudiation:</strong> Alice can't deny she signed it</li>
+                            </ul>
+                        </div>
+                    </div>
+
                     ---
 
                     <h1>Conclusion: An Interconnected Web of Security</h1>
 
-                    <p>From the fundamental principles of Confidentiality, Integrity, and Authentication to the intricate workings of protocols like TLS/SSL and HTTPS, and the power of cryptographic primitives like hashing and asymmetric encryption, modern cybersecurity is an interconnected ecosystem. These technologies, managed by infrastructures like PKI and secured by digital signatures, work in concert to protect our digital lives, ensuring that our online communications are private, trustworthy, and verifiable. Understanding these building blocks is key to appreciating the robust security measures that safeguard the internet today.</p>
+                    <div class="cnn-highlight">
+                        <p>Think of cybersecurity as a well-orchestrated team where each member has a specific job:</p>
+                        <ul>
+                            <li>🔒 <strong>Encryption</strong> keeps your secrets safe</li>
+                            <li>🛡️ <strong>Hashing</strong> detects if anything was tampered with</li>
+                            <li>🔑 <strong>PKI</strong> makes sure everyone is who they claim to be</li>
+                            <li>🌐 <strong>TLS/HTTPS</strong> creates secure communication channels</li>
+                            <li>📝 <strong>Digital signatures</strong> provide undeniable</li>
+                        </ul>
+                    </div>
 
                 </div>
                 <!-- Article Content Ends -->
