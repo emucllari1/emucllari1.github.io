@@ -144,6 +144,26 @@
         .cnn-table tr:nth-child(even) {
             background: #f9fbe7;
         }
+        .gif-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+        }
+        .gif-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .gif-caption {
+            margin-top: 15px;
+            font-style: italic;
+            color: #666;
+            font-size: 0.95em;
+        }
     </style>
 </head>
 
@@ -328,6 +348,13 @@
 
                     <h2>Mathematical Foundation: What Are Elliptic Curves?</h2>
 
+                    <div class="gif-container">
+                        <img src="img/blog/ellcurve_anim.gif" alt="Animated elliptic curve visualization showing different curve shapes"/>
+                        <div class="gif-caption">
+                            <b>Visualization of Elliptic Curves:</b> This animation shows how elliptic curves change shape as their parameters vary, demonstrating the smooth, continuous nature of these mathematical objects.
+                        </div>
+                    </div>
+
                     <div class="cnn-formula">
                         <b>The Elliptic Curve Equation</b><br>
                         An elliptic curve over the real numbers is defined by the equation:
@@ -362,6 +389,13 @@
                         <b>The Point at Infinity:</b> There's a special "point at infinity" denoted O that serves as the identity element: P + O = P for any point P.
                     </div>
 
+                    <div class="gif-container">
+                        <img src="img/blog/lines.gif" alt="Animated demonstration of elliptic curve point addition using geometric lines"/>
+                        <div class="gif-caption">
+                            <b>Point Addition on Elliptic Curves:</b> This animation demonstrates the geometric method of adding two points on an elliptic curve. The line through points A and B intersects the curve at a third point, which when reflected gives us A + B.
+                        </div>
+                    </div>
+
                     <div class="cnn-formula">
                         <b>Algebraic Formulas for Point Addition</b><br>
                         For points $P = (x_1, y_1)$ and $Q = (x_2, y_2)$ on curve $y^2 = x^3 + ax + b$ over $\mathbb{F}_p$:
@@ -378,6 +412,128 @@
                         <br>
                         Then $P + Q = (x_3, y_3)$.
                     </div>
+
+
+
+
+
+                    <div class="cnn-tip">
+                        <b>Mathematical Derivation: Where Do These Formulas Come From?</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('formula-derivation')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="formula-derivation-icon">+</span> Show Complete Mathematical Derivation
+                            </button>
+                            
+                            <div id="formula-derivation" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>The Geometric Foundation</b><br>
+                                The algebraic formulas arise directly from the geometric construction. Let's derive them step by step.
+                                <br><br>
+                                
+                                <b>Case 1: Adding Two Different Points P ≠ Q</b><br>
+                                Given: $P = (x_1, y_1)$ and $Q = (x_2, y_2)$ on curve $y^2 = x^3 + ax + b$
+                                <br><br>
+                                
+                                <b>Step 1: Find the line through P and Q</b><br>
+                                The slope of the line passing through points $P$ and $Q$ is:
+                                $\lambda = \frac{y_2 - y_1}{x_2 - x_1}$
+                                This is just the standard slope formula from basic geometry.
+                                <br><br>
+                                
+                                The equation of the line through $P$ and $Q$ is:
+                                $y - y_1 = \lambda(x - x_1)$
+                                $y = \lambda x + (y_1 - \lambda x_1)$
+                                <br><br>
+                                
+                                <b>Step 2: Find where this line intersects the elliptic curve</b><br>
+                                We substitute the line equation into the curve equation:
+                                $(\lambda x + (y_1 - \lambda x_1))^2 = x^3 + ax + b$
+                                <br>
+                                Expanding the left side:
+                                $\lambda^2 x^2 + 2\lambda(y_1 - \lambda x_1)x + (y_1 - \lambda x_1)^2 = x^3 + ax + b$
+                                <br>
+                                Rearranging to standard form:
+                                $x^3 - \lambda^2 x^2 + [a - 2\lambda(y_1 - \lambda x_1)]x + [b - (y_1 - \lambda x_1)^2] = 0$
+                                <br><br>
+                                
+                                <b>Step 3: Use Vieta's formulas</b><br>
+                                This is a cubic equation in $x$. We know it has three roots: $x_1$, $x_2$, and $x_3$ (the x-coordinates of points $P$, $Q$, and the third intersection point).
+                                <br><br>
+                                
+                                From Vieta's formulas, for a cubic $x^3 + bx^2 + cx + d = 0$ with roots $r_1, r_2, r_3$:
+                                $r_1 + r_2 + r_3 = -b \text{ (coefficient of } x^2\text{)}$
+                                <br>
+                                In our case:
+                                $x_1 + x_2 + x_3 = \lambda^2$
+                                <br>
+                                Therefore:
+                                $x_3 = \lambda^2 - x_1 - x_2$
+                                <br><br>
+                                
+                                <b>Step 4: Find y₃ using the line equation</b><br>
+                                Since $(x_3, y_3')$ lies on the line through $P$ and $Q$:
+                                $y_3' = \lambda x_3 + (y_1 - \lambda x_1) = \lambda(x_3 - x_1) + y_1$
+                                <br>
+                                But we want the reflection of this point across the x-axis, so:
+                                $y_3 = -y_3' = -[\lambda(x_3 - x_1) + y_1] = \lambda(x_1 - x_3) - y_1$
+                                <br><br>
+                                
+                                <b>Case 2: Point Doubling (P = Q)</b><br>
+                                When $P = Q$, we can't use the slope formula above (it gives 0/0). Instead, we need the slope of the tangent line at point $P$.
+                                <br><br>
+                                
+                                <b>Step 1: Find the tangent slope using implicit differentiation</b><br>
+                                Starting with the curve equation: $y^2 = x^3 + ax + b$
+                                <br>
+                                Differentiating both sides with respect to $x$:
+                                $2y \frac{dy}{dx} = 3x^2 + a$
+                                <br>
+                                Solving for the slope:
+                                $\frac{dy}{dx} = \frac{3x^2 + a}{2y}$
+                                <br>
+                                At point $P = (x_1, y_1)$:
+                                $\lambda = \frac{3x_1^2 + a}{2y_1}$
+                                <br><br>
+                                
+                                <b>Step 2: Apply the same intersection analysis</b><br>
+                                The rest of the derivation follows the same pattern as Case 1:
+                                <br>
+                                • The tangent line equation is: $y = \lambda x + (y_1 - \lambda x_1)$
+                                <br>
+                                • Substituting into the curve equation gives a cubic with roots $x_1$ (with multiplicity 2) and $x_3$
+                                <br>
+                                • From Vieta's formulas: $x_1 + x_1 + x_3 = \lambda^2$, so $x_3 = \lambda^2 - 2x_1$
+                                <br>
+                                • The y-coordinate: $y_3 = \lambda(x_1 - x_3) - y_1$
+                                <br><br>
+                                
+                                <b>Why the Reflection?</b><br>
+                                The geometric construction requires reflecting the third intersection point across the x-axis. This ensures that:
+                                <br>
+                                1. The result is still on the elliptic curve
+                                <br>
+                                2. The group operation is well-defined and associative
+                                <br>
+                                3. Every point has an inverse (its reflection across the x-axis)
+                                <br><br>
+                                
+                                <b>Verification Example</b><br>
+                                Let's verify with the curve $y^2 = x^3 + 7$ and points $P = (1, 2\sqrt{2})$ and $Q = (4, 9)$:
+                                <br>
+                                • Slope: $\lambda = \frac{9 - 2\sqrt{2}}{4 - 1} = \frac{9 - 2\sqrt{2}}{3}$
+                                <br>
+                                • $x_3 = \lambda^2 - 1 - 4 = \lambda^2 - 5$
+                                <br>
+                                • $y_3 = \lambda(1 - x_3) - 2\sqrt{2}$
+                                <br><br>
+                                
+                                The beauty of these formulas is that they work consistently across all elliptic curves, turning the geometric group law into efficient algebraic operations suitable for computer implementation.
+                            </div>
+                        </div>
+                    </div>
+
+
+
 
                     <h2>The Elliptic Curve Discrete Logarithm Problem (ECDLP)</h2>
 
@@ -704,4 +860,4 @@
 <script src="js/imagesloaded.pkgd.min.js"></script>
 <script src="js/masonry.pkgd.min.js"></script>
 </body>
-</html>
+</html></html>
