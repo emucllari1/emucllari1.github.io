@@ -818,7 +818,7 @@ To find 4P:<br>
         </ul>
     </div>
 
-    <h2>Summary: Mathematical Elegance in Action</h2>
+    <h2>Mathematical Elegance in Action</h2>
 
     <p>The reflection across the x-axis isn't just an arbitrary choice - it's a carefully designed mathematical operation that:</p>
 
@@ -1129,6 +1129,131 @@ To find 4P:<br>
                         <b>Preparing for the Quantum Era</b><br>
                         While ECC provides excellent security against classical computers, it shares the same vulnerability as RSA and Diffie-Hellman to quantum computers running Shor's algorithm. A sufficiently large quantum computer could solve the ECDLP efficiently, breaking all current ECC implementations. This has led to active research in post-quantum cryptography, including lattice-based, hash-based, and code-based alternatives. However, ECC remains secure against current technology and will likely continue to be used for many years while post-quantum standards mature.
                     </div>
+
+
+
+
+
+                    <h2>Elliptic Curve Integrated Encryption Scheme (ECIES)</h2>
+
+<div class="cnn-highlight">
+    <strong>What is ECIES?</strong><br>
+    ECIES is a hybrid encryption system. It uses Elliptic Curve Diffie–Hellman (ECDH) to agree on a shared secret, then splits that secret into two symmetric keys: one for fast encryption (e.g., AES) and one for message authentication (MAC). 
+    This combination gives you both confidentiality and integrity.
+</div>
+
+<h3>Key Pairs in ECIES</h3>
+<ul>
+    <li><b>Recipient’s Long-Term Key Pair:</b> 
+        <br>Private key: <code>n</code>  
+        <br>Public key: <code>P = n × G</code>
+    </li>
+    <li><b>Sender’s Ephemeral Key Pair:</b>  
+        <br>Private key: <code>e</code>  
+        <br>Public key: <code>E = e × G</code>  
+        <br>Generated fresh for each message, then discarded.
+    </li>
+</ul>
+
+<h3>Encryption Process (Sender)</h3>
+<ol>
+    <li><strong>Get Recipient's Public Key:</strong>  
+        The sender obtains the recipient’s long-term public key <code>P</code>.
+    </li>
+
+    <li><strong>Generate Ephemeral Keys:</strong>  
+        Pick a random ephemeral private key <code>e</code>, compute <code>E = e × G</code>.
+    </li>
+
+    <li><strong>Compute Shared Secret:</strong>  
+        <code>S = e × P = e × (n × G) = (e × n) × G</code>.
+    </li>
+
+    <li><strong>Derive Symmetric Keys:</strong>  
+        The shared secret <code>S</code> is an elliptic curve point with x and y coordinates.  
+        A <b>Key Derivation Function</b> (KDF), such as HKDF with SHA-256, is used to turn these coordinates into cryptographically strong keys:
+<pre>
+input = x(S) || y(S)
+key_material = HKDF(input)
+k_enc = first 16 bytes   # encryption key (AES-128)
+k_mac = next 16 bytes    # MAC key
+</pre>
+        <div class="cnn-tip">
+            <b>Why use a KDF?</b>  
+            The raw coordinates of <code>S</code> are not random bitstrings.  
+            A KDF extracts and expands them into secure, independent keys for encryption and authentication.
+        </div>
+    </li>
+
+    <li><strong>Encrypt & Authenticate:</strong>  
+        - <b>Ciphertext:</b> Encrypt the plaintext (the actual data/message) using AES (or similar) with <code>k_enc</code>:
+<pre>
+ciphertext = AES_Encrypt(k_enc, plaintext)
+</pre>
+        - <b>MAC:</b> A short tag that proves the ciphertext hasn’t been tampered with.  
+          Typically computed using HMAC-SHA256 with <code>k_mac</code>:
+<pre>
+mac_tag = HMAC(k_mac, ciphertext)
+</pre>
+        The MAC ensures the message’s authenticity and integrity.
+    </li>
+
+    <li><strong>Transmit:</strong> Send three things to the recipient:
+        <ul>
+            <li><code>E</code> — ephemeral public key</li>
+            <li><code>ciphertext</code> — encrypted data</li>
+            <li><code>mac_tag</code> — authentication tag</li>
+        </ul>
+    </li>
+</ol>
+
+<h3>Decryption Process (Recipient)</h3>
+<ol>
+    <li><strong>Compute Shared Secret:</strong>  
+        Use private key <code>n</code> and sender’s ephemeral public key <code>E</code>:
+        <code>S' = n × E = n × (e × G) = (n × e) × G</code>.
+    </li>
+
+    <li><strong>Derive Symmetric Keys:</strong>  
+        Apply the same KDF to <code>S'</code> to recover identical <code>k_enc</code> and <code>k_mac</code>.
+    </li>
+
+    <li><strong>Verify MAC:</strong>  
+        Compute:
+<pre>
+HMAC(k_mac, ciphertext)
+</pre>
+        If it matches the received <code>mac_tag</code>, the ciphertext is authentic. Otherwise, reject the message.
+    </li>
+
+    <li><strong>Decrypt:</strong>  
+        If the MAC is valid, decrypt:
+<pre>
+plaintext = AES_Decrypt(k_enc, ciphertext)
+</pre>
+        and recover the original message.
+    </li>
+</ol>
+
+<div class="cnn-formula">
+    <b>Mathematical Equivalence:</b><br>
+    Sender: S = e × P = e × (n × G) = (e × n) × G<br>
+    Recipient: S' = n × E = n × (e × G) = (n × e) × G<br>
+    Since e × n = n × e, S = S'.  
+    This property of elliptic curve multiplication enables ECDH — and by extension, ECIES.
+</div>
+
+<h3>Quick Reference</h3>
+<table border="1" cellpadding="4">
+<tr><th>Term</th><th>Meaning</th><th>Produced By</th><th>Purpose</th></tr>
+<tr><td><code>k_enc</code></td><td>Symmetric encryption key</td><td>KDF output from S</td><td>Encrypt/decrypt the message</td></tr>
+<tr><td><code>k_mac</code></td><td>Symmetric MAC key</td><td>KDF output from S</td><td>Generate/verify MAC</td></tr>
+<tr><td><code>ciphertext</code></td><td>Encrypted message</td><td>AES (or similar) with k_enc</td><td>Confidentiality</td></tr>
+<tr><td><code>mac_tag</code></td><td>Message authentication code</td><td>HMAC of ciphertext with k_mac</td><td>Integrity & authenticity</td></tr>
+</table>
+
+
+
 
                     <h2>Conclusion: The Elegant Balance of Security and Efficiency</h2>
 
