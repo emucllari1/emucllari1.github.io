@@ -548,6 +548,97 @@
                         </div>
                     </div>
 
+
+
+
+
+
+
+                    <h2>Beyond Hashing: Ensuring Authenticity with MACs</h2>
+
+                    <div class="cnn-warning">
+                        <b>The Problem with Hashing Alone (The Man-in-the-Middle Attack)</b><br>
+                        While hashing is great for detecting accidental corruption, it can't stop a deliberate attacker like <b>Eve</b> who sits between <b>Bob</b> and <b>Alice</b>.
+                        <br><br>
+                        Imagine this:
+                        <ol style="list-style-type: decimal; padding-left: 20px;">
+                            <li>Bob wants to send the message "Pay me $100" to Alice. He hashes it and sends both the message and the hash.</li>
+                            <li>Eve intercepts the message. She can't use the original message, but she can create a new one: "Pay Eve $1000".</li>
+                            <li>Since the hashing algorithm (like SHA-256) is public, Eve simply calculates a <b>new hash</b> for her malicious message.</li>
+                            <li>Eve sends her new message and its new hash to Alice.</li>
+                            <li>Alice receives the message and the hash. She computes the hash of the message she received, and it matches the hash Eve sent. To Alice, everything looks perfectly fine, and she pays Eve.</li>
+                        </ol>
+                        The integrity check passed, but the message was still successfully tampered with. This is because the hash only proves the message wasn't altered <i>since it was last hashed</i>, not that it came from the original sender (Bob).
+                    </div>
+
+                    <h3>MAC and HMAC: Adding a Secret Ingredient</h3>
+
+                    <div class="cnn-highlight">
+                        To solve this, we use a <b>Message Authentication Code (MAC)</b>. A MAC is like a hash, but it's created using two inputs: the message itself and a <b>secret key</b> that only the sender and receiver know.
+                        <br><br>
+                        A common type of MAC is an <b>HMAC (Hash-based Message Authentication Code)</b>. It uses a standard hash function (like SHA-256) but combines it with the secret key to provide both data integrity and authenticity.
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>Conceptual Formula:</b>
+                        <br>
+                        Simple Hash: $$ \text{Hash} = H(\text{Message}) $$
+                        HMAC: $$ \text{HMAC} = H(\text{Secret Key} + \text{Message}) $$
+                        <small>(Note: This is a simplified representation. The actual HMAC process is more complex to prevent certain attacks, but this illustrates the core idea.)</small>
+                    </div>
+
+
+                    <button class="toggle-button-style" id="hmac-example-toggle">
+                        <span id="hmac-example-icon">+</span> See How HMAC Stops Eve
+                    </button>
+                    <div id="hmac-example" style="display: none;">
+                        <div class="interactive-example">
+                            <h4>Scenario: Bob sends "Pay me $100" to Alice</h4>
+                            <p>Bob and Alice share a secret key: <code>supersecret123</code>. Eve does not know this key.</p>
+                            <hr>
+                            
+                            <h5>1. Bob creates the HMAC</h5>
+                            <pre style="background:#eef; padding:10px; border-radius:5px;"><code>// Bob combines his message with the secret key and hashes it
+Message = "Pay me $100"
+SecretKey = "supersecret123"
+HMAC_sent = HASH(SecretKey + Message)  // Result: "fa8a2b..."
+                            </code></pre>
+                            <p>Bob sends the original message ("Pay me $100") and this HMAC ("fa8a2b...") to Alice.</p>
+                            <hr>
+
+                            <h5>2. Eve intercepts and tries to tamper</h5>
+                            <pre style="background:#fee; padding:10px; border-radius:5px;"><code>// Eve creates a new message
+MaliciousMessage = "Pay Eve $1000"
+
+                            
+// Eve tries to create a new HMAC, but she doesn't know the key!
+// She can only hash the message itself.
+Eve_Hash = HASH(MaliciousMessage) // Result: "c3d4e5..."
+                            </code></pre>
+                            <p>Eve sends her malicious message ("Pay Eve $1000") and her incorrect hash ("c3d4e5...") to Alice.</p>
+                            <hr>
+
+                            <h5>3. Alice verifies the message</h5>
+                            <pre style="background:#efe; padding:10px; border-radius:5px;"><code>// Alice receives the malicious message and Eve's hash
+ReceivedMessage = "Pay Eve $1000"
+ReceivedHMAC = "c3d4e5..."
+
+
+// Alice uses the *shared secret key* to calculate what the HMAC *should* be
+SecretKey = "supersecret123"
+ExpectedHMAC = HASH(SecretKey + ReceivedMessage) // Result: "9b0c1d..."
+                            </code></pre>
+                            <p><strong>Verification Fails!</strong> Alice compares the HMAC she received from Eve with the one she calculated.</p>
+                            <p><code>ReceivedHMAC ("c3d4e5...") ≠ ExpectedHMAC ("9b0c1d...")</code></p>
+                            <p>Because the HMACs don't match, Alice knows the message has been tampered with and discards it. Eve's attack failed because she couldn't generate a valid HMAC without the secret key. ✅</p>
+                        </div>
+                    </div>
+
+
+
+
+
+
                     <h2>Symmetric and Asymmetric Encryption</h2>
 
                     <div class="cnn-highlight">
