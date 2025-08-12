@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files (Keeping your original links for structure compatibility) -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS Skin File -->
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <!-- Live Style Switcher - demo only -->
+    <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
+    <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
+    <link rel="alternate stylesheet" type="text/css" title="blueviolet" href="css/skins/blueviolet.css" />
+    <link rel="alternate stylesheet" type="text/css" title="goldenrod" href="css/skins/goldenrod.css" />
+    <link rel="alternate stylesheet" type="text/css" title="magenta" href="css/skins/magenta.css" />
+    <link rel="alternate stylesheet" type="text/css" title="orange" href="css/skins/orange.css" />
+    <link rel="alternate stylesheet" type="text/css" title="purple" href="css/skins/purple.css" />
+    <link rel="alternate stylesheet" type="text/css" title="red" href="css/skins/red.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+
+    <script src="js/modernizr.custom.js"></script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // Delimiters for inline math
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], // Delimiters for display math
+        processEscapes: true // Allows \$ to be treated as text
+      },
+      svg: {
+        fontCache: 'global' // Improves rendering speed
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            // Use getComputedStyle to reliably check if the element is currently hidden
+            const isHidden = window.getComputedStyle(content).display === 'none';
+
+            if (isHidden) {
+                content.style.display = 'block';
+                icon.textContent = '−';
+                icon.style.fontWeight = 'bold';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '+';
+                icon.style.fontWeight = 'normal';
+            }
+        }
+        
+        // Call a single function for all toggle buttons
+        function toggleProof(id) {
+            toggleContent(id);
+        }
+        
+        function toggleExample(id) {
+            toggleContent(id);
+        }
+        
+        // Use an event listener to handle clicks without modifying HTML
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleButtons = document.querySelectorAll('button[onclick^="toggleProof"], button[onclick^="toggleExample"]');
+            toggleButtons.forEach(button => {
+                const contentId = button.getAttribute('onclick').split("'")[1];
+                
+                // Remove the old onclick attribute
+                button.removeAttribute('onclick');
+
+                // Add new event listener
+                button.addEventListener('click', () => {
+                    toggleContent(contentId);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .cnn-highlight {
+            background: #e3f2fd;
+            border-left: 6px solid #1976d2;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-formula {
+            background: #fffde7;
+            border-left: 6px solid #fbc02d;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+            font-size: 1.09em;
+        }
+        .cnn-tip {
+            background: #e8f5e9;
+            border-left: 6px solid #388e3c;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-warning {
+            background: #fff3e0;
+            border-left: 6px solid #f57c00;
+            padding: 14px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .cnn-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .cnn-table th, .cnn-table td {
+            border: 1px solid #bdbdbd;
+            padding: 10px;
+            text-align: left;
+        }
+        .cnn-table th {
+            background: #f0f4c3;
+        }
+        .cnn-table tr:nth-child(even) {
+            background: #f9fbe7;
+        }
+    </style>
+</head>
+
+<body class="blog-post light">
+<!-- Live Style Switcher Starts - demo only -->
+<div id="switcher" class="">
+    <div class="content-switcher">
+        <h4>STYLE SWITCHER</h4>
+        <ul>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('purple');" title="purple" class="color"><img src="img/styleswitcher/purple.png" alt="purple"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('red');" title="red" class="color"><img src="img/styleswitcher/red.png" alt="red"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blueviolet');" title="blueviolet" class="color"><img src="img/styleswitcher/blueviolet.png" alt="blueviolet"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('blue');" title="blue" class="color"><img src="img/styleswitcher/blue.png" alt="blue"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('goldenrod');" title="goldenrod" class="color"><img src="img/styleswitcher/goldenrod.png" alt="goldenrod"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('magenta');" title="magenta" class="color"><img src="img/styleswitcher/magenta.png" alt="magenta"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellowgreen');" title="yellowgreen" class="color"><img src="img/styleswitcher/yellowgreen.png" alt="yellowgreen"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('orange');" title="orange" class="color"><img src="img/styleswitcher/orange.png" alt="orange"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('green');" title="green" class="color"><img src="img/styleswitcher/green.png" alt="green"/></a>
+            </li>
+            <li>
+                <a href="#" onclick="setActiveStyleSheet('yellow');" title="yellow" class="color"><img src="img/styleswitcher/yellow.png" alt="yellow"/></a>
+            </li>
+        </ul>
+
+        <div id="hideSwitcher">&times;</div>
+    </div>
+</div>
+<div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
+<!-- Live Style Switcher Ends - demo only -->
+<!-- Header Starts -->
+<header class="header" id="navbar-collapse-toggle">
+    <!-- Fixed Navigation Starts -->
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box">
+            <i class="fa fa-home"></i>
+            <a href="index.html">
+                <h2>Home</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-university"></i>
+            <a href="about.html">
+                <h2>Research</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-briefcase"></i>
+            <a href="portfolio.html">
+                <h2>Portfolio</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-photo"></i>
+            <a href="contact.html">
+                <h2>Hometown</h2>
+            </a>
+        </li>
+        <li class="icon-box active">
+            <i class="fa fa-comments"></i>
+            <a href="blog.html">
+                <h2>Blog</h2>
+            </a>
+        </li>
+    </ul>
+    <!-- Fixed Navigation Ends -->
+    <!-- Mobile Menu Starts -->
+    <nav role="navigation" class="d-block d-lg-none">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul class="list-unstyled" id="menu">
+                <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                <li><a href="about.html"><i class="fa fa-university"></i><span>Research</span></a></li>
+                <li><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li>
+                <li><a href="contact.html"><i class="fa fa-photo"></i><span>Hometown</span></a></li>
+                <li class="active"><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Mobile Menu Ends -->
+</header>
+<!-- Header Ends -->
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>my <span>blog</span></h1>
+    <span class="title-bg">posts</span>
+</section>
+<!-- Page Title Ends -->
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <!-- Article Starts -->
+            <article class="col-12">
+                <!-- Meta Starts -->
+                <div class="meta open-sans-font">
+                    <span><i class="fa fa-user"></i> Edison Mucllari</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2025</span>
+                    <span><i class="fa fa-tags"></i> cryptography, elliptic curves, ECC, ECDH, ECDSA, public key</span>
+                </div>
+                <!-- Meta Ends -->
+                <!-- Article Content Starts -->
+                <h1 class="text-uppercase text-capitalize">Elliptic Curve Cryptography: The Mathematical Beauty Behind Modern Security</h1>
+                <img src="img/blog/elliptic_curve.png" class="img-fluid" alt="Elliptic Curve Cryptography Blog image"/>
+                <div class="blog-excerpt open-sans-font pb-5">
+                    
+                    <h1>Elliptic Curve Cryptography (ECC)</h1>
+
+                    <div class="cnn-highlight">
+                        <b>What is Elliptic Curve Cryptography?</b><br>
+                        <b>Elliptic Curve Cryptography (ECC)</b> is a form of public-key cryptography that uses the algebraic structure of elliptic curves over finite fields. Proposed independently by Neal Koblitz and Victor Miller in 1985, ECC provides the same level of security as traditional methods like RSA but with significantly smaller key sizes. This makes it particularly valuable for mobile devices, embedded systems, and any application where computational efficiency and bandwidth are crucial.
+                    </div>
+
+                    <h2>Why Elliptic Curves? The Efficiency Revolution</h2>
+
+                    <div class="cnn-warning">
+                        <b>The Key Size Advantage</b><br>
+                        The primary advantage of ECC over traditional public-key systems like RSA lies in its efficiency. While RSA requires very large key sizes (2048-4096 bits) to achieve strong security, ECC can provide equivalent security with much smaller keys. For example, a 256-bit ECC key provides roughly the same security as a 3072-bit RSA key. This dramatic reduction in key size leads to faster computations, reduced storage requirements, and lower bandwidth usage.
+                    </div>
+
+                    <table class="cnn-table">
+                        <thead>
+                            <tr>
+                                <th>Security Level (bits)</th>
+                                <th>RSA Key Size</th>
+                                <th>ECC Key Size</th>
+                                <th>Efficiency Gain</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>80</td>
+                                <td>1024 bits</td>
+                                <td>160 bits</td>
+                                <td>6.4x smaller</td>
+                            </tr>
+                            <tr>
+                                <td>112</td>
+                                <td>2048 bits</td>
+                                <td>224 bits</td>
+                                <td>9.1x smaller</td>
+                            </tr>
+                            <tr>
+                                <td>128</td>
+                                <td>3072 bits</td>
+                                <td>256 bits</td>
+                                <td>12x smaller</td>
+                            </tr>
+                            <tr>
+                                <td>192</td>
+                                <td>7680 bits</td>
+                                <td>384 bits</td>
+                                <td>20x smaller</td>
+                            </tr>
+                            <tr>
+                                <td>256</td>
+                                <td>15360 bits</td>
+                                <td>512 bits</td>
+                                <td>30x smaller</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Mathematical Foundation: What Are Elliptic Curves?</h2>
+
+                    <div class="cnn-formula">
+                        <b>The Elliptic Curve Equation</b><br>
+                        An elliptic curve over the real numbers is defined by the equation:
+                        $$y^2 = x^3 + ax + b$$
+                        where $4a^3 + 27b^2 \neq 0$ (to ensure the curve is non-singular, meaning it has no cusps or self-intersections).
+                        <br><br>
+                        For cryptographic purposes, we work with elliptic curves over finite fields, typically:
+                        <ul style="margin-top: 10px;">
+                            <li><b>Prime fields $\mathbb{F}_p$:</b> $y^2 \equiv x^3 + ax + b \pmod{p}$ where $p$ is a large prime</li>
+                            <li><b>Binary fields $\mathbb{F}_{2^m}$:</b> More complex but computationally efficient for certain applications</li>
+                        </ul>
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>The Group Law: Point Addition</b><br>
+                        The magic of elliptic curves lies in their group structure. Points on the curve can be "added" together using a geometric construction:
+                        <br><br>
+                        <b>Addition of two different points P and Q:</b>
+                        <ol style="margin-top: 10px;">
+                            <li>Draw a line through points P and Q</li>
+                            <li>This line intersects the curve at a third point R'</li>
+                            <li>Reflect R' across the x-axis to get R = P + Q</li>
+                        </ol>
+                        <br>
+                        <b>Doubling a point P (P + P = 2P):</b>
+                        <ol style="margin-top: 10px;">
+                            <li>Draw the tangent line to the curve at point P</li>
+                            <li>This tangent intersects the curve at another point R'</li>
+                            <li>Reflect R' across the x-axis to get R = 2P</li>
+                        </ol>
+                        <br>
+                        <b>The Point at Infinity:</b> There's a special "point at infinity" denoted O that serves as the identity element: P + O = P for any point P.
+                    </div>
+
+                    <div class="cnn-formula">
+                        <b>Algebraic Formulas for Point Addition</b><br>
+                        For points $P = (x_1, y_1)$ and $Q = (x_2, y_2)$ on curve $y^2 = x^3 + ax + b$ over $\mathbb{F}_p$:
+                        <br><br>
+                        <b>If P ≠ Q (Point Addition):</b>
+                        $$\lambda = \frac{y_2 - y_1}{x_2 - x_1} \pmod{p}$$
+                        $$x_3 = \lambda^2 - x_1 - x_2 \pmod{p}$$
+                        $$y_3 = \lambda(x_1 - x_3) - y_1 \pmod{p}$$
+                        <br>
+                        <b>If P = Q (Point Doubling):</b>
+                        $$\lambda = \frac{3x_1^2 + a}{2y_1} \pmod{p}$$
+                        $$x_3 = \lambda^2 - 2x_1 \pmod{p}$$
+                        $$y_3 = \lambda(x_1 - x_3) - y_1 \pmod{p}$$
+                        <br>
+                        Then $P + Q = (x_3, y_3)$.
+                    </div>
+
+                    <h2>The Elliptic Curve Discrete Logarithm Problem (ECDLP)</h2>
+
+                    <div class="cnn-formula">
+                        <b>The Security Foundation</b><br>
+                        The security of ECC is based on the <b>Elliptic Curve Discrete Logarithm Problem (ECDLP)</b>:
+                        <br><br>
+                        Given an elliptic curve E over a finite field, a base point G on the curve, and a point Q = kG (where k is a scalar and kG means G added to itself k times), it is computationally infeasible to find the integer k.
+                        <br><br>
+                        While computing Q = kG is efficient using techniques like "double-and-add," finding k given Q and G is extremely difficult. This asymmetry forms the basis of ECC security.
+                    </div>
+
+                    <h2>Simple Example: ECC over a Small Prime Field</h2>
+
+                    <div class="cnn-tip">
+                        <b>Let's work through a basic example to understand the mechanics:</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('simple-ecc-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="simple-ecc-example-icon">+</span> Show Simple ECC Example
+                            </button>
+                            
+                            <div id="simple-ecc-example" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Setup: Elliptic Curve over F₁₇</b><br>
+                                Let's use the elliptic curve $y^2 = x^3 + 2x + 2$ over the finite field $\mathbb{F}_{17}$ (integers modulo 17).
+                                <br><br>
+                                <b>Step 1: Finding Points on the Curve</b><br>
+                                We need to find all points $(x,y)$ such that $y^2 \equiv x^3 + 2x + 2 \pmod{17}$.
+                                <br><br>
+                                For $x = 5$: $y^2 \equiv 5^3 + 2(5) + 2 \equiv 125 + 10 + 2 \equiv 137 \equiv 1 \pmod{17}$
+                                <br>
+                                Since $1^2 = 1$ and $16^2 = 256 \equiv 1 \pmod{17}$, we get points $(5, 1)$ and $(5, 16)$.
+                                <br><br>
+                                <b>Step 2: Point Addition Example</b><br>
+                                Let's add points $P = (5, 1)$ and $Q = (6, 3)$:
+                                <br><br>
+                                First, calculate the slope:
+                                $$\lambda = \frac{y_2 - y_1}{x_2 - x_1} = \frac{3 - 1}{6 - 5} = \frac{2}{1} = 2$$
+                                <br>
+                                Then calculate the new coordinates:
+                                $$x_3 = \lambda^2 - x_1 - x_2 = 2^2 - 5 - 6 = 4 - 11 = -7 \equiv 10 \pmod{17}$$
+                                $$y_3 = \lambda(x_1 - x_3) - y_1 = 2(5 - 10) - 1 = 2(-5) - 1 = -11 \equiv 6 \pmod{17}$$
+                                <br>
+                                So $P + Q = (10, 6)$.
+                                <br><br>
+                                <b>Step 3: Scalar Multiplication</b><br>
+                                Let's compute $2P = P + P$ where $P = (5, 1)$:
+                                <br><br>
+                                For point doubling, the slope is:
+                                $$\lambda = \frac{3x_1^2 + a}{2y_1} = \frac{3(5^2) + 2}{2(1)} = \frac{75 + 2}{2} = \frac{77}{2}$$
+                                <br>
+                                Since $77 \equiv 9 \pmod{17}$ and $2^{-1} \equiv 9 \pmod{17}$ (because $2 \times 9 = 18 \equiv 1 \pmod{17}$):
+                                $$\lambda = 9 \times 9 = 81 \equiv 13 \pmod{17}$$
+                                <br>
+                                Then:
+                                $$x_3 = 13^2 - 2(5) = 169 - 10 = 159 \equiv 6 \pmod{17}$$
+                                $$y_3 = 13(5 - 6) - 1 = 13(-1) - 1 = -14 \equiv 3 \pmod{17}$$
+                                <br>
+                                So $2P = (6, 3)$.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Real-World Example: ECDH Key Exchange with secp256k1</h2>
+
+                    <div class="cnn-tip">
+                        <b>Let's see how ECC is used in practice with the secp256k1 curve (used in Bitcoin):</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('real-ecdh-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="real-ecdh-example-icon">+</span> Show Real-World ECDH Example
+                            </button>
+                            
+                            <div id="real-ecdh-example" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>The secp256k1 Curve Parameters</b><br>
+                                The secp256k1 curve is defined by $y^2 = x^3 + 7$ over the prime field $\mathbb{F}_p$ where:
+                                <br>
+                                $p = 2^{256} - 2^{32} - 2^9 - 2^8 - 2^7 - 2^6 - 2^4 - 1$
+                                <br>
+                                (This is approximately $1.16 \times 10^{77}$, a 256-bit prime)
+                                <br><br>
+                                The base point G has coordinates:
+                                <br>
+                                $G_x = $ 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798
+                                <br>
+                                $G_y = $ 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8
+                                <br><br>
+                                <b>ECDH Key Exchange Protocol</b><br>
+                                <b>Alice's Actions:</b>
+                                <br>
+                                1. Alice generates a random private key: $d_A = $ (256-bit random integer)
+                                <br>
+                                2. Alice computes her public key: $Q_A = d_A \cdot G$
+                                <br>
+                                3. Alice sends $Q_A$ to Bob
+                                <br><br>
+                                <b>Bob's Actions:</b>
+                                <br>
+                                1. Bob generates a random private key: $d_B = $ (256-bit random integer)
+                                <br>
+                                2. Bob computes his public key: $Q_B = d_B \cdot G$
+                                <br>
+                                3. Bob sends $Q_B$ to Alice
+                                <br><br>
+                                <b>Shared Secret Computation</b><br>
+                                Alice computes: $S_A = d_A \cdot Q_B = d_A \cdot (d_B \cdot G) = d_A d_B \cdot G$
+                                <br>
+                                Bob computes: $S_B = d_B \cdot Q_A = d_B \cdot (d_A \cdot G) = d_B d_A \cdot G$
+                                <br><br>
+                                Since $d_A d_B = d_B d_A$, both parties arrive at the same shared secret point $S$.
+                                <br><br>
+                                <b>Example with Smaller Numbers (for illustration)</b><br>
+                                Let's say Alice chooses $d_A = $ 123456 and Bob chooses $d_B = $ 654321.
+                                <br><br>
+                                Alice computes: $Q_A = 123456 \cdot G$ (this would be a specific point on the curve)
+                                <br>
+                                Bob computes: $Q_B = 654321 \cdot G$ (another specific point on the curve)
+                                <br><br>
+                                For the shared secret:
+                                <br>
+                                Alice: $S = 123456 \cdot Q_B = 123456 \cdot 654321 \cdot G$
+                                <br>
+                                Bob: $S = 654321 \cdot Q_A = 654321 \cdot 123456 \cdot G$
+                                <br><br>
+                                Both get the same point $S = 80779853376 \cdot G$.
+                                <br><br>
+                                <b>Security Analysis</b><br>
+                                An eavesdropper (Eve) sees the public keys $Q_A$ and $Q_B$, but to compute the shared secret, she would need to solve the ECDLP to find either $d_A$ or $d_B$. With the 256-bit secp256k1 curve, this would require approximately $2^{128}$ operations, which is computationally infeasible with current technology.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>ECC Algorithms in Practice</h2>
+
+                    <div class="cnn-tip">
+                        <b>Key ECC Algorithms and Their Applications:</b>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><b>Elliptic Curve Diffie-Hellman (ECDH):</b> Key exchange protocol for establishing shared secrets. Used in TLS/SSL, VPNs, and secure messaging applications.</li>
+                            <li><b>Elliptic Curve Digital Signature Algorithm (ECDSA):</b> Digital signatures for authentication and non-repudiation. Widely used in Bitcoin, Ethereum, and many PKI systems.</li>
+                            <li><b>Elliptic Curve Integrated Encryption Scheme (ECIES):</b> Complete encryption scheme combining ECDH for key agreement with symmetric encryption for data.</li>
+                            <li><b>EdDSA (Edwards-curve Digital Signature Algorithm):</b> Modern signature algorithm using Edwards curves, including Ed25519 used in SSH, Signal, and many cryptocurrencies.</li>
+                        </ul>
+                    </div>
+
+                    <h2>Popular Elliptic Curves in Practice</h2>
+
+                    <table class="cnn-table">
+                        <thead>
+                            <tr>
+                                <th>Curve Name</th>
+                                <th>Field Size</th>
+                                <th>Equation</th>
+                                <th>Primary Applications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>secp256k1</td>
+                                <td>256-bit</td>
+                                <td>y² = x³ + 7</td>
+                                <td>Bitcoin, Ethereum, cryptocurrencies</td>
+                            </tr>
+                            <tr>
+                                <td>P-256 (secp256r1)</td>
+                                <td>256-bit</td>
+                                <td>y² = x³ - 3x + b</td>
+                                <td>TLS/SSL, NIST standard</td>
+                            </tr>
+                            <tr>
+                                <td>Curve25519</td>
+                                <td>255-bit</td>
+                                <td>Montgomery curve</td>
+                                <td>Signal, WhatsApp, SSH</td>
+                            </tr>
+                            <tr>
+                                <td>Ed25519</td>
+                                <td>255-bit</td>
+                                <td>Edwards curve</td>
+                                <td>SSH, Signal, digital signatures</td>
+                            </tr>
+                            <tr>
+                                <td>P-384 (secp384r1)</td>
+                                <td>384-bit</td>
+                                <td>y² = x³ - 3x + b</td>
+                                <td>High-security applications, government</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>ECDSA Digital Signatures: A Practical Example</h2>
+
+                    <div class="cnn-tip">
+                        <b>Understanding how ECDSA works for digital signatures:</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('ecdsa-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="ecdsa-example-icon">+</span> Show ECDSA Signature Example
+                            </button>
+                            
+                            <div id="ecdsa-example" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>ECDSA Key Generation</b><br>
+                                1. Choose a cryptographically secure elliptic curve (e.g., secp256k1)
+                                <br>
+                                2. Generate a random private key: $d$ (256-bit integer)
+                                <br>
+                                3. Compute public key: $Q = d \cdot G$ where G is the base point
+                                <br><br>
+                                <b>ECDSA Signature Generation</b><br>
+                                To sign a message M:
+                                <br><br>
+                                1. Compute message hash: $h = \text{SHA-256}(M)$
+                                <br>
+                                2. Generate a random nonce: $k$ (this must be unique for each signature!)
+                                <br>
+                                3. Compute point: $(x_1, y_1) = k \cdot G$
+                                <br>
+                                4. Compute $r = x_1 \bmod n$ (where n is the order of G)
+                                <br>
+                                5. Compute $s = k^{-1}(h + rd) \bmod n$
+                                <br>
+                                6. The signature is the pair $(r, s)$
+                                <br><br>
+                                <b>ECDSA Signature Verification</b><br>
+                                To verify signature $(r, s)$ on message M with public key Q:
+                                <br><br>
+                                1. Compute message hash: $h = \text{SHA-256}(M)$
+                                <br>
+                                2. Compute $w = s^{-1} \bmod n$
+                                <br>
+                                3. Compute $u_1 = hw \bmod n$ and $u_2 = rw \bmod n$
+                                <br>
+                                4. Compute point: $(x_1, y_1) = u_1 \cdot G + u_2 \cdot Q$
+                                <br>
+                                5. Verify that $r = x_1 \bmod n$
+                                <br><br>
+                                <b>Why This Works</b><br>
+                                The verification works because:
+                                <br>
+                                $u_1 \cdot G + u_2 \cdot Q = (hw) \cdot G + (rw) \cdot (d \cdot G)$
+                                <br>
+                                $= w(h + rd) \cdot G = w \cdot s \cdot k \cdot G = k \cdot G$
+                                <br>
+                                (since $s = k^{-1}(h + rd)$, so $w \cdot s = k$)
+                                <br><br>
+                                <b>Security Note</b><br>
+                                The random nonce $k$ must be unique for each signature and kept secret. Reusing $k$ or generating it predictably can lead to private key recovery, as famously happened with early PlayStation 3 signing keys and some Bitcoin implementations.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Advantages and Limitations of ECC</h2>
+
+                    <div class="cnn-formula">
+                        <b>Advantages of Elliptic Curve Cryptography:</b>
+                        <ul style="margin-top: 10px;">
+                            <li><b>Smaller Key Sizes:</b> Equivalent security with much smaller keys compared to RSA</li>
+                            <li><b>Faster Operations:</b> More efficient computation, especially on mobile devices</li>
+                            <li><b>Lower Bandwidth:</b> Smaller signatures and keys reduce communication overhead</li>
+                            <li><b>Battery Efficient:</b> Less computational power required, important for IoT devices</li>
+                            <li><b>Forward Secrecy:</b> Ephemeral ECDH provides perfect forward secrecy</li>
+                        </ul>
+                    </div>
+
+                    <div class="cnn-warning">
+                        <b>Limitations and Considerations:</b>
+                        <ul style="margin-top: 10px;">
+                            <li><b>Curve Selection:</b> Choosing secure curves is critical; some curves may have backdoors or weaknesses</li>
+                            <li><b>Implementation Complexity:</b> More complex to implement correctly than RSA</li>
+                            <li><b>Side-Channel Attacks:</b> Vulnerable to timing attacks and other side-channel vulnerabilities if not implemented carefully</li>
+                            <li><b>Quantum Vulnerability:</b> Like all current public-key systems, ECC will be broken by sufficiently large quantum computers</li>
+                            <li><b>Patent Issues:</b> Some ECC algorithms and optimizations are subject to patents</li>
+                        </ul>
+                    </div>
+
+                    <h2>ECC in the Modern World</h2>
+
+                    <div class="cnn-tip">
+                        <b>Real-world applications where ECC is making a difference:</b>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li><b>Cryptocurrency:</b> Bitcoin uses ECDSA with secp256k1 for transaction signatures. Ethereum uses the same curve for account authentication.</li>
+                            <li><b>Secure Messaging:</b> Signal, WhatsApp, and iMessage use Curve25519 for key agreement and Ed25519 for signatures.</li>
+                            <li><b>Web Security:</b> Modern browsers prefer ECDHE (Ephemeral ECDH) over RSA for TLS key exchange due to perfect forward secrecy.</li>
+                            <li><b>Mobile Devices:</b> iOS and Android use ECC extensively for secure boot, app signing, and secure communications.</li>
+                            <li><b>IoT Security:</b> Resource-constrained IoT devices rely on ECC for efficient public-key operations.</li>
+                            <li><b>Smart Cards:</b> Credit cards, SIM cards, and identity cards use ECC for authentication due to space and power constraints.</li>
+                        </ul>
+                    </div>
+
+                    <h2>The Future of ECC: Post-Quantum Considerations</h2>
+
+                    <div class="cnn-warning">
+                        <b>Preparing for the Quantum Era</b><br>
+                        While ECC provides excellent security against classical computers, it shares the same vulnerability as RSA and Diffie-Hellman to quantum computers running Shor's algorithm. A sufficiently large quantum computer could solve the ECDLP efficiently, breaking all current ECC implementations. This has led to active research in post-quantum cryptography, including lattice-based, hash-based, and code-based alternatives. However, ECC remains secure against current technology and will likely continue to be used for many years while post-quantum standards mature.
+                    </div>
+
+                    <h2>Conclusion: The Elegant Balance of Security and Efficiency</h2>
+
+                    <p>Elliptic Curve Cryptography represents one of the most elegant achievements in modern cryptography, providing a perfect balance between security and efficiency. By leveraging the mathematical beauty of elliptic curves and the hardness of the discrete logarithm problem, ECC enables secure communication with unprecedented efficiency. From the Bitcoin blockchain to the secure messaging apps we use daily, ECC quietly protects billions of digital interactions while using minimal computational resources.</p>
+
+                    <p>As we advance into an era of increasingly connected devices and quantum computing threats, understanding ECC becomes ever more important. Its mathematical foundation provides not just practical security solutions, but also demonstrates how pure mathematics can have profound real-world impact. The curves that mathematicians studied centuries ago now secure our digital lives in ways they never could have imagined.</p>
+
+                    <h2>References</h2>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Koblitz, N. (1987). <b>Elliptic curve cryptosystems</b>. Mathematics of computation, 48(177), 203-209.</li>
+                        <li>Miller, V. S. (1985). <b>Use of elliptic curves in cryptography</b>. In Conference on the theory and application of cryptographic techniques (pp. 417-426). Springer.</li>
+                        <li>Hankerson, D., Menezes, A. J., & Vanstone, S. (2003). <b>Guide to elliptic curve cryptography</b>. Springer Science & Business Media.</li>
+                        <li>Johnson, D., Menezes, A., & Vanstone, S. (2001). <b>The elliptic curve digital signature algorithm (ECDSA)</b>. International journal of information security, 1(1), 36-63.</li>
+                        <li>Bernstein, D. J. (2006). <b>Curve25519: new Diffie-Hellman speed records</b>. In International workshop on public key cryptography (pp. 207-228). Springer.</li>
+                    </ul>
+
+
+                </div>
+                <!-- Article Content Ends -->
+            </article>
+            <!-- Article Ends -->
+        </div>
+    </div>
+</section>
+<!-- Template JS Files -->
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+</body>
+</html>
