@@ -53,6 +53,38 @@
                 src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
 
+
+
+
+
+    <style>
+    /* GIF Container Styles - Add this to your existing CSS */
+    .encryption-gif-container {
+        text-align: center;
+        margin: 30px 0;
+        padding: 20px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .encryption-gif-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .gif-caption {
+        margin-top: 15px;
+        font-style: italic;
+        color: #555;
+        font-size: 0.95em;
+    }
+    </style>
+
+
+
+
+
     <script>
         function toggleContent(id) {
             const content = document.getElementById(id);
@@ -745,6 +777,49 @@ ExpectedHMAC = HASH(SecretKey + ReceivedMessage) // Result: "9b0c1d..."
                     </div>
 
                     ---
+
+
+
+
+
+
+                    <h2>Hybrid Encryption</h2>
+
+                    <!-- GIF Section to be added after "Signatures and Key Exchange" -->
+                    <div class="cnn-highlight">
+                        <b>The Best of Both Worlds: Hybrid Encryption</b><br>
+                        In real-world applications, we combine the strengths of both symmetric and asymmetric encryption to create a <b>hybrid encryption system</b>. This approach solves the key distribution problem while maintaining the speed needed for large data transfers.
+                        <br><br>
+                        <b>Here's how it works:</b>
+                        <ol class="list-decimal list-inside ml-4 mt-2">
+                            <li><b>Initial Setup:</b> Both Bob and Alice have their own public/private key pairs for asymmetric encryption</li>
+                            <li><b>Key Generation:</b> Bob generates a random symmetric key (like an AES key) for fast encryption</li>
+                            <li><b>Secure Key Exchange:</b> Bob encrypts this symmetric key using Alice's public key and sends it to her</li>
+                            <li><b>Key Recovery:</b> Alice receives the encrypted symmetric key and decrypts it using her private key since she is the only one who can decrypt because she has the private key- now they both have the same symmetric key!</li>
+                            <li><b>Fast Communication:</b> For all subsequent data exchange, they use the shared symmetric key for lightning-fast encryption/decryption</li>
+                        </ol>
+                        <br>
+                        <b>Why This Works So Well:</b>
+                        <ul class="list-disc list-inside ml-4 mt-2">
+                            <li>🔐 <b>Security:</b> The symmetric key is safely exchanged using unbreakable asymmetric encryption</li>
+                            <li>⚡ <b>Speed:</b> Large amounts of data are encrypted using fast symmetric algorithms</li>
+                            <li>🛡️ <b>Scalability:</b> No need to pre-share keys - public keys can be distributed openly</li>
+                        </ul>
+                    </div>
+
+                    <div class="encryption-gif-container">
+                        <img src="img/blog/real-encryption.gif" class="img-fluid" alt="Real Encryption Process - Bob and Alice Key Exchange"/>
+                        <div class="gif-caption">
+                            <strong>Watch the Process:</strong> This animation shows Bob and Alice performing hybrid encryption - asymmetric encryption for key exchange, followed by symmetric encryption for data communication.
+                        </div>
+                    </div>
+
+
+
+
+
+
+
 
                     <h1>Establishing Trust and Secret Sharing</h1>
 
