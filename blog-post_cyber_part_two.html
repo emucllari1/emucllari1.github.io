@@ -703,6 +703,93 @@
                             </div>
                         </div>
 
+
+
+
+
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('mpc-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="mpc-example2-icon">+</span> Show Simple 4-Person Salary Average Example
+                            </button>
+                            
+                            <div id="mpc-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Computing Average Salary Without Revealing Individual Salaries:</b><br><br>
+                                
+                                <b>Setup:</b> 4 employees (P₁, P₂, P₃, P₄) want to know their average salary without revealing individual amounts.<br><br>
+                                
+                                <b>Step 1: Secret Sharing</b><br>
+                                Each person splits their salary into 4 random parts that sum to their actual salary:<br><br>
+                                
+                                <table style="border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 0.9em;">
+                                    <thead>
+                                        <tr style="background: #f0f4c3;">
+                                            <th style="border: 1px solid #bdbdbd; padding: 8px;"></th>
+                                            <th style="border: 1px solid #bdbdbd; padding: 8px;">P₁'s Share</th>
+                                            <th style="border: 1px solid #bdbdbd; padding: 8px;">P₂'s Share</th>
+                                            <th style="border: 1px solid #bdbdbd; padding: 8px;">P₃'s Share</th>
+                                            <th style="border: 1px solid #bdbdbd; padding: 8px;">P₄'s Share</th>
+                                            <th style="border: 1px solid #bdbdbd; padding: 8px; background: #ffeb3b;">Total (Hidden)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px; background: #f0f4c3;"><b>P₁ ($70K)</b></td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">a₁ = 23,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">a₂ = 15,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">a₃ = 18,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">a₄ = 14,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px; background: #ffeb3b;">$70,000</td>
+                                        </tr>
+                                        <tr style="background: #f9fbe7;">
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px; background: #f0f4c3;"><b>P₂ ($80K)</b></td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">b₁ = 22,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">b₂ = 19,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">b₃ = 21,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">b₄ = 18,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px; background: #ffeb3b;">$80,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px; background: #f0f4c3;"><b>P₃ ($60K)</b></td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">c₁ = 16,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">c₂ = 14,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">c₃ = 17,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">c₄ = 13,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px; background: #ffeb3b;">$60,000</td>
+                                        </tr>
+                                        <tr style="background: #f9fbe7;">
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px; background: #f0f4c3;"><b>P₄ ($90K)</b></td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">d₁ = 25,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">d₂ = 23,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">d₃ = 20,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px;">d₄ = 22,000</td>
+                                            <td style="border: 1px solid #bdbdbd; padding: 8px; background: #ffeb3b;">$90,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <b>Step 2: Share Distribution</b><br>
+                                Each person distributes their shares: P₁ keeps a₁, sends a₂ to P₂, a₃ to P₃, a₄ to P₄<br><br>
+                                
+                                <b>Step 3: Local Computation</b><br>
+                                Each person computes the sum of shares they received:<br>
+                                • P₁ computes: a₁ + b₁ + c₁ + d₁ = 23,000 + 22,000 + 16,000 + 25,000 = <b>86,000</b><br>
+                                • P₂ computes: a₂ + b₂ + c₂ + d₂ = 15,000 + 19,000 + 14,000 + 23,000 = <b>71,000</b><br>
+                                • P₃ computes: a₃ + b₃ + c₃ + d₃ = 18,000 + 21,000 + 17,000 + 20,000 = <b>76,000</b><br>
+                                • P₄ computes: a₄ + b₄ + c₄ + d₄ = 14,000 + 18,000 + 13,000 + 22,000 = <b>67,000</b><br><br>
+                                
+                                <b>Step 4: Final Calculation</b><br>
+                                Everyone shares their sum: 86,000 + 71,000 + 76,000 + 67,000 = 300,000<br>
+                                Average salary: 300,000 ÷ 4 = <b>$75,000</b><br><br>
+                                
+                                <b>Privacy Achieved:</b><br>
+                                ✓ No one learned anyone else's individual salary<br>
+                                ✓ Everyone knows the correct average<br>
+                                ✓ Individual shares appear random and reveal nothing
+                            </div>
+                        </div>
+
+
+
                         <div style="margin-top: 15px;">
                             <button onclick="toggleExample('mpc-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
                                 <span id="mpc-example2-icon">+</span> Show Healthcare Research Example
@@ -757,7 +844,7 @@
 
                     <div class="cnn-highlight">
                         <b>What is Differential Privacy?</b><br>
-                        Differential Privacy is a mathematical framework for quantifying and limiting privacy loss when statistical information is released about a dataset. It provides a rigorous way to add "noise" to data or query results such that individual privacy is protected while maintaining statistical utility.
+                        Differential Privacy is a mathematical way to protect individual privacy when sharing statistical information from datasets. Think of it as adding carefully calculated "noise" to data so that you can't tell if any specific person's data was included in the analysis, while keeping the overall statistics useful and accurate.
                     </div>
 
                     <div class="cnn-formula">
@@ -770,8 +857,63 @@
                         • The inequality bounds how much individual participation affects results
                     </div>
 
+
+                    <div class="cnn-formula">
+                        <b>Simple Explanation:</b><br>
+                        The core idea: Whether Alice participates in a survey or not, the published results should look almost identical. This way, nobody can determine if Alice's data was included.<br><br>
+                        
+                        <b>How it works:</b><br>
+                        1. Add random noise to query results<br>
+                        2. Noise amount is calibrated to privacy level desired<br>
+                        3. More privacy = more noise = less accuracy<br>
+                        4. Less privacy = less noise = more accuracy<br><br>
+                        
+                        <b>Privacy Budget (ε):</b><br>
+                        • ε = 0.1: Very strong privacy (lots of noise)<br>
+                        • ε = 1.0: Good privacy (moderate noise)<br>
+                        • ε = 10.0: Weak privacy (little noise)
+                    </div>
+
+                    
+
+
                     <div class="cnn-tip">
-                        <b>Key Concepts:</b>
+                        <b>Simple Example - Classroom Survey:</b>
+                        
+                        <div style="margin-top: 15px;">
+                            <button onclick="toggleExample('dp-simple')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+                                <span id="dp-simple-icon">+</span> Show Simple Class Survey Example
+                            </button>
+                            
+                            <div id="dp-simple" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+                                <b>Question:</b> "How many students in this class have a part-time job?"<br><br>
+                                
+                                <b>Real Answer:</b> 12 out of 30 students work part-time<br><br>
+                                
+                                <b>Privacy Problem:</b><br>
+                                If we publish "12 students work," and John doesn't show up to class tomorrow, we could count again and get "11 students work." Now we know John works part-time!<br><br>
+                                
+                                <b>Differential Privacy Solution:</b><br>
+                                1. Add random noise to the answer<br>
+                                2. Flip a coin privately:<br>
+                                   • Heads: Give real answer (12)<br>
+                                   • Tails: Give random number between 8-16<br>
+                                3. Publish the noisy result: "About 13 students work part-time"<br><br>
+                                
+                                <b>Privacy Protection:</b><br>
+                                • Even if John is absent tomorrow, the published number might still be 13<br>
+                                • Nobody can tell if John's data affected the result<br>
+                                • The answer is still useful (close to the truth)<br>
+                                • John's privacy is mathematically protected<br><br>
+                                
+                                <b>Real-world impact:</b><br>
+                                • Teachers can understand general class employment patterns<br>
+                                • Students' individual work status remains private<br>
+                                • Statistical research can continue safely
+                            </div>
+                        </div>
+
+                        <b>More Complex Applications:</b>
                         
                         <div style="margin-top: 15px;">
                             <button onclick="toggleExample('dp-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
@@ -809,7 +951,7 @@
 
                         <div style="margin-top: 15px;">
                             <button onclick="toggleExample('dp-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
-                                <span id="dp-example2-icon">+</span> Show Simple Hospital Data Example
+                                <span id="dp-example2-icon">+</span> Show Hospital Data Example
                             </button>
                             
                             <div id="dp-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
