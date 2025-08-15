@@ -1036,152 +1036,119 @@
                     </table>
 
                     <!-- Embedded Systems Security -->
-                    <h2>7. Embedded Systems Attack Vectors: Securing the IoT World</h2>
+<h2>7. Embedded Systems Attack Vectors: Securing the IoT World</h2>
 
-                    <div class="cnn-warning">
-                        <b>Why Embedded Systems are Vulnerable</b><br>
-                        Embedded systems (including automotive ECUs) face unique security challenges: resource constraints, physical accessibility, long lifecycles, and often inadequate security design. Unlike traditional computers, they can't easily be updated, patched, or monitored, making them attractive targets for attackers.
-                    </div>
+<div class="cnn-warning">
+    <b>Why Embedded Systems are Vulnerable</b><br>
+    Embedded systems (including IoT devices, sensors, and automotive ECUs) often have limited processing power, memory, and storage. This makes it harder to add strong security. Many are placed in public or easily accessible locations, which means attackers can get physical access. They also tend to have long lifecycles and are rarely updated, leaving them open to attacks for years.
+</div>
 
-                    <div class="cnn-tip">
-                        <b>Common Attack Vectors:</b>
-                        
-                        <div style="margin-top: 15px;">
-                            <button onclick="toggleExample('embedded-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
-                                <span id="embedded-example1-icon">+</span> Show Automotive ECU Attack Example
-                            </button>
-                            
-                            <div id="embedded-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
-                                <b>Real-World Car Hacking Example:</b><br><br>
-                                
-                                <b>Target:</b> 2014 Jeep Cherokee<br><br>
-                                
-                                <b>Attack Vector:</b><br>
-                                1. <b>Entry Point:</b> Uconnect infotainment system<br>
-                                2. <b>Network Access:</b> Connected to Sprint cellular network<br>
-                                3. <b>Vulnerability:</b> Unprotected network services on port 6667<br>
-                                4. <b>Lateral Movement:</b> From infotainment to CAN bus<br>
-                                5. <b>Privilege Escalation:</b> Access to critical vehicle systems<br><br>
-                                
-                                <b>Attack Progression:</b><br>
-                                • <b>Remote Access:</b> Attackers connect over internet to car's IP address<br>
-                                • <b>Code Execution:</b> Exploit buffer overflow in media player<br>
-                                • <b>CAN Bus Access:</b> Send commands to Engine Control Module<br>
-                                • <b>Physical Control:</b> Disable brakes, control steering, kill engine<br><br>
-                                
-                                <b>Impact:</b><br>
-                                • 1.4 million vehicles recalled<br>
-                                • Demonstrated at highway speeds<br>
-                                • Led to new cybersecurity regulations<br>
-                                • Showed internet → physical world attack path<br><br>
-                                
-                                <b>Technical Details:</b><br>
-                                • CAN bus has no authentication<br>
-                                • Messages trusted by default<br>
-                                • No encryption between ECUs<br>
-                                • Infotainment system over-privileged
-                            </div>
-                        </div>
+<div class="cnn-tip">
+    <b>Common Attack Vectors:</b>
 
-                        <div style="margin-top: 15px;">
-                            <button onclick="toggleExample('embedded-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
-                                <span id="embedded-example2-icon">+</span> Show IoT Device Attack Chain
-                            </button>
-                            
-                            <div id="embedded-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
-                                <b>Smart Home Camera Compromise:</b><br><br>
-                                
-                                <b>Device:</b> Generic Wi-Fi security camera<br><br>
-                                
-                                <b>Attack Chain:</b><br>
-                                1. <b>Reconnaissance:</b><br>
-                                   • Port scan reveals telnet (port 23) open<br>
-                                   • Web interface on port 80<br>
-                                   • No firmware encryption<br><br>
-                                
-                                2. <b>Initial Access:</b><br>
-                                   • Default credentials: admin/admin<br>
-                                   • Or firmware extraction reveals hardcoded keys<br>
-                                   • Telnet access gained<br><br>
-                                
-                                3. <b>Persistence:</b><br>
-                                   • Install backdoor in firmware<br>
-                                   • Modify boot process<br>
-                                   • Survives device reboot<br><br>
-                                
-                                4. <b>Lateral Movement:</b><br>
-                                   • Scan internal network from compromised camera<br>
-                                   • Access other smart devices<br>
-                                   • Potentially reach computers, NAS devices<br><br>
-                                
-                                5. <b>Impact:</b><br>
-                                   • Privacy violation (camera access)<br>
-                                   • Botnet recruitment (DDoS attacks)<br>
-                                   • Network pivoting point<br>
-                                   • Data exfiltration<br><br>
-                                
-                                <b>Common IoT Vulnerabilities:</b><br>
-                                • Weak default passwords<br>
-                                • Unencrypted communications<br>
-                                • Insecure firmware updates<br>
-                                • Excessive network services<br>
-                                • Poor input validation
-                            </div>
-                        </div>
-                    </div>
+    <div style="margin-top: 15px;">
+        <button onclick="toggleExample('embedded-example1')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="embedded-example1-icon">+</span> Show Real-World Car Hacking Example
+        </button>
 
-                    <div class="cnn-formula">
-                        <b>Categories of Embedded Attacks:</b><br><br>
-                        <b>Hardware Attacks:</b><br>
-                        • Side-channel attacks (power analysis, timing attacks)<br>
-                        • Fault injection (glitching, electromagnetic interference)<br>
-                        • Physical tampering (chip probing, circuit modification)<br><br>
-                        <b>Software Attacks:</b><br>
-                        • Buffer overflows, format string vulnerabilities<br>
-                        • Firmware reverse engineering<br>
-                        • Update mechanism exploitation<br><br>
-                        <b>Network Attacks:</b><br>
-                        • Wireless protocol exploitation (Bluetooth, ZigBee, Wi-Fi)<br>
-                        • Man-in-the-middle on device communications<br>
-                        • Command injection through network interfaces
-                    </div>
+        <div id="embedded-example1" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+            <b>2014 Jeep Cherokee Hack:</b><br><br>
+            • Attackers gained remote access through the Uconnect infotainment system.<br>
+            • They moved from the entertainment system to the car’s CAN bus.<br>
+            • They sent commands to control brakes, steering, and engine.<br>
+            • Over 1.4 million vehicles were recalled after this demonstration.<br>
+        </div>
+    </div>
 
-                    <table class="cnn-table">
-                        <thead>
-                            <tr>
-                                <th>Attack Vector</th>
-                                <th>Difficulty</th>
-                                <th>Required Access</th>
-                                <th>Common Targets</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Default Credentials</td>
-                                <td>Very Easy</td>
-                                <td>Network</td>
-                                <td>IoT cameras, routers</td>
-                            </tr>
-                            <tr>
-                                <td>Firmware Extraction</td>
-                                <td>Medium</td>
-                                <td>Physical</td>
-                                <td>All embedded devices</td>
-                            </tr>
-                            <tr>
-                                <td>CAN Bus Injection</td>
-                                <td>Hard</td>
-                                <td>Physical/Network</td>
-                                <td>Automotive ECUs</td>
-                            </tr>
-                            <tr>
-                                <td>Power Analysis</td>
-                                <td>Very Hard</td>
-                                <td>Physical + Equipment</td>
-                                <td>Cryptographic devices</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <div style="margin-top: 15px;">
+        <button onclick="toggleExample('embedded-example2')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="embedded-example2-icon">+</span> Show IoT Device Attack Chain
+        </button>
+
+        <div id="embedded-example2" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+            <b>Smart Home Camera Hack:</b><br><br>
+            • Default passwords like "admin/admin" left unchanged.<br>
+            • Open ports (telnet, HTTP) made the device easy to find and control.<br>
+            • Attackers installed backdoors for permanent access.<br>
+            • They used the camera to spy and as part of botnets.<br>
+        </div>
+    </div>
+
+    <div style="margin-top: 15px;">
+        <button onclick="toggleExample('embedded-example3')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="embedded-example3-icon">+</span> Show Simple Physical & Social Engineering Examples
+        </button>
+
+        <div id="embedded-example3" style="display: none; margin-top: 15px; padding: 15px; background: #e0f7fa; border-radius: 8px;">
+            <b>Easy-to-Understand Examples:</b><br><br>
+            1. <b>Keylogger Device:</b> A small device plugged between a keyboard and computer records everything any user is typing at the keyboard. The attacker later retrieves it to get passwords and sensitive info.<br><br>
+            2. <b>Malicious USB (Rubber Ducky):</b> Looks like a regular flash drive but acts like a keyboard, typing commands instantly when plugged in.<br><br>
+            3. <b>Unattended USB Data Theft:</b> An attacker plugs in a flash drive to quickly copy files from a computer.<br><br>
+            4. <b>Evil Twin Wi-Fi:</b> Attacker sets up a fake hotspot (e.g., “Free_Coffee_WiFi”) to capture all traffic — similar to a Man-in-the-Middle attack.<br><br>
+            5. <b>Phishing Email:</b> An email that looks official but contains a fake login page or malicious link, tricking users into revealing credentials.<br><br>
+            6. <b>Supply Chain Attack:</b> Malicious hardware or software is added during manufacturing or by third-party suppliers.<br><br>
+            7. <b>Social Media Recon:</b> Attackers use posts to learn where you are, your birthday, school mascot, or other details for password guessing or scams.<br><br>
+            8. <b>Physical Security Lapse:</b> If attackers can walk into a server room, they can install hardware bugs, replace components, or directly steal data.
+        </div>
+    </div>
+</div>
+
+<div class="cnn-formula">
+    <b>Categories of Embedded Attacks:</b><br><br>
+    <b>Hardware Attacks:</b><br>
+    • Physical keyloggers, malicious USB devices, chip probing<br>
+    • Side-channel attacks (power analysis, timing attacks)<br><br>
+    <b>Software Attacks:</b><br>
+    • Malware injection, firmware modification<br>
+    • Buffer overflows, insecure update processes<br><br>
+    <b>Network Attacks:</b><br>
+    • Wi-Fi exploitation (Evil Twin, MITM)<br>
+    • Command injection via network interfaces
+</div>
+
+<table class="cnn-table">
+    <thead>
+        <tr>
+            <th>Attack Vector</th>
+            <th>Difficulty</th>
+            <th>Required Access</th>
+            <th>Common Targets</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Keylogger Device</td>
+            <td>Very Easy</td>
+            <td>Physical</td>
+            <td>Desktops, POS systems</td>
+        </tr>
+        <tr>
+            <td>Malicious USB (Rubber Ducky)</td>
+            <td>Easy</td>
+            <td>Physical</td>
+            <td>Workstations, laptops</td>
+        </tr>
+        <tr>
+            <td>Default Credentials</td>
+            <td>Very Easy</td>
+            <td>Network</td>
+            <td>IoT cameras, routers</td>
+        </tr>
+        <tr>
+            <td>Firmware Injection</td>
+            <td>Medium</td>
+            <td>Physical/Network</td>
+            <td>IoT, embedded devices</td>
+        </tr>
+        <tr>
+            <td>Evil Twin Wi-Fi</td>
+            <td>Medium</td>
+            <td>Wireless Range</td>
+            <td>Any Wi-Fi-enabled device</td>
+        </tr>
+    </tbody>
+</table>
+
 
                     <!-- Trusted Execution Environments -->
                     <h2>8. Trusted Execution Environments (TEE): Hardware-Based Security</h2>
