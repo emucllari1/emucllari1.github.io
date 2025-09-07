@@ -400,6 +400,31 @@
             <b>Key Insight:</b> A node's representation should be influenced by its neighbors' features, weighted by the strength of their connections.
         </div>
 
+        <h3>How GCNs Work: An Intuitive Analogy</h3>
+        <p>Imagine a GCN as a kind of digital gossip network. To figure out who you are (your <b>node embedding</b>), it doesn't just look at your own features; it asks your friends (your <b>neighbors</b>).</p>
+        <ol>
+            <li><b>Gather:</b> Each friend tells you about themselves.</li>
+            <li><b>Combine:</b> You aggregate all that information from your friends.</li>
+            <li><b>Transform:</b> You then combine this aggregated info with your own features and pass it through a neural network layer to create a new, updated version of yourself.</li>
+        </ol>
+        <p>This process is repeated over several layers. So, after one layer, you know about your friends. After two layers, you know about your friends' friends, and so on. This allows the model to learn about the broader graph structure and context.</p>
+        <div style="text-align: center; margin: 20px 0;">
+            <img src="img/blog/gnn_nodes.jpg" class="img-fluid" alt="GNN Node Aggregation">
+            <p style="font-style: italic; font-size: 0.9em; color: #555;">Image 1: Illustrates how GNNs aggregate information from neighboring nodes over multiple layers to create a comprehensive node representation.</p>
+        </div>
+
+        <h3>GCNs are like CNNs (but for Graphs!)</h3>
+        <p>To better understand the core idea of GCNs, it's helpful to compare them to <b>Convolutional Neural Networks (CNNs)</b>, which are widely used for image processing.</p>
+        <ul>
+            <li><b>CNNs for Images:</b> A CNN filter slides over a grid of pixels. It computes a new value for a central pixel by performing a weighted average of its immediate neighbors in the grid. This process extracts local features like edges and textures.</li>
+            <li><b>GCNs for Graphs:</b> A GCN operation does something similar, but for a graph. Instead of a fixed grid, the "neighborhood" is defined by the graph's connections. It computes a new feature vector for a node by performing a weighted average of its neighbors' feature vectors. This aggregates information from a node's local network.</li>
+        </ul>
+        <p>This analogy helps bridge the gap between two powerful concepts in deep learning and highlights the core principle of local information aggregation that they share.</p>
+        <div style="text-align: center; margin: 20px 0;">
+            <img src="img/blog/gcn_like_cnn.png" class="img-fluid" alt="GCNs similar to CNNs">
+            <p style="font-style: italic; font-size: 0.9em; color: #555;">Image 2: Visual comparison of convolution operations in CNNs (on grid-like data) and GCNs (on graph-structured data), highlighting their shared mechanism of local aggregation.</p>
+        </div>
+
         <div class="cnn-formula">
             <b>GCN Layer Formulation</b><br>
             For layer $l$, the forward pass is:
