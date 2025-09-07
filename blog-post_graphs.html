@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Template Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <!-- Template CSS Files -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS Skin File -->
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], 
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], 
+        processEscapes: true 
+      },
+      svg: {
+        fontCache: 'global' 
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById(id + '-icon');
+
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                icon.textContent = '−';
+                icon.style.fontWeight = 'bold';
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '+';
+                icon.style.fontWeight = 'normal';
+            }
+        }
+        
+        function toggleProof(id) {
+            toggleContent(id);
+        }
+        
+        function toggleExample(id) {
+            toggleContent(id);
+        }
+        
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleButtons = document.querySelectorAll('button[onclick^="toggleProof"], button[onclick^="toggleExample"]');
+            toggleButtons.forEach(button => {
+                const functionName = button.getAttribute('onclick').split('(')[0];
+                const contentId = button.getAttribute('onclick').split("'")[1];
+                
+                button.removeAttribute('onclick');
+
+                button.addEventListener('click', () => {
+                    toggleContent(contentId);
+                });
+            });
+        });
+    </script>
+
+<style>
+    .cnn-highlight {
+        background: #e3f2fd;
+        border-left: 6px solid #1976d2;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-formula {
+        background: #fffde7;
+        border-left: 6px solid #fbc02d;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+        font-size: 1.09em;
+    }
+    .cnn-tip {
+        background: #e8f5e9;
+        border-left: 6px solid #388e3c;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-warning {
+        background: #fff3e0;
+        border-left: 6px solid #f57c00;
+        padding: 14px;
+        margin: 24px 0;
+        border-radius: 8px;
+    }
+    .cnn-table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    .cnn-table th, .cnn-table td {
+        border: 1px solid #bdbdbd;
+        padding: 10px;
+        text-align: left;
+    }
+    .cnn-table th {
+        background: #f0f4c3;
+    }
+    .cnn-table tr:nth-child(even) {
+        background: #f9fbe7;
+    }
+    .graph-viz {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+        padding: 20px;
+        background: #f5f5f5;
+        border-radius: 8px;
+    }
+</style>
+</head>
+
+<body class="blog-post light">
+<!-- Header Starts -->
+<header class="header" id="navbar-collapse-toggle">
+    <!-- Fixed Navigation Starts -->
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box">
+            <i class="fa fa-home"></i>
+            <a href="index.html">
+                <h2>Home</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-university"></i>
+            <a href="about.html">
+                <h2>Research</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-briefcase"></i>
+            <a href="portfolio.html">
+                <h2>Portfolio</h2>
+            </a>
+        </li>
+        <li class="icon-box">
+            <i class="fa fa-photo"></i>
+            <a href="contact.html">
+                <h2>Hometown</h2>
+            </a>
+        </li>
+        <li class="icon-box active">
+            <i class="fa fa-comments"></i>
+            <a href="blog.html">
+                <h2>Blog</h2>
+            </a>
+        </li>
+    </ul>
+</header>
+<!-- Header Ends -->
+
+<!-- Page Title Starts -->
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>my <span>blog</span></h1>
+    <span class="title-bg">posts</span>
+</section>
+<!-- Page Title Ends -->
+
+<!-- Main Content Starts -->
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <!-- Article Starts -->
+            <article class="col-12">
+                <!-- Meta Starts -->
+                <div class="meta open-sans-font">
+                    <span><i class="fa fa-user"></i> Edison Mucllari</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2025</span>
+                    <span><i class="fa fa-tags"></i> machine learning, graph neural networks, GCN, bipartite graphs, recommender systems</span>
+                </div>
+                <!-- Meta Ends -->
+
+                <!-- Article Content Starts -->
+                <h1 class="text-uppercase text-capitalize">Graph Neural Networks: From Mathematical Foundations to Recommender Systems</h1>
+                <img src="img/blog/gcn_web.png" class="img-fluid" alt="Graph Neural Networks Blog image"/>
+                <div class="blog-excerpt open-sans-font pb-5">
+                    
+<h1>Graph Neural Networks</h1>
+
+        <div class="cnn-highlight">
+            <b>What are Graph Neural Networks?</b><br>
+            <b>Graph Neural Networks (GNNs)</b> are a class of deep learning models designed to work with graph-structured data. Unlike traditional neural networks that operate on Euclidean data (images, text), GNNs can capture complex relationships and dependencies in non-Euclidean graph structures. They enable machine learning on networks like social graphs, molecular structures, knowledge graphs, and recommendation systems.
+        </div>
+
+        <h2>Why Graphs Matter: Beyond Traditional Data Structures</h2>
+
+        <div class="cnn-warning">
+            <b>The Limitation of Traditional ML</b><br>
+            Traditional machine learning models assume that data points are independent and identically distributed (i.i.d.). However, many real-world datasets exhibit complex relational structures:
+            <ul>
+                <li><b>Social Networks:</b> Users influence each other's behavior</li>
+                <li><b>Molecular Chemistry:</b> Atom interactions determine properties</li>
+                <li><b>Recommender Systems:</b> User-item interactions reveal preferences</li>
+                <li><b>Knowledge Graphs:</b> Entities are interconnected through relationships</li>
+            </ul>
+            <br>
+            <i>The key insight:</i> Relationships between data points often contain as much information as the data points themselves!
+        </div>
+
+        <table class="cnn-table">
+            <tr>
+                <th>Data Type</th>
+                <th>Structure</th>
+                <th>Traditional ML</th>
+                <th>Graph-based ML</th>
+                <th>Key Advantage</th>
+            </tr>
+            <tr>
+                <td>Images</td>
+                <td>Grid (2D Euclidean)</td>
+                <td>CNN</td>
+                <td>Vision GNN</td>
+                <td>Captures long-range dependencies</td>
+            </tr>
+            <tr>
+                <td>Text</td>
+                <td>Sequence (1D)</td>
+                <td>RNN/Transformer</td>
+                <td>Text GNN</td>
+                <td>Models syntactic relationships</td>
+            </tr>
+            <tr>
+                <td>Social Networks</td>
+                <td>Graph (Non-Euclidean)</td>
+                <td>Feature engineering</td>
+                <td>GNN</td>
+                <td>Natural representation</td>
+            </tr>
+            <tr>
+                <td>Molecules</td>
+                <td>Graph (Non-Euclidean)</td>
+                <td>Hand-crafted descriptors</td>
+                <td>GNN</td>
+                <td>End-to-end learning</td>
+            </tr>
+        </table>
+
+        <h2>Mathematical Foundations: Graph Theory Essentials</h2>
+
+        <div class="cnn-formula">
+            <b>Graph Definition</b><br>
+            A graph $G = (V, E)$ consists of:
+            <ul>
+                <li><b>Vertices (Nodes):</b> $V = \{v_1, v_2, ..., v_n\}$ - the entities</li>
+                <li><b>Edges:</b> $E \subseteq V \times V$ - the relationships</li>
+            </ul>
+            <br>
+            <b>Types of Graphs:</b>
+            <ul>
+                <li><b>Undirected:</b> $(u, v) \in E \Leftrightarrow (v, u) \in E$</li>
+                <li><b>Directed:</b> $(u, v) \in E \not\Rightarrow (v, u) \in E$</li>
+                <li><b>Weighted:</b> Each edge $(u, v)$ has weight $w(u, v)$</li>
+            </ul>
+        </div>
+
+        <div class="graph-viz">
+            <svg width="400" height="200">
+                <!-- Nodes -->
+                <circle cx="80" cy="80" r="15" fill="#2196F3" stroke="#1976D2" stroke-width="2"/>
+                <circle cx="200" cy="50" r="15" fill="#2196F3" stroke="#1976D2" stroke-width="2"/>
+                <circle cx="320" cy="80" r="15" fill="#2196F3" stroke="#1976D2" stroke-width="2"/>
+                <circle cx="150" cy="150" r="15" fill="#2196F3" stroke="#1976D2" stroke-width="2"/>
+                
+                <!-- Edges -->
+                <line x1="80" y1="80" x2="200" y2="50" stroke="#666" stroke-width="2"/>
+                <line x1="200" y1="50" x2="320" y2="80" stroke="#666" stroke-width="2"/>
+                <line x1="80" y1="80" x2="150" y2="150" stroke="#666" stroke-width="2"/>
+                <line x1="320" y1="80" x2="150" y2="150" stroke="#666" stroke-width="2"/>
+                
+                <!-- Labels -->
+                <text x="80" y="85" text-anchor="middle" fill="white" font-size="10">1</text>
+                <text x="200" y="55" text-anchor="middle" fill="white" font-size="10">2</text>
+                <text x="320" y="85" text-anchor="middle" fill="white" font-size="10">3</text>
+                <text x="150" y="155" text-anchor="middle" fill="white" font-size="10">4</text>
+                
+                <text x="200" y="180" text-anchor="middle" font-size="12">Example Graph: G = (V, E)</text>
+            </svg>
+        </div>
+
+        <h2>The Adjacency Matrix: Encoding Graph Structure</h2>
+
+        <div class="cnn-formula">
+            <b>Adjacency Matrix Definition</b><br>
+            For a graph $G = (V, E)$ with $n$ vertices, the adjacency matrix $A \in \mathbb{R}^{n \times n}$ is defined as:
+            $$A_{ij} = \begin{cases} 
+            1 & \text{if } (v_i, v_j) \in E \\
+            0 & \text{otherwise}
+            \end{cases}$$
+            <br>
+            <b>For weighted graphs:</b> $A_{ij} = w(v_i, v_j)$ if edge exists, 0 otherwise.
+            <br>
+            <b>Properties:</b>
+            <ul>
+                <li><b>Undirected graphs:</b> $A = A^T$ (symmetric)</li>
+                <li><b>Self-loops:</b> $A_{ii} = 1$ if node has self-connection</li>
+                <li><b>Sparsity:</b> Most real graphs are sparse ($|E| \ll n^2$)</li>
+            </ul>
+        </div>
+
+        <div class="cnn-tip">
+    <b>Adjacency Matrix Example</b>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="toggleExample('adj-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="adj-example-icon">+</span> Show Matrix Construction
+        </button>
+        
+        <div id="adj-example" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>For the graph shown above:</b><br>
+            Edges: (1,2), (2,3), (1,4), (3,4)<br><br>
+            
+            <b>Adjacency Matrix:</b><br>
+            $$A = \begin{pmatrix}
+            0 & 1 & 0 & 1 \\
+            1 & 0 & 1 & 0 \\
+            0 & 1 & 0 & 1 \\
+            1 & 0 & 1 & 0
+            \end{pmatrix}$$
+            <br>
+            
+            <b>Reading the matrix:</b>
+            <ul>
+                <li>Row 1: Node 1 connects to nodes 2 and 4</li>
+                <li>Row 2: Node 2 connects to nodes 1 and 3</li>
+                <li>Row 3: Node 3 connects to nodes 2 and 4</li>
+                <li>Row 4: Node 4 connects to nodes 1 and 3</li>
+            </ul>
+            <br>
+            <b>Note:</b> Matrix is symmetric since the graph is undirected.
+        </div>
+    </div>
+</div>
+
+        <h2>The Degree Matrix: Understanding Node Connectivity</h2>
+
+        <div class="cnn-formula">
+            <b>Degree Matrix Definition</b><br>
+            The degree of a node $v_i$ is: $d_i = \sum_{j=1}^n A_{ij}$
+            <br><br>
+            The degree matrix $D \in \mathbb{R}^{n \times n}$ is a diagonal matrix:
+            $$D_{ij} = \begin{cases} 
+            d_i & \text{if } i = j \\
+            0 & \text{otherwise}
+            \end{cases}$$
+            <br>
+            <b>Why degrees matter:</b>
+            <ul>
+                <li><b>Centrality:</b> High-degree nodes are often important</li>
+                <li><b>Normalization:</b> Prevents high-degree nodes from dominating</li>
+                <li><b>Random walks:</b> Degree affects transition probabilities</li>
+            </ul>
+        </div>
+
+        <div class="cnn-formula">
+            <b>Laplacian Matrix</b><br>
+            The graph Laplacian combines adjacency and degree information:
+            $$L = D - A$$
+            <br>
+            <b>Normalized Laplacian:</b> $L_{norm} = D^{-1/2}LD^{-1/2} = I - D^{-1/2}AD^{-1/2}$
+            <br><br>
+            <b>Key properties:</b>
+            <ul>
+                <li>Positive semi-definite: $x^TLx \geq 0$ for all $x$</li>
+                <li>Eigenvalues encode graph structure and connectivity</li>
+                <li>Used in spectral graph theory and clustering</li>
+            </ul>
+        </div>
+
+        <h2>Graph Convolutional Networks (GCNs): The Foundation</h2>
+
+        <div class="cnn-highlight">
+            <b>The Core Idea of GCNs</b><br>
+            Graph Convolutional Networks extend the concept of convolution to graphs. Instead of convolving over a regular grid (like images), GCNs aggregate information from a node's neighborhood in the graph structure.
+            <br><br>
+            <b>Key Insight:</b> A node's representation should be influenced by its neighbors' features, weighted by the strength of their connections.
+        </div>
+
+        <div class="cnn-formula">
+            <b>GCN Layer Formulation</b><br>
+            For layer $l$, the forward pass is:
+            $$H^{(l+1)} = \sigma\left(\tilde{A}H^{(l)}W^{(l)}\right)$$
+            
+            Where:
+            <ul>
+                <li>$H^{(l)} \in \mathbb{R}^{n \times d_l}$ - node features at layer $l$</li>
+                <li>$W^{(l)} \in \mathbb{R}^{d_l \times d_{l+1}}$ - learnable weight matrix</li>
+                <li>$\tilde{A}$ - normalized adjacency matrix</li>
+                <li>$\sigma$ - activation function (ReLU, etc.)</li>
+            </ul>
+        </div>
+
+        <div class="cnn-tip">
+    <b>Why This Normalization? The Mathematical Intuition</b>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="toggleProof('gcn-norm')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="gcn-norm-icon">+</span> Show Mathematical Derivation
+        </button>
+        
+        <div id="gcn-norm" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>Problem with naive approach:</b><br>
+            Using just $AH^{(l)}W^{(l)}$ has issues:
+            <ul>
+                <li>No self-loops: nodes don't consider their own features</li>
+                <li>Scale varies with degree: high-degree nodes get larger values</li>
+            </ul>
+            <br>
+            
+            <b>Solution: Symmetric normalization</b><br>
+            $$\tilde{A} = D^{-1/2}(A + I)D^{-1/2}$$
+            <br>
+            Where $A + I$ adds self-loops and $D$ is the degree matrix of $A + I$.
+            <br><br>
+            
+            <b>Why this works:</b>
+            <ol>
+                <li><b>Self-loops:</b> $(A + I)$ ensures nodes consider themselves</li>
+                <li><b>Symmetric normalization:</b> $D^{-1/2} \cdot D^{-1/2}$ makes the operation symmetric</li>
+                <li><b>Degree normalization:</b> Prevents high-degree nodes from dominating</li>
+            </ol>
+            <br>
+            
+            <b>Interpretation:</b> Each neighbor contributes proportionally to $\frac{1}{\sqrt{d_i d_j}}$ where $d_i, d_j$ are the degrees of the connected nodes.
+        </div>
+    </div>
+</div>
+
+        <div class="cnn-formula">
+            <b>Multi-layer GCN</b><br>
+            A complete GCN with $L$ layers:
+            <br><br>
+            $H^{(0)} = X$ (input node features)
+            <br>
+            $H^{(l+1)} = \sigma\left(\tilde{A}H^{(l)}W^{(l)}\right)$ for $l = 0, 1, ..., L-2$
+            <br>
+            $Z = \text{softmax}\left(\tilde{A}H^{(L-1)}W^{(L-1)}\right)$ (output layer)
+            <br><br>
+            <b>Key Properties:</b>
+            <ul>
+                <li><b>Localized:</b> Each layer only looks at immediate neighbors</li>
+                <li><b>Scalable:</b> Linear in number of edges $O(|E|)$</li>
+                <li><b>Permutation invariant:</b> Node ordering doesn't matter</li>
+            </ul>
+        </div>
+
+        <h2>GCN Example: Node Classification</h2>
+
+        <div class="cnn-tip">
+    <b>Complete GCN Walkthrough</b>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="toggleExample('gcn-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="gcn-example-icon">+</span> Show Step-by-Step Computation
+        </button>
+        
+        <div id="gcn-example" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>Problem:</b> Classify nodes in a 3-node graph<br><br>
+            
+            <div style="text-align: center; margin: 15px 0;">
+                <svg width="200" height="100">
+                    <circle cx="50" cy="50" r="15" fill="#FF6B6B" stroke="#FF5252" stroke-width="2"/>
+                    <circle cx="100" cy="30" r="15" fill="#4ECDC4" stroke="#26A69A" stroke-width="2"/>
+                    <circle cx="150" cy="50" r="15" fill="#45B7D1" stroke="#2196F3" stroke-width="2"/>
+                    
+                    <line x1="65" y1="50" x2="85" y2="30" stroke="#666" stroke-width="2"/>
+                    <line x1="115" y1="30" x2="135" y2="50" stroke="#666" stroke-width="2"/>
+                    <line x1="65" y1="50" x2="135" y2="50" stroke="#666" stroke-width="2"/>
+                    
+                    <text x="50" y="55" text-anchor="middle" fill="white" font-size="10">1</text>
+                    <text x="100" y="35" text-anchor="middle" fill="white" font-size="10">2</text>
+                    <text x="150" y="55" text-anchor="middle" fill="white" font-size="10">3</text>
+                </svg>
+            </div>
+            
+            <b>Step 1: Setup matrices</b><br>
+            Adjacency: $A = \begin{pmatrix} 0 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 1 & 0 \end{pmatrix}$
+            <br><br>
+            
+            With self-loops: $\tilde{A} = A + I = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{pmatrix}$
+            <br><br>
+            
+            Degree matrix: $\tilde{D} = \begin{pmatrix} 3 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 3 \end{pmatrix}$
+            <br><br>
+            
+            <b>Step 2: Normalize</b><br>
+            $\tilde{A}_{norm} = \tilde{D}^{-1/2}\tilde{A}\tilde{D}^{-1/2} = \frac{1}{3}\begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{pmatrix}$
+            <br><br>
+            
+            <b>Step 3: Forward pass</b><br>
+            Input features: $X = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix}$ (2D features)
+            <br><br>
+            
+            Weight matrix: $W = \begin{pmatrix} 0.5 & 0.2 \\ 0.3 & 0.7 \end{pmatrix}$ (2×2)
+            <br><br>
+            
+            $H^{(1)} = \text{ReLU}\left(\tilde{A}_{norm} X W\right)$
+            <br><br>
+            
+            <b>Result:</b> Each node's representation becomes a weighted average of its neighborhood features, transformed by the weight matrix.
+        </div>
+    </div>
+</div>
+
+        <h2>Bipartite Graphs: A Special Structure</h2>
+
+        <div class="cnn-highlight">
+            <b>What are Bipartite Graphs?</b><br>
+            A bipartite graph $G = (U \cup V, E)$ has two disjoint sets of vertices $U$ and $V$ such that every edge connects a vertex in $U$ to a vertex in $V$. No edges exist within $U$ or within $V$.
+            <br><br>
+            <b>Common Examples:</b>
+            <ul>
+                <li><b>User-Item graphs:</b> Users connect to items they purchased/rated</li>
+                <li><b>Author-Paper graphs:</b> Authors connect to papers they wrote</li>
+                <li><b>Actor-Movie graphs:</b> Actors connect to movies they appeared in</li>
+                <li><b>Gene-Disease graphs:</b> Genes connect to diseases they influence</li>
+            </ul>
+        </div>
+
+        <div class="graph-viz">
+            <svg width="500" height="200">
+                <!-- Left side nodes (Users) -->
+                <circle cx="80" cy="50" r="15" fill="#FF6B6B" stroke="#FF5252" stroke-width="2"/>
+                <circle cx="80" cy="100" r="15" fill="#FF6B6B" stroke="#FF5252" stroke-width="2"/>
+                <circle cx="80" cy="150" r="15" fill="#FF6B6B" stroke="#FF5252" stroke-width="2"/>
+                
+                <!-- Right side nodes (Items) -->
+                <circle cx="320" cy="40" r="15" fill="#4ECDC4" stroke="#26A69A" stroke-width="2"/>
+                <circle cx="320" cy="80" r="15" fill="#4ECDC4" stroke="#26A69A" stroke-width="2"/>
+                <circle cx="320" cy="120" r="15" fill="#4ECDC4" stroke="#26A69A" stroke-width="2"/>
+                <circle cx="320" cy="160" r="15" fill="#4ECDC4" stroke="#26A69A" stroke-width="2"/>
+                
+                <!-- Edges -->
+                <line x1="95" y1="50" x2="305" y2="40" stroke="#666" stroke-width="2"/>
+                <line x1="95" y1="50" x2="305" y2="80" stroke="#666" stroke-width="2"/>
+                <line x1="95" y1="100" x2="305" y2="80" stroke="#666" stroke-width="2"/>
+                <line x1="95" y1="100" x2="305" y2="120" stroke="#666" stroke-width="2"/>
+                <line x1="95" y1="150" x2="305" y2="120" stroke="#666" stroke-width="2"/>
+                <line x1="95" y1="150" x2="305" y2="160" stroke="#666" stroke-width="2"/>
+                
+                <!-- Labels -->
+                <text x="80" y="55" text-anchor="middle" fill="white" font-size="10">U1</text>
+                <text x="80" y="105" text-anchor="middle" fill="white" font-size="10">U2</text>
+                <text x="80" y="155" text-anchor="middle" fill="white" font-size="10">U3</text>
+                
+                <text x="320" y="45" text-anchor="middle" fill="white" font-size="10">I1</text>
+                <text x="320" y="85" text-anchor="middle" fill="white" font-size="10">I2</text>
+                <text x="320" y="125" text-anchor="middle" fill="white" font-size="10">I3</text>
+                <text x="320" y="165" text-anchor="middle" fill="white" font-size="10">I4</text>
+                
+                <!-- Side labels -->
+                <text x="80" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#FF5252">Users (U)</text>
+                <text x="320" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#26A69A">Items (V)</text>
+                
+                <text x="200" y="190" text-anchor="middle" font-size="12">Bipartite Graph: User-Item Interactions</text>
+            </svg>
+        </div>
+
+        <h2>Adjacency Matrix for Bipartite Graphs</h2>
+
+        <div class="cnn-formula">
+            <b>Bipartite Adjacency Matrix Structure</b><br>
+            For a bipartite graph $G = (U \cup V, E)$ with $|U| = m$ and $|V| = n$, we have two representations:
+            <br><br>
+            <b>1. Biadjacency Matrix $B \in \mathbb{R}^{m \times n}$:</b>
+            $B_{ij} = \begin{cases} 
+            1 & \text{if } (u_i, v_j) \in E \\
+            0 & \text{otherwise}
+            \end{cases}$
+            <br>
+            <b>2. Full Adjacency Matrix $A \in \mathbb{R}^{(m+n) \times (m+n)}$:</b>
+            $A = \begin{pmatrix}
+            0_{m \times m} & B \\
+            B^T & 0_{n \times n}
+            \end{pmatrix}$
+        </div>
+
+        <div class="cnn-tip">
+    <b>Bipartite Adjacency Matrix Example</b>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="toggleExample('bipartite-adj')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="bipartite-adj-icon">+</span> Show Matrix Construction
+        </button>
+        
+        <div id="bipartite-adj" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>From the bipartite graph above:</b><br>
+            Users: {U1, U2, U3}, Items: {I1, I2, I3, I4}<br>
+            Edges: (U1,I1), (U1,I2), (U2,I2), (U2,I3), (U3,I3), (U3,I4)<br><br>
+            
+            <b>Biadjacency Matrix B (3×4):</b><br>
+            $B = \begin{pmatrix}
+            1 & 1 & 0 & 0 \\
+            0 & 1 & 1 & 0 \\
+            0 & 0 & 1 & 1
+            \end{pmatrix}$
+            <br>
+            
+            <b>Full Adjacency Matrix A (7×7):</b><br>
+            $A = \begin{pmatrix}
+            0 & 0 & 0 & | & 1 & 1 & 0 & 0 \\
+            0 & 0 & 0 & | & 0 & 1 & 1 & 0 \\
+            0 & 0 & 0 & | & 0 & 0 & 1 & 1 \\
+            - & - & - & + & - & - & - & - \\
+            1 & 0 & 0 & | & 0 & 0 & 0 & 0 \\
+            1 & 1 & 0 & | & 0 & 0 & 0 & 0 \\
+            0 & 1 & 1 & | & 0 & 0 & 0 & 0 \\
+            0 & 0 & 1 & | & 0 & 0 & 0 & 0
+            \end{pmatrix}$
+            <br>
+            <b>Note:</b> Block structure with zeros on diagonal blocks (no intra-type connections).
+        </div>
+    </div>
+</div>
+
+        <h2>GCNs for Bipartite Graphs</h2>
+
+        <div class="cnn-formula">
+            <b>Bipartite GCN Formulation</b><br>
+            For bipartite graphs, we can adapt GCNs to handle two types of nodes:
+            <br><br>
+            <b>User node updates:</b>
+            $H_u^{(l+1)} = \sigma\left(B \cdot H_v^{(l)} \cdot W_u^{(l)}\right)$
+            <br>
+            <b>Item node updates:</b>
+            $H_v^{(l+1)} = \sigma\left(B^T \cdot H_u^{(l)} \cdot W_v^{(l)}\right)$
+            <br><br>
+            Where:
+            <ul>
+                <li>$H_u^{(l)}$ - user embeddings at layer $l$</li>
+                <li>$H_v^{(l)}$ - item embeddings at layer $l$</li>
+                <li>$W_u^{(l)}, W_v^{(l)}$ - type-specific weight matrices</li>
+                <li>$B$ - biadjacency matrix</li>
+            </ul>
+        </div>
+
+        <div class="cnn-warning">
+            <b>Key Insight: Alternating Updates</b><br>
+            In bipartite GCNs, user and item representations are updated alternately:
+            <ul>
+                <li><b>User update:</b> Aggregate from connected items</li>
+                <li><b>Item update:</b> Aggregate from connected users</li>
+                <li><b>No direct:</b> User-user or item-item connections</li>
+            </ul>
+            <br>
+            This creates a natural collaborative filtering mechanism where users influence items they interact with, and vice versa.
+        </div>
+
+        <h2>Recommender Systems with Bipartite GNNs</h2>
+
+        <div class="cnn-highlight">
+            <b>The Recommender System Problem</b><br>
+            Given a set of users $U$ and items $V$, with observed interactions $R \subset U \times V$, predict which unobserved user-item pairs $(u, v) \notin R$ are likely to result in positive interactions.
+            <br><br>
+            <b>Traditional approaches:</b> Matrix factorization, collaborative filtering
+            <br>
+            <b>GNN advantage:</b> Captures higher-order collaborative signals through multi-hop neighbors
+        </div>
+
+        <div class="cnn-formula">
+            <b>LightGCN: Simplified Bipartite GCN</b><br>
+            LightGCN removes feature transformation and nonlinear activation:
+            <br><br>
+            <b>User embeddings:</b>
+            $\mathbf{e}_u^{(k+1)} = \sum_{i \in N_u} \frac{1}{\sqrt{|N_u|}\sqrt{|N_i|}} \mathbf{e}_i^{(k)}$
+            <br>
+            <b>Item embeddings:</b>
+            $\mathbf{e}_i^{(k+1)} = \sum_{u \in N_i} \frac{1}{\sqrt{|N_i|}\sqrt{|N_u|}} \mathbf{e}_u^{(k)}$
+            <br><br>
+            <b>Final representation:</b>
+            $\mathbf{e}_u = \sum_{k=0}^K \alpha_k \mathbf{e}_u^{(k)}, \quad \mathbf{e}_i = \sum_{k=0}^K \alpha_k \mathbf{e}_i^{(k)}$
+        </div>
+
+        <div class="cnn-tip">
+    <b>Why LightGCN Works: Mathematical Intuition</b>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="toggleProof('lightgcn-intuition')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="lightgcn-intuition-icon">+</span> Show Detailed Analysis
+        </button>
+        
+        <div id="lightgcn-intuition" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>1. Higher-order Collaborative Filtering</b><br>
+            - Layer 0: Direct user-item interactions<br>
+            - Layer 1: Users similar through shared items<br>
+            - Layer 2: Items similar through shared users<br>
+            - Layer k: k-hop collaborative signals<br><br>
+            
+            <b>2. Symmetric Normalization Benefits</b><br>
+            The normalization $\frac{1}{\sqrt{|N_u|}\sqrt{|N_i|}}$ ensures:
+            <ul>
+                <li>Popular items don't dominate recommendations</li>
+                <li>Active users don't overshadow others</li>
+                <li>Balanced information flow in both directions</li>
+            </ul>
+            <br>
+            
+            <b>3. Layer Combination Strategy</b><br>
+            $\mathbf{e}_u^{final} = \alpha_0 \mathbf{e}_u^{(0)} + \alpha_1 \mathbf{e}_u^{(1)} + ... + \alpha_K \mathbf{e}_u^{(K)}$
+            <br>
+            This captures information at multiple scales:
+            <ul>
+                <li>$\alpha_0$: Original user preferences</li>
+                <li>$\alpha_1$: 1-hop collaborative signals</li>
+                <li>$\alpha_k$: k-hop collaborative signals</li>
+            </ul>
+            <br>
+            
+            <b>4. Prediction</b><br>
+            Final recommendation score: $\hat{y}_{ui} = \mathbf{e}_u^T \mathbf{e}_i$<br>
+            This dot product measures similarity in the learned embedding space.
+        </div>
+    </div>
+</div>
+
+        <h2>Complete Recommender System Example</h2>
+
+        <div class="cnn-tip">
+    <b>End-to-End Recommendation Pipeline</b>
+    
+    <div style="margin-top: 15px;">
+        <button onclick="toggleExample('recommender-example')" style="background: #388e3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;">
+            <span id="recommender-example-icon">+</span> Show Complete Example
+        </button>
+        
+        <div id="recommender-example" style="display: none; margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 4px;">
+            <b>Dataset: Movie Recommendations</b><br>
+            Users: {Alice, Bob, Carol}<br>
+            Movies: {Movie1, Movie2, Movie3, Movie4}<br><br>
+            
+            <b>Observed Interactions (Ratings > 3):</b><br>
+            Alice → Movie1, Movie2<br>
+            Bob → Movie2, Movie3<br>
+            Carol → Movie3, Movie4<br><br>
+            
+            <b>Step 1: Build Biadjacency Matrix</b><br>
+            $B = \begin{pmatrix}
+            1 & 1 & 0 & 0 \\
+            0 & 1 & 1 & 0 \\
+            0 & 0 & 1 & 1
+            \end{pmatrix}$
+            <br>
+            
+            <b>Step 2: Initialize Embeddings</b><br>
+            $\mathbf{e}_{Alice}^{(0)} = [0.1, 0.2]$<br>
+            $\mathbf{e}_{Bob}^{(0)} = [0.3, 0.1]$<br>
+            $\mathbf{e}_{Carol}^{(0)} = [0.2, 0.3]$<br>
+            $\mathbf{e}_{M1}^{(0)} = [0.4, 0.1]$<br>
+            $\mathbf{e}_{M2}^{(0)} = [0.2, 0.4]$<br>
+            $\mathbf{e}_{M3}^{(0)} = [0.1, 0.3]$<br>
+            $\mathbf{e}_{M4}^{(0)} = [0.3, 0.2]$<br><br>
+            
+            <b>Step 3: First Layer Update</b><br>
+            Alice's embedding (aggregates from Movie1, Movie2):<br>
+            $\mathbf{e}_{Alice}^{(1)} = \frac{1}{2}\left(\frac{\mathbf{e}_{M1}^{(0)}}{\sqrt{1}} + \frac{\mathbf{e}_{M2}^{(0)}}{\sqrt{2}}\right)$
+            <br>
+            
+            <b>Step 4: Make Predictions</b><br>
+            For Alice and Movie3 (unobserved):<br>
+            $\hat{y}_{Alice,M3} = (\mathbf{e}_{Alice}^{final})^T \mathbf{e}_{M3}^{final}$
+            <br>
+            
+            <b>Intuition:</b> Alice likes Movie1,2 → Movie1,2 are similar to Movie3 (through Bob) → Alice might like Movie3
+        </div>
+    </div>
+</div>
+
+        <h2>Advanced Bipartite GNN Architectures</h2>
+
+        <table class="cnn-table">
+            <tr>
+                <th>Model</th>
+                <th>Key Innovation</th>
+                <th>Advantages</th>
+                <th>Use Cases</th>
+            </tr>
+            <tr>
+                <td>NGCF</td>
+                <td>Higher-order connectivity + feature transformation</td>
+                <td>Captures complex user-item relationships</td>
+                <td>General recommendation</td>
+            </tr>
+            <tr>
+                <td>LightGCN</td>
+                <td>Removes transformations and activations</td>
+                <td>Simple, efficient, strong performance</td>
+                <td>Collaborative filtering</td>
+            </tr>
+            <tr>
+                <td>UltraGCN</td>
+                <td>Skips message passing entirely</td>
+                <td>Ultra-fast training and inference</td>
+                <td>Large-scale systems</td>
+            </tr>
+            <tr>
+                <td>DGCF</td>
+                <td>Disentangled representations</td>
+                <td>Interpretable factors</td>
+                <td>Explainable recommendations</td>
+            </tr>
+        </table>
+
+        <h2>Training Bipartite GNNs: Loss Functions and Optimization</h2>
+
+        <div class="cnn-formula">
+            <b>Bayesian Personalized Ranking (BPR) Loss</b><br>
+            For implicit feedback data, BPR optimizes pairwise ranking:
+            $\mathcal{L}_{BPR} = \sum_{(u,i,j) \in D_s} -\ln \sigma(\hat{y}_{ui} - \hat{y}_{uj}) + \lambda ||\Theta||^2$
+            <br>
+            Where:
+            <ul>
+                <li>$(u,i,j)$: user $u$, positive item $i$, negative item $j$</li>
+                <li>$\hat{y}_{ui} = \mathbf{e}_u^T \mathbf{e}_i$: predicted score</li>
+                <li>$\sigma$: sigmoid function</li>
+                <li>$\lambda$: L2 regularization coefficient</li>
+                <li>$\Theta$: all model parameters</li>
+            </ul>
+        </div>
+
+        <div class="cnn-warning">
+            <b>Negative Sampling Strategy</b><br>
+            Since we only observe positive interactions, we need to sample negative examples:
+            <ul>
+                <li><b>Uniform sampling:</b> Random unobserved items</li>
+                <li><b>Popularity-based:</b> Sample based on item popularity</li>
+                <li><b>Hard negative mining:</b> Focus on challenging negatives</li>
+                <li><b>Dynamic sampling:</b> Adapt sampling during training</li>
+            </ul>
+            <br>
+            <b>Challenge:</b> Unobserved ≠ Negative (users might like items they haven't interacted with yet)
+        </div>
+
+        <h2>Evaluation Metrics for Recommendation</h2>
+
+        <div class="cnn-formula">
+            <b>Ranking Metrics</b><br>
+            <b>Recall@K:</b> $Recall@K = \frac{|I_u^{test} \cap I_u^{rec}(K)|}{|I_u^{test}|}$
+            <br><br>
+            <b>NDCG@K:</b> $NDCG@K = \frac{DCG@K}{IDCG@K}$
+            <br>
+            Where $DCG@K = \sum_{i=1}^K \frac{rel_i}{\log_2(i+1)}$
+            <br><br>
+            <b>Hit Ratio@K:</b> $HR@K = \frac{\text{# users with at least 1 hit in top-K}}{|\text{test users}|}$
+        </div>
+
+        <h2>Challenges and Future Directions</h2>
+
+        <div class="cnn-highlight">
+            <b>Current Challenges in Bipartite GNNs</b><br>
+            <ul>
+                <li><b>Cold Start:</b> New users/items with no interactions</li>
+                <li><b>Scalability:</b> Large graphs with millions of nodes</li>
+                <li><b>Dynamic Graphs:</b> Interactions change over time</li>
+                <li><b>Fairness:</b> Avoiding bias in recommendations</li>
+                <li><b>Explainability:</b> Understanding why items are recommended</li>
+                <li><b>Privacy:</b> Protecting user interaction data</li>
+            </ul>
+        </div>
+
+        <h2>Implementation Considerations</h2>
+
+        <div class="cnn-tip">
+            <b>Practical Tips for Bipartite GNN Implementation</b><br>
+            <ul>
+                <li><b>Graph preprocessing:</b> Remove very sparse users/items</li>
+                <li><b>Embedding initialization:</b> Use Xavier/He initialization</li>
+                <li><b>Learning rates:</b> Often need different rates for users vs items</li>
+                <li><b>Batch sampling:</b> Sample subgraphs for mini-batch training</li>
+                <li><b>Early stopping:</b> Monitor validation metrics carefully</li>
+                <li><b>Hyperparameter tuning:</b> Layer depth, embedding size, regularization</li>
+            </ul>
+        </div>
+
+        <h2>Conclusion: The Power of Graph Structure in Recommendations</h2>
+
+        <p>Graph Neural Networks, particularly when applied to bipartite graphs, represent a paradigm shift in how we approach recommendation systems. By naturally modeling the user-item interaction structure as a graph, GNNs can capture complex collaborative filtering signals that traditional matrix factorization methods miss.</p>
+
+        <p>The mathematical elegance of bipartite GNNs lies in their ability to propagate information through the graph structure, allowing users to discover items through multi-hop collaborative signals. This approach has proven highly effective in practice, with models like LightGCN achieving state-of-the-art performance while maintaining simplicity and interpretability.</p>
+
+        <p>As the field continues to evolve, we can expect further innovations in handling dynamic graphs, improving fairness, and scaling to even larger datasets. The foundation provided by GNNs on bipartite graphs will undoubtedly continue to drive advances in recommender systems and beyond.</p>
+
+        <h2>References</h2>
+        <ul>
+            <li>Kipf, T. N., & Welling, M. (2016). <b>Semi-supervised classification with graph convolutional networks</b>. arXiv preprint arXiv:1609.02907.</li>
+            <li>He, X., Deng, K., Wang, X., Li, Y., Zhang, Y., & Wang, M. (2020). <b>LightGCN: Simplifying and powering graph convolution network for recommendation</b>. SIGIR 2020.</li>
+            <li>Wang, X., He, X., Wang, M., Feng, F., & Chua, T. S. (2019). <b>Neural graph collaborative filtering</b>. SIGIR 2019.</li>
+            <li>Rendle, S., Freudenthaler, C., Gantner, Z., & Schmidt-Thieme, L. (2009). <b>BPR: Bayesian personalized ranking from implicit feedback</b>. UAI 2009.</li>
+        </ul>
+
+                </div>
+                <!-- Article Content Ends -->
+            </article>
+            <!-- Article Ends -->
+        </div>
+    </div>
+</section>
+<!-- Template JS Files -->
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
