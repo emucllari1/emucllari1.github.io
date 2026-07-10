@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Edison's Blog - The Ultimate Guide to RAG Architecture</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/preloader.min.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/fm.revealator.jquery.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="css/skins/green.css" rel="stylesheet">
+
+    <link rel="alternate stylesheet" type="text/css" title="blue" href="css/skins/blue.css" />
+    <link rel="alternate stylesheet" type="text/css" title="green" href="css/skins/green.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellow" href="css/skins/yellow.css" />
+    <link rel="alternate stylesheet" type="text/css" title="blueviolet" href="css/skins/blueviolet.css" />
+    <link rel="alternate stylesheet" type="text/css" title="goldenrod" href="css/skins/goldenrod.css" />
+    <link rel="alternate stylesheet" type="text/css" title="magenta" href="css/skins/magenta.css" />
+    <link rel="alternate stylesheet" type="text/css" title="orange" href="css/skins/orange.css" />
+    <link rel="alternate stylesheet" type="text/css" title="purple" href="css/skins/purple.css" />
+    <link rel="alternate stylesheet" type="text/css" title="red" href="css/skins/red.css" />
+    <link rel="alternate stylesheet" type="text/css" title="yellowgreen" href="css/skins/yellowgreen.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+
+    <script src="js/modernizr.custom.js"></script>
+
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']], 
+        displayMath: [['$$', '$$'], ['\\[', '\\]']], 
+        processEscapes: true 
+      },
+      svg: {
+        fontCache: 'global' 
+      }
+    };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+        .rag-highlight {
+            background: #f0f4ff;
+            border-left: 6px solid #4f46e5;
+            padding: 18px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .rag-formula {
+            background: #fafafa;
+            border-left: 6px solid #0d9488;
+            padding: 18px;
+            margin: 24px 0;
+            border-radius: 8px;
+            font-size: 1.05em;
+        }
+        .rag-tip {
+            background: #f0fdf4;
+            border-left: 6px solid #16a34a;
+            padding: 18px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .rag-warning {
+            background: #fff7ed;
+            border-left: 6px solid #ea580c;
+            padding: 18px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        .rag-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 24px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .rag-table th, .rag-table td {
+            border: 1px solid #e5e7eb;
+            padding: 14px;
+            text-align: left;
+        }
+        .rag-table th {
+            background: #e0f2fe;
+            color: #0369a1;
+            font-weight: 600;
+        }
+        .rag-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        .pipeline-step {
+            font-weight: 600;
+            color: #4f46e5;
+        }
+        .code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 16px 0;
+            line-height: 1.5;
+        }
+        .step-heading {
+            color: #1e293b;
+            font-size: 1.4em;
+            margin-top: 25px;
+            font-weight: 600;
+        }
+        .problem-title {
+            color: #b91c1c;
+            font-size: 1.25em;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="blog-post light">
+<div id="switcher" class="">
+    <div class="content-switcher">
+        <h4>STYLE SWITCHER</h4>
+        <ul>
+            <li><a href="#" onclick="setActiveStyleSheet('purple');" title="purple" class="color"><img src="img/styleswitcher/purple.png" alt="purple"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('red');" title="red" class="color"><img src="img/styleswitcher/red.png" alt="red"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('blueviolet');" title="blueviolet" class="color"><img src="img/styleswitcher/blueviolet.png" alt="blueviolet"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('blue');" title="blue" class="color"><img src="img/styleswitcher/blue.png" alt="blue"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('goldenrod');" title="goldenrod" class="color"><img src="img/styleswitcher/goldenrod.png" alt="goldenrod"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('magenta');" title="magenta" class="color"><img src="img/styleswitcher/magenta.png" alt="magenta"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('yellowgreen');" title="yellowgreen" class="color"><img src="img/styleswitcher/yellowgreen.png" alt="yellowgreen"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('orange');" title="orange" class="color"><img src="img/styleswitcher/orange.png" alt="orange"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('green');" title="green" class="color"><img src="img/styleswitcher/green.png" alt="green"/></a></li>
+            <li><a href="#" onclick="setActiveStyleSheet('yellow');" title="yellow" class="color"><img src="img/styleswitcher/yellow.png" alt="yellow"/></a></li>
+        </ul>
+        <div id="hideSwitcher">&times;</div>
+    </div>
+</div>
+<div id="showSwitcher" class="styleSecondColor"><i class="fa fa-cog fa-spin"></i></div>
+<header class="header" id="navbar-collapse-toggle">
+    <ul class="icon-menu d-none d-lg-block revealator-slideup revealator-once revealator-delay1">
+        <li class="icon-box"><i class="fa fa-home"></i><a href="index.html"><h2>Home</h2></a></li>
+        <li class="icon-box"><i class="fa fa-university"></i><a href="about.html"><h2>Research</h2></a></li>
+        <li class="icon-box"><i class="fa fa-briefcase"></i><a href="portfolio.html"><h2>Portfolio</h2></a></li>
+        <li class="icon-box"><i class="fa fa-photo"></i><a href="contact.html"><h2>Hometown</h2></a></li>
+        <li class="icon-box active"><i class="fa fa-comments"></i><a href="blog.html"><h2>Blog</h2></a></li>
+    </ul>
+    <nav role="navigation" class="d-block d-lg-none">
+        <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span><span></span><span></span>
+            <ul class="list-unstyled" id="menu">
+                <li><a href="index.html"><i class="fa fa-home"></i><span>Home</span></a></li>
+                <li><a href="about.html"><i class="fa fa-university"></i><span>Research</span></a></li>
+                <li><a href="portfolio.html"><i class="fa fa-folder-open"></i><span>Portfolio</span></a></li>
+                <li><a href="contact.html"><i class="fa fa-photo"></i><span>Hometown</span></a></li>
+                <li class="active"><a href="blog.html"><i class="fa fa-comments"></i><span>Blog</span></a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<section class="title-section text-left text-sm-center revealator-slideup revealator-once revealator-delay1">
+    <h1>my <span>blog</span></h1>
+    <span class="title-bg">posts</span>
+</section>
+<section class="main-content revealator-slideup revealator-once revealator-delay1">
+    <div class="container">
+        <div class="row">
+            <article class="col-12">
+                <div class="meta open-sans-font">
+                    <span><i class="fa fa-user"></i> Edison Mucllari</span>
+                    <span class="date"><i class="fa fa-calendar"></i> 2026</span>
+                    <span><i class="fa fa-tags"></i> RAG</span>
+                </div>
+                <h1 class="text-uppercase text-capitalize">The Ultimate Guide to RAG Architecture</h1>
+                <img src="img/blog/rag.png" class="img-fluid" alt="Blog image"/>
+                <div class="blog-excerpt open-sans-font pb-5">
+
+                    <div class="rag-highlight">
+                        <b>What exactly is RAG?</b><br>
+                        Imagine you are taking an open-book exam. Instead of trying to memorize every single fact in the world, you just look up the correct page in a textbook when a question pops up. That is exactly how <b>Retrieval-Augmented Generation (RAG)</b> works for AI. 
+                    </div>
+
+                    <h2>The Big Problem with Standard AI</h2>
+                    <p>
+                        Normally, an AI model can only answer questions using the facts it learned while it was being built. This built-in memory is static. If you ask it about a private file inside your company, or a piece of news that happened an hour ago, it cannot know the answer. It will either tell you it doesn't know, or it will confidently make up a fake answer. 
+                    </p>
+                    <p>
+                        To fix this, we could try to retrain the whole AI on our new data, but that is a massive headache. It takes weeks, costs a fortune in computer power, and the moment your data changes, you have to do it all over again. 
+                    </p>
+                    
+                    <div class="rag-tip">
+                        <b>The Smart Shortcut:</b> RAG avoids retraining completely. We leave the AI's brain completely alone and never change its internal code. Instead, we just use code to change the question we feed it. Right before the AI answers, we look up the facts in our own files and glue them into the prompt.
+                    </div>
+
+                    <hr>
+
+                    <h2>The Three Simple Steps Under the Hood</h2>
+                    <p>A RAG system works in three basic phases: <b>Ingestion</b> (prepping the files), <b>Retrieval</b> (finding the facts), and <b>Generation</b> (writing the answer).</p>
+
+                    <div class="step-heading">Step 1: Ingestion (Chopping and Saving)</div>
+                    <p>
+                        First, we have to prepare our files so a computer can quickly search through them later. This happens in the background before anyone asks a question:
+                    </p>
+                    <ul>
+                        <li><b>Chunking:</b> We take long files and cut them up into smaller, readable paragraphs. This makes sure the text blocks aren't too massive to hand over to the AI later.</li>
+                        <li><b>Embedding:</b> We send each text block through a separate model that turns the sentences into a long list of numbers called a vector. This vector represents the hidden meaning of the words. For example, a paragraph about "puppy food" and a paragraph about "dog nutrition" will have very similar number patterns, even if they use different words.</li>
+                        <li><b>Vector Database:</b> We save these lists of numbers into a special database, keeping them paired up with the original English text.</li>
+                    </ul>
+
+                    <div class="step-heading">Step 2: Retrieval (Looking Up the Facts)</div>
+                    <p>
+                        When a user types a question, the system springs into action to find the best match:
+                    </p>
+                    <ul>
+                        <li><b>Turning the Question into Numbers:</b> The system takes the user's question and turns it into a list of numbers using the exact same model we used for our files. If you used a different model here, the math wouldn't align, and the database would get confused.</li>
+                        <li><b>Math Matching:</b> The database compares the question's numbers against all the file numbers to find the top matches.</li>
+                    </ul>
+
+                    <div class="rag-formula">
+                        <b>The Matching Math:</b><br>
+                        Let $E$ be our embedding model. The question $Q$ and our file chunks $D_i$ become vectors:
+                        $$ \vec{v}_q = E(Q), \quad \vec{v}_{d_i} = E(D_i) $$
+                        We calculate the angle between these numbers to see how close they are in meaning. This is called cosine similarity:
+                        $$ \text{Similarity Score} = \frac{\vec{v}_q \cdot \vec{v}_{d_i}}{\|\vec{v}_q\| \|\vec{v}_{d_i}\|} $$
+                    </div>
+
+                    <div class="step-heading">Step 3: Generation (Drafting the Answer)</div>
+                    <p>
+                        Let's say the system finds two paragraphs (Doc 1 and Doc 3) that match the question perfectly. The system turns those number patterns back into ordinary text and creates a hidden prompt template for the AI.
+                    </p>
+
+                    <p>This is the actual text payload that gets sent to the AI behind the scenes:</p>
+                    <div class="code-block">
+[SYSTEM INSTRUCTION]
+You are a helpful company assistant. Answer the user's question using ONLY the provided context below. If you cannot find the answer, say "I don't know".
+
+[CONTEXT]
+Document 1: Our company router password is "BlueSky2026!".
+Document 3: The router is physically located in the IT closet on the 3rd floor.
+
+[USER QUESTION]
+How do I log into the router and where is it?
+                    </div>
+
+                    <p>
+                        The AI reads this whole note. Because it has the exact facts sitting right in front of it, it doesn't have to guess. It just writes a clean response using the text we provided:
+                    </p>
+                    <blockquote>
+                        <i>"To log into the router, use the password 'BlueSky2026!'. You can find the physical hardware in the IT closet on the 3rd floor."</i>
+                    </blockquote>
+
+                    <hr>
+
+                    <h2>Real-World Challenges and Deep Architectural Fixes</h2>
+                    <p>
+                        Simple RAG setups work great for easy questions, but they often break down in real business environments. Let us look at the four biggest reasons they fail, with all the deep technical details explained in straightforward terms.
+                    </p>
+
+                    <div class="problem-title">1. The "Broken Sentence" Problem (Bad Chunking)</div>
+                    <p>
+                        <b>The Problem:</b> In a basic RAG setup, documents are cut up blindly by counting characters, like making a cut exactly every 500 characters. This naturally splits critical sentences right in half. If the first half of a paragraph contains an important company rule and the second half contains the exception to that rule, splitting them destroys the core meaning. The numbers generated by the model drift away from the true intent, and the search engine ends up pulling completely useless fragments.
+                    </p>
+                    <p>
+                        <b>The Fix: Semantic Chunking and Parent-Child Retrievers.</b>
+                    </p>
+                    <ul>
+                        <li><b>Semantic Chunking:</b> Instead of blindly counting characters, the system reads the text intelligently. It only splits the document when the actual meaning changes, such as at paragraph breaks, markdown headers, or major shifts in the topic structure.</li>
+                        <li><b>Parent-Child Retrieval:</b> The system cuts data into tiny slices called child chunks, around 100 tokens long, to get highly accurate search matches. However, when a child chunk is picked by the database, the system does not send that tiny fragment to the AI. Instead, it reaches back and pulls the larger parent document, like the full page or chapter surrounding it. This ensures the AI receives the complete, unbroken context.</li>
+                    </ul>
+
+                    <div class="problem-title">2. The "Proximity &ne; Relevance" Problem (Dumb Search)</div>
+                    <p>
+                        <b>The Problem:</b> Matching numbers in a vector database is just a mathematical guess at meaning. Because of this, it is easily fooled by files that share the same vocabulary but mean different things. For example, if a user asks, "How do I prevent the machine from starting?", a basic vector database might pull a document titled "How to start the machine" because the words match up closely in number space. By doing this, it completely misses the negative intent of the word "prevent".
+                    </p>
+                    <p>
+                        <b>The Fix: Hybrid Search and Reranking.</b>
+                    </p>
+                    
+                    <div class="code-block" style="background: #2e2e3e; color: #a6e22e; font-family: monospace; white-space: pre;">
+                                  ┌───> [ 1. Vector Search (Semantic) ] ──┐
+[ Messy User Query ] ─── Split ───┤                                        ├──> [ 3. Cross-Encoder Reranker ] ───> Best Top 3 Chunks
+                                  └───> [ 2. BM25 Search (Keyword Match) ] ┘
+                    </div>
+
+                    <ul>
+                        <li><b>Hybrid Search:</b> The system runs two entirely separate searches at the exact same time. It runs a vector search to find conceptual meaning, and an old-school keyword search, like BM25, looking for exact text matches, part numbers, or specific negative words like "prevent". The results are then combined cleanly using a blending algorithm called Reciprocal Rank Fusion.</li>
+                        <li><b>Reranking:</b> The system grabs the top 20 or 30 documents from that combined hybrid search and passes them through a secondary, lightweight AI model called a Cross-Encoder Reranker, like Cohere Rerank or MiniLM. Unlike the fast vector database, this reranker slowly reads the user's question and the text chunk together to measure exact relevance. It sorts the absolute best answers to the top and throws away the remaining noise.</li>
+                    </ul>
+
+                    <div class="problem-title">3. The "Lost in the Middle" Problem (Prompt Poisoning)</div>
+                    <p>
+                        <b>The Problem:</b> If you pull the top 10 chunks from your database to ensure you do not miss anything, you fill up the AI's prompt with hundreds of lines of text. Large language models suffer from a structural flaw known as the "Lost in the Middle" effect. They pay heavy attention to information at the very beginning and the very end of their prompt, but they tend to completely ignore or forget details buried deep in the middle. On top of that, all this extra text clutter causes the model to lose track of facts and hallucinate.
+                    </p>
+                    <p>
+                        <b>The Fix: Context Compression and Positional Sorting.</b>
+                    </p>
+                    <ul>
+                        <li><b>Context Compression:</b> Before sending any retrieved text to the AI, a miniature helper model strips away fluff words, messy HTML tags, and repetitive text from the chunks. It leaves behind only the raw, information-dense sentences.</li>
+                        <li><b>Positional Re-sorting:</b> The software intentionally rearranges the retrieved chunks before building the final prompt. It forces the most critical, highest-scoring documents to go directly to the absolute top and the absolute bottom of the text window, forcing the AI to read and process them with high accuracy.</li>
+                    </ul>
+
+                    <div class="problem-title">4. The "Multi-Hop Reasoning" Bottleneck</div>
+                    <p>
+                        <b>The Problem:</b> Vector search is flat and linear. It can easily answer a simple question like "What was our Q2 revenue?" or "What was our Q3 revenue?". But if you ask a complex reasoning question like, "Compare our Q2 and Q3 revenue growth and list the risk factors mentioned in both," a basic vector search collapses. It has no way to map out relationships or connect clues scattered across completely separate documents.
+                    </p>
+                    <p>
+                        <b>The Fix: GraphRAG and Agentic Loops.</b>
+                    </p>
+                    <ul>
+                        <li><b>GraphRAG:</b> Instead of just turning text chunks into independent floating lists of numbers, the data is mapped into a structured Knowledge Graph using database tools like Neo4j. It links actual entities together, creating paths like Company X reported Q2 Report which contains Risk Factors. The system can then walk along these mapped connections to gather deeply related data from different files.</li>
+                        <li><b>Agentic RAG:</b> The simple step-by-step pipeline is turned into an active intelligence loop. The user query triggers an AI Agent to behave like a human researcher. It sits down and writes a manual plan, thinking along the lines of: first, I will look up Q2. Let me check what I found there. Okay, now I will run a separate query for Q3. Now I will explicitly ask the database for the risk factors in both. It gathers, critiques, and refines its data step-by-step before outputting the final answer.</li>
+                    </ul>
+
+                    <div class="rag-tip">
+                        <b>Why it matters:</b> Incorporating these advanced structural fixes keeps the AI firmly grounded in your source files, dropping mistakes and fake answers by over 90% in professional applications!
+                    </div>
+
+                    <h2>Good Reads & Sources</h2>
+                    <ul>
+                        <li>Lewis, P., et al. (2020). <b><a href="https://arxiv.org/abs/2005.11401" target="_blank">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a></b>. <i>NeurIPS</i>.</li>
+                        <li>Gao, Y., et al. (2023). Retrieval-Augmented Generation for Large Language Models: A Survey. <i>arXiv:2312.10997</i>.</li>
+                    </ul>
+
+                </div>
+                </article>
+        </div>
+    </div>
+</section>
+
+<script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/styleswitcher.js"></script>
+<script src="js/preloader.min.js"></script>
+<script src="js/fm.revealator.jquery.min.js"></script>
+<script src="js/imagesloaded.pkgd.min.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/cbpGridGallery.js"></script>
+<script src="js/jquery.hoverdir.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>
